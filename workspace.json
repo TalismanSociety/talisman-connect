@@ -1,0 +1,101 @@
+{
+  "version": 2,
+  "projects": {
+    "talisman-connect": {
+      "root": "apps/talisman-connect",
+      "sourceRoot": "apps/talisman-connect",
+      "projectType": "application",
+      "targets": {
+        "build": {
+          "executor": "@nrwl/next:build",
+          "outputs": ["{options.outputPath}"],
+          "options": {
+            "root": "apps/talisman-connect",
+            "outputPath": "dist/apps/talisman-connect"
+          },
+          "configurations": {
+            "production": {}
+          }
+        },
+        "serve": {
+          "executor": "@nrwl/next:server",
+          "options": {
+            "buildTarget": "talisman-connect:build",
+            "dev": true
+          },
+          "configurations": {
+            "production": {
+              "buildTarget": "talisman-connect:build:production",
+              "dev": false
+            }
+          }
+        },
+        "export": {
+          "executor": "@nrwl/next:export",
+          "options": {
+            "buildTarget": "talisman-connect:build:production"
+          }
+        },
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": ["coverage/apps/talisman-connect"],
+          "options": {
+            "jestConfig": "apps/talisman-connect/jest.config.js",
+            "passWithNoTests": true
+          }
+        },
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "outputs": ["{options.outputFile}"],
+          "options": {
+            "lintFilePatterns": ["apps/talisman-connect/**/*.{ts,tsx,js,jsx}"]
+          }
+        }
+      }
+    },
+    "talisman-connect-e2e": {
+      "root": "apps/talisman-connect-e2e",
+      "sourceRoot": "apps/talisman-connect-e2e/src",
+      "projectType": "application",
+      "targets": {
+        "e2e": {
+          "executor": "@nrwl/cypress:cypress",
+          "options": {
+            "cypressConfig": "apps/talisman-connect-e2e/cypress.json",
+            "devServerTarget": "talisman-connect:serve",
+            "tsConfig": "apps/talisman-connect-e2e/tsconfig.json"
+          },
+          "configurations": {
+            "production": {
+              "devServerTarget": "talisman-connect:serve:production"
+            }
+          }
+        },
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "outputs": ["{options.outputFile}"],
+          "options": {
+            "lintFilePatterns": ["apps/talisman-connect-e2e/**/*.{js,ts}"]
+          }
+        }
+      }
+    }
+  },
+  "cli": {
+    "defaultCollection": "@nrwl/next"
+  },
+  "generators": {
+    "@nrwl/react": {
+      "application": {
+        "babel": true
+      }
+    },
+    "@nrwl/next": {
+      "application": {
+        "style": "css",
+        "linter": "eslint"
+      }
+    }
+  },
+  "defaultProject": "talisman-connect"
+}
