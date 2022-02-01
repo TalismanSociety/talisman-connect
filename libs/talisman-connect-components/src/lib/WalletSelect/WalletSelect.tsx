@@ -11,20 +11,18 @@ export function WalletSelect(props: WalletSelectProps) {
   return (
     <div>
       <h1>Welcome to WalletSelect!</h1>
-      {!supportedWallets && (
-        <button onClick={() => setWallets(getWallets())}>Connect wallet</button>
-      )}
+      <button onClick={() => setWallets(getWallets())}>Connect wallet</button>
       {supportedWallets?.map((wallet) => {
         return (
           <div key={wallet.extensionName}>
             <button
-              onClick={() => {
+              onClick={() =>
                 wallet.subscribe((accounts) => {
                   setAccounts(accounts);
-                });
-              }}
+                })
+              }
             >
-              Connect to {wallet.title}
+              {wallet.title}
             </button>
           </div>
         );
