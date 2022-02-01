@@ -1,5 +1,4 @@
-import { getWallets } from '@talisman/wallets';
-import { Wallet } from 'libs/wallets/src/lib/base-wallet';
+import { Account, getWallets, Wallet } from '@talisman/wallets';
 import { useState } from 'react';
 import './WalletSelect.module.css';
 
@@ -8,18 +7,12 @@ export interface WalletSelectProps {}
 
 export function WalletSelect(props: WalletSelectProps) {
   const [supportedWallets, setWallets] = useState<Array<Wallet> | undefined>();
-  // const supportedWallets = getWallets();
+  const [accounts, setAccounts] = useState<Array<Account>>();
   return (
     <div>
       <h1>Welcome to WalletSelect!</h1>
       {!supportedWallets && (
-        <button
-          onClick={() => {
-            setWallets(getWallets());
-          }}
-        >
-          Connect wallet
-        </button>
+        <button onClick={() => setWallets(getWallets())}>Connect wallet</button>
       )}
       {supportedWallets?.map((wallet) => {
         return (
@@ -27,7 +20,7 @@ export function WalletSelect(props: WalletSelectProps) {
             <button
               onClick={() => {
                 wallet.subscribe((accounts) => {
-                  console.log(`>>> accounts`, accounts);
+                  setAccounts(accounts);
                 });
               }}
             >
@@ -35,6 +28,9 @@ export function WalletSelect(props: WalletSelectProps) {
             </button>
           </div>
         );
+      })}
+      {accounts?.map((account) => {
+        return <div key={account.address}>{account.address}</div>;
       })}
     </div>
   );

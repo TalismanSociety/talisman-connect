@@ -14,11 +14,16 @@ export interface WalletData {
   logo: WalletLogoProps;
 }
 
-export type SubscriptionFn<T> = (accounts: T[]) => void | Promise<void>;
+export interface Account {
+  address: string;
+  name?: string;
+}
+
+export type SubscriptionFn = (accounts: Account[]) => void | Promise<void>;
 
 export interface Connector {
   // The subscribe function
-  subscribe: <T>(callback: SubscriptionFn<T>) => unknown;
+  subscribe: (callback: SubscriptionFn) => unknown;
 }
 
 export interface Wallet extends WalletData, Connector {}
