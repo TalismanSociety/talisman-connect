@@ -53,6 +53,49 @@
         }
       }
     },
+    "talisman-connect-components": {
+      "root": "libs/talisman-connect-components",
+      "sourceRoot": "libs/talisman-connect-components/src",
+      "projectType": "library",
+      "targets": {
+        "build": {
+          "executor": "@nrwl/web:package",
+          "outputs": ["{options.outputPath}"],
+          "options": {
+            "outputPath": "dist/libs/talisman-connect-components",
+            "tsConfig": "libs/talisman-connect-components/tsconfig.lib.json",
+            "project": "libs/talisman-connect-components/package.json",
+            "entryFile": "libs/talisman-connect-components/src/index.ts",
+            "external": ["react/jsx-runtime"],
+            "rollupConfig": "@nrwl/react/plugins/bundle-rollup",
+            "assets": [
+              {
+                "glob": "libs/talisman-connect-components/README.md",
+                "input": ".",
+                "output": "."
+              }
+            ]
+          }
+        },
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "outputs": ["{options.outputFile}"],
+          "options": {
+            "lintFilePatterns": [
+              "libs/talisman-connect-components/**/*.{ts,tsx,js,jsx}"
+            ]
+          }
+        },
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/talisman-connect-components"],
+          "options": {
+            "jestConfig": "libs/talisman-connect-components/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
+    },
     "talisman-connect-e2e": {
       "root": "apps/talisman-connect-e2e",
       "sourceRoot": "apps/talisman-connect-e2e/src",
@@ -79,6 +122,47 @@
           }
         }
       }
+    },
+    "wallets": {
+      "root": "libs/wallets",
+      "sourceRoot": "libs/wallets/src",
+      "projectType": "library",
+      "targets": {
+        "build": {
+          "executor": "@nrwl/web:package",
+          "outputs": ["{options.outputPath}"],
+          "options": {
+            "outputPath": "dist/libs/wallets",
+            "tsConfig": "libs/wallets/tsconfig.lib.json",
+            "project": "libs/wallets/package.json",
+            "entryFile": "libs/wallets/src/index.ts",
+            "external": ["react/jsx-runtime"],
+            "rollupConfig": "@nrwl/react/plugins/bundle-rollup",
+            "assets": [
+              {
+                "glob": "libs/wallets/README.md",
+                "input": ".",
+                "output": "."
+              }
+            ]
+          }
+        },
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "outputs": ["{options.outputFile}"],
+          "options": {
+            "lintFilePatterns": ["libs/wallets/**/*.{ts,tsx,js,jsx}"]
+          }
+        },
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/wallets"],
+          "options": {
+            "jestConfig": "libs/wallets/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
     }
   },
   "cli": {
@@ -87,7 +171,16 @@
   "generators": {
     "@nrwl/react": {
       "application": {
+        "style": "css",
+        "linter": "eslint",
         "babel": true
+      },
+      "component": {
+        "style": "css"
+      },
+      "library": {
+        "style": "css",
+        "linter": "eslint"
       }
     },
     "@nrwl/next": {

@@ -12,9 +12,10 @@
   },
   "tasksRunnerOptions": {
     "default": {
-      "runner": "@nrwl/workspace/tasks-runners/default",
+      "runner": "@nrwl/nx-cloud",
       "options": {
-        "cacheableOperations": ["build", "lint", "test", "e2e"]
+        "cacheableOperations": ["build", "lint", "test", "e2e"],
+        "accessToken": "ZjllOWE0OTUtNWQ2Ny00YWFiLWI0YmQtYmNjZjE5Y2I1MzcwfHJlYWQtd3JpdGU="
       }
     }
   },
@@ -30,9 +31,15 @@
     "talisman-connect": {
       "tags": []
     },
+    "talisman-connect-components": {
+      "tags": []
+    },
     "talisman-connect-e2e": {
       "tags": [],
       "implicitDependencies": ["talisman-connect"]
+    },
+    "wallets": {
+      "tags": []
     }
   }
 }
