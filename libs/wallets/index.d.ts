@@ -22,8 +22,11 @@ interface Account {
 type SubscriptionFn = (accounts: Account[]) => void | Promise<void>;
 
 interface Connector {
-  // The subscribe function
-  subscribe: (callback: SubscriptionFn) => unknown;
+  // The subscribe to accounts function
+  subscribeAccounts: (callback: SubscriptionFn) => unknown;
+
+  // Sign function
+  sign?: () => unknown;
 }
 
 interface Wallet extends WalletData, Connector {}

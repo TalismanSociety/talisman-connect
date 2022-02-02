@@ -1,6 +1,6 @@
 import { DotsamaConnector } from '../dotsama-connector';
 
-export class DotsamaWallet implements Wallet {
+export class BaseDotsamaWallet implements Wallet {
   extensionName = '';
   title = '';
   logo = {
@@ -13,11 +13,9 @@ export class DotsamaWallet implements Wallet {
     return this.#_extension;
   }
 
-  // TODO: Rename to subscribeAccounts
-  subscribe = async (callback: SubscriptionFn) => {
+  subscribeAccounts = async (callback: SubscriptionFn) => {
     const connect = DotsamaConnector.getConnector(this);
     const extension = await connect();
-    // save `extension` to private variable
     this.#_extension = extension;
     const unsubscribe = extension?.accounts.subscribe(callback);
     return unsubscribe;

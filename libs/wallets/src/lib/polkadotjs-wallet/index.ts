@@ -1,6 +1,6 @@
-import { DotsamaWallet } from '../dotsama-wallet';
+import { BaseDotsamaWallet } from '../base-dotsama-wallet';
 
-export class PolkadotjsWallet extends DotsamaWallet {
+export class PolkadotjsWallet extends BaseDotsamaWallet {
   extensionName = 'polkadot-js';
   title = 'Polkadot.js Wallet';
   logo = {

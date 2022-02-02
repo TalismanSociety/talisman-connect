@@ -2,21 +2,23 @@
 
 ## Usage
 
-Installation:
+### Installation:
 
 ```
 npm i --save @talisman/wallets
 ```
 
-Example:
+### Get wallets (Need to be called first):
 
-```
+```tsx
 import { getWallets } from '@talisman/wallets';
 
-// Get wallets (Need to be called first):
-const supportedWallets = getWallets()
+const supportedWallets = getWallets();
+```
 
-// Subscribe to accounts:
+### Subscribe to accounts:
+
+```tsx
 <div>
   {supportedWallets?.map((wallet) => {
     return (
@@ -33,19 +35,25 @@ const supportedWallets = getWallets()
     )
   }}
 </div>
+```
 
-// Display accounts: (`accounts` are saved via `useState`)
+### Display accounts: (`accounts` are saved via `useState`)
+
+```tsx
 <div>
   {accounts?.map((account) => {
-    return (
-      <div key={account.address}>
-        {account.address}
-      </div>
-    );
+    return <div key={account.address}>{account.address}</div>;
   })}
 </div>
-
 ```
+
+## Contributing new wallets
+
+1. Add wallet under `/src/lib`.
+   Example: `/src/lib/foo-wallet/index.ts`
+2. Add `class` which implements `Wallet`.
+   Example: `export class FooWallet implements Wallet`
+3. Add the wallet instance in `supportedWallets` array in `libs/wallets/src/lib/wallets.ts`.
 
 ## Running unit tests
 

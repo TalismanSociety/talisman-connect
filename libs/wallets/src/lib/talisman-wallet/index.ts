@@ -1,6 +1,6 @@
-import { DotsamaWallet } from '../dotsama-wallet';
+import { BaseDotsamaWallet } from '../base-dotsama-wallet';
 
-export class TalismanWallet extends DotsamaWallet {
+export class TalismanWallet extends BaseDotsamaWallet {
   extensionName = 'talisman';
   title = 'Talisman Wallet';
   logo = {

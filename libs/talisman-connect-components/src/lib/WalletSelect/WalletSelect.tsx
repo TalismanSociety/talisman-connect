@@ -1,4 +1,4 @@
-import { Account, getWallets, Wallet } from '@talisman/wallets';
+import { getWallets } from '@talisman/wallets';
 import { useState } from 'react';
 import './WalletSelect.module.css';
 
@@ -6,8 +6,8 @@ import './WalletSelect.module.css';
 export interface WalletSelectProps {}
 
 export function WalletSelect(props: WalletSelectProps) {
-  const [supportedWallets, setWallets] = useState<Array<Wallet> | undefined>();
-  const [accounts, setAccounts] = useState<Array<Account>>();
+  const [supportedWallets, setWallets] = useState<Wallet[] | undefined>();
+  const [accounts, setAccounts] = useState<Account[]>();
   return (
     <div>
       <h1>Welcome to WalletSelect!</h1>
@@ -17,7 +17,7 @@ export function WalletSelect(props: WalletSelectProps) {
           <div key={wallet.extensionName}>
             <button
               onClick={() =>
-                wallet.subscribe((accounts) => {
+                wallet.subscribeAccounts((accounts: Account[]) => {
                   setAccounts(accounts);
                 })
               }
