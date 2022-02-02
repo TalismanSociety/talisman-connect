@@ -1,4 +1,4 @@
-import { getWallets } from '@talisman/wallets';
+import { getWallets, BaseDotsamaWallet } from '@talisman/wallets';
 import { useState } from 'react';
 import './WalletSelect.module.css';
 
@@ -28,7 +28,28 @@ export function WalletSelect(props: WalletSelectProps) {
         );
       })}
       {accounts?.map((account) => {
-        return <div key={account.address}>{account.address}</div>;
+        return (
+          <div key={account.address}>
+            <span>{account.address}</span>
+            <button
+              onClick={async () => {
+                if (!account.wallet?.sign) {
+                  return;
+                }
+                const address = account.address;
+                const payload = 'dummy message';
+                const signature = await account.wallet?.sign(address, payload);
+                console.log(
+                  `>>> onclick sign`,
+                  signature,
+                  account.wallet.extension
+                );
+              }}
+            >
+              Sign
+            </button>
+          </div>
+        );
       })}
     </div>
   );

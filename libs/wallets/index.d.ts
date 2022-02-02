@@ -15,6 +15,7 @@ interface WalletData {
 }
 
 interface Account {
+  wallet?: Wallet;
   address: string;
   name?: string;
 }
@@ -26,7 +27,7 @@ interface Connector {
   subscribeAccounts: (callback: SubscriptionFn) => unknown;
 
   // Sign function
-  sign?: () => unknown;
+  sign?: (address: string, payload: string) => unknown;
 }
 
 interface Wallet extends WalletData, Connector {}
