@@ -1,0 +1,35 @@
+.dark-theme {
+  --color-background: #222;
+  --color-text: #fafafa;
+}
+
+.light-theme {
+  --color-background: #fafafa;
+  --color-text: #222;
+}
+
+.modal {
+  position: fixed;
+  inset: 0; /* inset sets all 4 values (top right bottom left) much like how we set padding, margin etc., */
+  background-color: rgba(0, 0, 0, 0.6);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease-in-out;
+  overflow: hidden;
+  z-index: 999;
+  padding: 40px 20px 20px;
+}
+
+.modal-content {
+  width: 70%;
+  height: 70%;
+  background-color: var(--color-background, #fafafa);
+  color: var(--color-text, #222);
+
+  /* display: flex;
+  align-items: center;
+  justify-content: center; */
+  /* font-size: 2rem; */
+}
