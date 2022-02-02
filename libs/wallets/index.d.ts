@@ -5,7 +5,7 @@ interface WalletLogoProps {
   alt: string;
 }
 
-export interface WalletData {
+interface WalletData {
   // The name of the wallet extension
   extensionName: string;
   // Display name for the wallet extension
@@ -14,16 +14,16 @@ export interface WalletData {
   logo: WalletLogoProps;
 }
 
-export interface Account {
+interface Account {
   address: string;
   name?: string;
 }
 
-export type SubscriptionFn = (accounts: Account[]) => void | Promise<void>;
+type SubscriptionFn = (accounts: Account[]) => void | Promise<void>;
 
-export interface Connector {
+interface Connector {
   // The subscribe function
   subscribe: (callback: SubscriptionFn) => unknown;
 }
 
-export interface Wallet extends WalletData, Connector {}
+interface Wallet extends WalletData, Connector {}

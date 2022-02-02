@@ -1,5 +1,3 @@
-import { WalletData } from '../base-wallet';
-
 const DAPP_NAME = 'Talisman1'; // TODO: Get dapp name
 
 export class DotsamaConnector {
