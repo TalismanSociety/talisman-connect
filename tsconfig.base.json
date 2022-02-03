@@ -18,8 +18,7 @@
       "@talisman-connect/components": [
         "libs/talisman-connect-components/src/index.ts"
       ],
-      "@talisman/wallet-connections": ["libs/wallet-connections/src/index.ts"],
-      "@talisman/wallets": ["libs/wallets/src/index.ts"]
+      "@talisman-connect/wallets": ["libs/wallets/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]

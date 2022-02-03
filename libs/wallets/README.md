@@ -5,13 +5,13 @@
 ### Installation:
 
 ```
-npm i --save @talisman/wallets
+npm i --save @talisman-connect/wallets
 ```
 
 ### Get wallets (Need to be called first):
 
 ```tsx
-import { getWallets } from '@talisman/wallets';
+import { getWallets } from '@talisman-connect/wallets';
 
 const supportedWallets = getWallets();
 ```

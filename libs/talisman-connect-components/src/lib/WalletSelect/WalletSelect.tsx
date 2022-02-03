@@ -1,10 +1,4 @@
-import {
-  AccountProps,
-  BaseDotsamaWallet,
-  getWalletBySource,
-  getWallets,
-  Wallet,
-} from '@talisman/wallets';
+import { AccountProps, getWallets, Wallet } from '@talisman-connect/wallets';
 import { useState } from 'react';
 import Modal, { ModalProps } from '../../lib/Modal/Modal';
 import styles from './WalletSelect.module.css';
