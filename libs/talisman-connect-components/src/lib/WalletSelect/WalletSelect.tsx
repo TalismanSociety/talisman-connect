@@ -1,4 +1,10 @@
-import { getWallets } from '@talisman/wallets';
+import {
+  AccountProps,
+  BaseDotsamaWallet,
+  getWalletBySource,
+  getWallets,
+  Wallet,
+} from '@talisman/wallets';
 import { useState } from 'react';
 import Modal, { ModalProps } from '../../lib/Modal/Modal';
 import styles from './WalletSelect.module.css';
@@ -7,12 +13,13 @@ import styles from './WalletSelect.module.css';
 export interface WalletSelectProps {}
 
 function WalletSelectModal(props: ModalProps) {
-  return <Modal className={styles['dark-theme']} {...props} />;
+  return <Modal className={styles['modal-overrides']} {...props} />;
 }
 
 export function WalletSelect(props: WalletSelectProps) {
-  const [supportedWallets, setWallets] = useState<Wallet[] | undefined>();
-  const [accounts, setAccounts] = useState<Account[] | undefined>();
+  const [supportedWallets, setWallets] = useState<Wallet[]>();
+  const [selectedWallet, setSelectedWallet] = useState<Wallet>();
+  const [accounts, setAccounts] = useState<AccountProps[] | undefined>();
 
   const [isOpen, setIsOpen] = useState(false);
 
@@ -29,17 +36,18 @@ export function WalletSelect(props: WalletSelectProps) {
       </button>
       <WalletSelectModal
         handleClose={() => setIsOpen(false)}
-        isOpen={isOpen && !accounts}
+        isOpen={isOpen && !selectedWallet}
       >
         {supportedWallets?.map((wallet) => {
           return (
             <div key={wallet.extensionName}>
               <button
-                onClick={() =>
-                  wallet.subscribeAccounts((accounts: Account[]) => {
+                onClick={() => {
+                  setSelectedWallet(wallet);
+                  wallet.subscribeAccounts((accounts) => {
                     setAccounts(accounts);
-                  })
-                }
+                  });
+                }}
               >
                 {wallet.title}
               </button>
@@ -50,37 +58,43 @@ export function WalletSelect(props: WalletSelectProps) {
       <WalletSelectModal
         handleClose={() => {
           setIsOpen(false);
-          setAccounts(undefined);
+          setSelectedWallet(undefined);
         }}
-        isOpen={!!accounts}
+        handleBack={() => {
+          setSelectedWallet(undefined);
+        }}
+        isOpen={!!selectedWallet}
       >
-        {accounts?.map((account) => {
-          return (
-            <div key={account.address}>
-              <span>{account.address}</span>
-              <button
-                onClick={async () => {
-                  if (!account.wallet?.sign) {
-                    return;
-                  }
-                  const address = account.address;
-                  const payload = 'dummy message';
-                  const signature = await account.wallet?.sign(
-                    address,
-                    payload
-                  );
-                  console.log(
-                    `>>> onclick sign`,
-                    signature,
-                    account.wallet.extension
-                  );
-                }}
-              >
-                Sign
-              </button>
-            </div>
-          );
-        })}
+        {accounts
+          ?.filter(
+            (account) => account.source === selectedWallet?.extensionName
+          )
+          .map((account) => {
+            return (
+              <div key={`${account.source}-${account.address}`}>
+                <span>{account.source}</span>
+                <span>{account.address}</span>
+                <button
+                  onClick={async () => {
+                    try {
+                      const payload = 'dummy message';
+                      const signer = account.wallet.signer;
+                      // Example signing
+                      const { signature } = await signer.signRaw({
+                        type: 'payload',
+                        data: payload,
+                        address: account.address,
+                      });
+                    } catch (err) {
+                      console.log(`>>> err`, err);
+                    }
+                  }}
+                >
+                  Sign
+                </button>
+              </div>
+            );
+          })}
       </WalletSelectModal>
     </div>
   );

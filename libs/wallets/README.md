@@ -25,6 +25,7 @@ const supportedWallets = getWallets();
       <div key={wallet.extensionName}>
         <button
           onClick={() =>
+            // save "selected" wallet
             wallet.subscribe((accounts) => {
               // save accounts
             })
@@ -45,6 +46,22 @@ const supportedWallets = getWallets();
     return <div key={account.address}>{account.address}</div>;
   })}
 </div>
+```
+
+### Using the `wallet` object (signing example):
+
+```tsx
+try {
+  const signer = account.wallet.signer;
+  // NOTE: This line will trigger the extension to pop up
+  const { signature } = await signer.signRaw({
+    type: 'payload',
+    data: payload,
+    address: account.address,
+  });
+catch (err) {
+  // handle error
+}
 ```
 
 ## Contributing new wallets

@@ -8,6 +8,7 @@ export interface ModalProps {
   className?: string;
   isOpen: boolean;
   handleClose: () => unknown;
+  handleBack?: () => unknown;
 }
 
 function createWrapperAndAppendToBody(wrapperId: string) {
@@ -51,13 +52,15 @@ function ReactPortal({
   }, [wrapperId]);
 
   // wrapperElement state will be null on very first render.
-  if (wrapperElement === null) return null;
+  if (wrapperElement === null) {
+    return null;
+  }
 
   return createPortal(children, wrapperElement);
 }
 
 export function Modal(props: ModalProps) {
-  const { children, isOpen, handleClose, className = '' } = props;
+  const { children, isOpen, handleClose, handleBack, className = '' } = props;
   const modalRef = useRef<HTMLDivElement>(null);
   const modalContentRef = useRef<HTMLDivElement>(null);
 
@@ -76,11 +79,15 @@ export function Modal(props: ModalProps) {
 
   return (
     <ReactPortal wrapperId="react-portal-modal-container">
-      <div ref={modalRef} className={`${styles.modal} ${className}`}>
-        <button onClick={handleClose} className="close-btn">
-          Close
-        </button>
+      <div
+        ref={modalRef}
+        className={`${styles['common-modal-vars']} ${styles.modal} ${className}`}
+      >
         <div ref={modalContentRef} className={styles['modal-content']}>
+          {handleBack && <button onClick={handleBack}>Back</button>}
+          <button onClick={handleClose} className="close-btn">
+            Close
+          </button>
           {children}
         </div>
       </div>

@@ -1,11 +1,16 @@
+.common-modal-vars {
+  --talisman-modal-border-radius: 0;
+  --talisman-modal-padding: 0;
+}
+
 .dark-theme {
-  --color-background: #222;
-  --color-text: #fafafa;
+  --talisman-modal-color-background: #222;
+  --talisman-modal-color-text: #fafafa;
 }
 
 .light-theme {
-  --color-background: #fafafa;
-  --color-text: #222;
+  --talisman-modal-color-background: #fafafa;
+  --talisman-modal-color-text: #222;
 }
 
 .modal {
@@ -23,10 +28,12 @@
 }
 
 .modal-content {
+  background-color: var(--talisman-modal-color-background, #fafafa);
+  color: var(--talisman-modal-color-text, #222);
+  border-radius: var(--talisman-modal-border-radius, 1rem);
+  padding: var(--talisman-modal-padding);
   width: 70%;
   height: 70%;
-  background-color: var(--color-background, #fafafa);
-  color: var(--color-text, #222);
 
   /* display: flex;
   align-items: center;
