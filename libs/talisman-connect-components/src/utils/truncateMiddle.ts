@@ -1,4 +1,4 @@
-export const truncateMiddle = (str = '', start = 10, end = 0) =>
+export const truncateMiddle = (str = '', start = 4, end = 4) =>
   str && str.length
     ? str.length <= start + end
       ? str

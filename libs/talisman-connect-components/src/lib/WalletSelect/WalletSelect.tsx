@@ -42,6 +42,7 @@ function WalletList(props: ListWithClickProps<Wallet>) {
   return (
     <>
       {items.map((wallet) => {
+        const noExtension = !wallet.extension;
         return (
           <button
             key={wallet.extensionName}
@@ -55,6 +56,7 @@ function WalletList(props: ListWithClickProps<Wallet>) {
                 width={32}
                 height={32}
               />
+              {noExtension && `Try `}
               {wallet.title}
             </span>
             <ChevronRightIcon />
@@ -79,7 +81,12 @@ function AccountList(props: ListWithClickProps<WalletAccount>) {
             className={styles['row-button']}
             onClick={() => onClick(account)}
           >
-            {truncateMiddle(account.address, 4, 4)}
+            <span style={{ textAlign: 'left' }}>
+              <div>{account.name}</div>
+              <div style={{ fontSize: 'small', opacity: 0.5 }}>
+                {truncateMiddle(account.address)}
+              </div>
+            </span>
             <ChevronRightIcon />
           </button>
         );
@@ -102,6 +109,8 @@ export function WalletSelect(props: WalletSelectProps) {
   const [accounts, setAccounts] = useState<WalletAccount[] | undefined>();
 
   const [isOpen, setIsOpen] = useState(false);
+
+  console.log(`>>> accounts`, accounts);
 
   return (
     <div>
@@ -147,7 +156,11 @@ export function WalletSelect(props: WalletSelectProps) {
       </Modal>
       <Modal
         className={styles['wallet-select-overrides']}
-        title={`Select ${selectedWallet?.title} account`}
+        title={
+          selectedWallet?.extension
+            ? `Select ${selectedWallet?.title} account`
+            : `Haven't got a wallet yet?`
+        }
         handleClose={() => {
           setIsOpen(false);
           setSelectedWallet(undefined);
@@ -160,18 +173,46 @@ export function WalletSelect(props: WalletSelectProps) {
         }}
         isOpen={!!selectedWallet}
       >
-        <AccountList
-          items={accounts?.filter(
-            (account) => account.source === selectedWallet?.extensionName
-          )}
-          onClick={(account) => {
-            if (onAccountSelected) {
-              onAccountSelected(account);
-            }
-            setIsOpen(false);
-            setSelectedWallet(undefined);
-          }}
-        />
+        {!selectedWallet?.extension && (
+          <>
+            <div className={styles['no-extension-message']}>
+              {selectedWallet?.noExtensionMessage}
+            </div>
+            <a
+              className={styles['row-button']}
+              href={selectedWallet?.installUrl}
+              target="_blank"
+              rel="noreferrer noopener"
+            >
+              <button className={styles['row-button']}>
+                <span className={styles['flex']}>
+                  <img
+                    src={selectedWallet?.logo.src}
+                    alt={selectedWallet?.logo.alt}
+                    width={32}
+                    height={32}
+                  />
+                  Install {selectedWallet?.title}
+                </span>
+                <ChevronRightIcon />
+              </button>
+            </a>
+          </>
+        )}
+        {selectedWallet?.extension && (
+          <AccountList
+            items={accounts?.filter(
+              (account) => account.source === selectedWallet?.extensionName
+            )}
+            onClick={(account) => {
+              if (onAccountSelected) {
+                onAccountSelected(account);
+              }
+              setIsOpen(false);
+              setSelectedWallet(undefined);
+            }}
+          />
+        )}
       </Modal>
     </div>
   );

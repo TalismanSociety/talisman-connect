@@ -1,4 +1,5 @@
 .modal {
+  box-sizing: border-box;
   position: fixed;
   inset: 0; /* inset sets all 4 values (top right bottom left) much like how we set padding, margin etc., */
   background-color: rgba(0, 0, 0, 0.6);

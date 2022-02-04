@@ -1,5 +1,5 @@
 import { getWallets, Wallet } from '@talisman-connect/wallets';
-import { ReactNode, useState } from 'react';
+import { ReactNode } from 'react';
 import styles from './WalletConnectButton.module.css';
 
 export interface WalletConnectButtonProps {

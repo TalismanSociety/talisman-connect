@@ -16,7 +16,8 @@
   --talisman-modal-color-midgrey: #e5e5e5;
 
   --talisman-modal-min-width: 320px;
-  --talisman-modal-max-width: 470px;
+  --talisman-modal-max-width: 320px;
+
   --talisman-modal-min-height: 768px;
   --talisman-modal-max-height: 1000px;
 
@@ -24,6 +25,13 @@
   --talisman-connect-border-radius: 0.5rem;
   --talisman-connect-button-color: var(--talisman-modal-color-text);
   --talisman-connect-button-background: var(--talisman-modal-color-midgrey);
+}
+
+@media (min-width: 768px) {
+  .wallet-select-overrides {
+    --talisman-modal-min-width: 470px;
+    --talisman-modal-max-width: 470px;
+  }
 }
 
 .flex {
@@ -50,4 +58,20 @@ button.row-button {
 
 button.row-button:hover {
   background: var(--talisman-modal-color-midgrey);
+}
+
+a.row-button {
+  text-decoration: none;
+  color: inherit;
+}
+
+.no-extension-message {
+  padding: 1rem 2rem 2rem;
+  text-align: center;
+}
+
+@media (min-width: 768px) {
+  .no-extension-message {
+    padding: 1rem 6rem 2rem;
+  }
 }

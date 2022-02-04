@@ -22,6 +22,10 @@ export interface WalletData {
   extensionName: string;
   // Display name for the wallet extension
   title: string;
+  // Message to display if wallet extension is not installed
+  noExtensionMessage?: string;
+  // The URL to install the wallet extension
+  installUrl: string;
   // The wallet logo
   logo: WalletLogoProps;
 }
