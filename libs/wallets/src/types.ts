@@ -1,4 +1,6 @@
-export type SubscriptionFn = (accounts: AccountProps[]) => void | Promise<void>;
+export type SubscriptionFn = (
+  accounts: WalletAccount[]
+) => void | Promise<void>;
 
 export interface WalletLogoProps {
   // Logo url
@@ -7,7 +9,7 @@ export interface WalletLogoProps {
   alt: string;
 }
 
-export interface AccountProps {
+export interface WalletAccount {
   address: string;
   name?: string;
   source: string;

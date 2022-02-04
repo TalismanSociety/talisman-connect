@@ -1,6 +1,48 @@
 .modal-overrides {
+  --talisman-font-family: sans-serif;
   --talisman-modal-border-radius: 1rem;
-  --talisman-modal-padding: 2rem;
+  --talisman-modal-gutter: 2rem;
+
+  /* dark theme */
   /* --talisman-modal-color-background: #222;
-  --talisman-modal-color-text: #fafafa; */
+  --talisman-modal-color-text: #fafafa;
+  --talisman-modal-color-lightgrey: #383838;
+  --talisman-modal-color-midgrey: #5a5a5a; */
+
+  /* light theme */
+  --talisman-modal-color-background: #fafafa;
+  --talisman-modal-color-text: #222;
+  --talisman-modal-color-lightgrey: #f2f2f2;
+  --talisman-modal-color-midgrey: #e5e5e5;
+
+  --talisman-modal-min-width: 320px;
+  --talisman-modal-max-width: 470px;
+  --talisman-modal-min-height: 768px;
+  --talisman-modal-max-height: 1000px;
+}
+
+.flex {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+button.row-button {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem;
+  border-radius: calc(var(--talisman-modal-border-radius) * 0.75);
+  border: none;
+  outline: none;
+  font: inherit;
+  color: inherit;
+  background: var(--talisman-modal-color-lightgrey);
+  cursor: pointer;
+  width: 100%;
+  margin-bottom: 0.5rem;
+}
+
+button.row-button:hover {
+  background: var(--talisman-modal-color-midgrey);
 }

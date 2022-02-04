@@ -1,9 +1,13 @@
 import { ReactNode, useEffect, useLayoutEffect, useRef, useState } from 'react';
 import { createPortal } from 'react-dom';
 import useOnClickOutside from '../useOnClickOutside/useOnClickOutside';
+import { ReactComponent as XIcon } from '../../assets/icons/x.svg';
+import { ReactComponent as ChevronLeftIcon } from '../../assets/icons/chevron-left.svg';
 import styles from './Modal.module.css';
 
 export interface ModalProps {
+  title?: ReactNode;
+  footer?: ReactNode;
   children: ReactNode;
   className?: string;
   isOpen: boolean;
@@ -60,7 +64,15 @@ function ReactPortal({
 }
 
 export function Modal(props: ModalProps) {
-  const { children, isOpen, handleClose, handleBack, className = '' } = props;
+  const {
+    children,
+    isOpen,
+    handleClose,
+    handleBack,
+    title,
+    className = '',
+    footer,
+  } = props;
   const modalRef = useRef<HTMLDivElement>(null);
   const modalContentRef = useRef<HTMLDivElement>(null);
 
@@ -79,16 +91,25 @@ export function Modal(props: ModalProps) {
 
   return (
     <ReactPortal wrapperId="react-portal-modal-container">
-      <div
-        ref={modalRef}
-        className={`${styles['common-modal-vars']} ${styles.modal} ${className}`}
-      >
+      <div ref={modalRef} className={`${styles.modal} ${className}`}>
         <div ref={modalContentRef} className={styles['modal-content']}>
-          {handleBack && <button onClick={handleBack}>Back</button>}
-          <button onClick={handleClose} className="close-btn">
-            Close
-          </button>
-          {children}
+          <header className={styles['modal-header']}>
+            <span>
+              {handleBack && (
+                <button onClick={handleBack} className={styles['icon-button']}>
+                  <ChevronLeftIcon />
+                </button>
+              )}
+            </span>
+            <div>{title}</div>
+            <button onClick={handleClose} className={styles['icon-button']}>
+              <XIcon width={24} height={24} />
+            </button>
+          </header>
+          <main className={styles['modal-content-body']}>{children}</main>
+          {footer && (
+            <footer className={styles['modal-content-footer']}>{footer}</footer>
+          )}
         </div>
       </div>
     </ReactPortal>

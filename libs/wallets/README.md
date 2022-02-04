@@ -1,14 +1,12 @@
-# wallets
+# @talisman-connect/wallets
 
-## Usage
-
-### Installation:
+## Installation:
 
 ```
 npm i --save @talisman-connect/wallets
 ```
 
-### Get wallets (Need to be called first):
+## Get wallets (Need to be called first):
 
 ```tsx
 import { getWallets } from '@talisman-connect/wallets';
@@ -16,7 +14,7 @@ import { getWallets } from '@talisman-connect/wallets';
 const supportedWallets = getWallets();
 ```
 
-### Subscribe to accounts:
+## Subscribe to accounts:
 
 ```tsx
 <div>
@@ -38,7 +36,7 @@ const supportedWallets = getWallets();
 </div>
 ```
 
-### Display accounts: (`accounts` are saved via `useState`)
+## Display accounts: (`accounts` are saved via `useState`)
 
 ```tsx
 <div>
@@ -48,7 +46,7 @@ const supportedWallets = getWallets();
 </div>
 ```
 
-### Using the `wallet` object (signing example):
+## Using the `wallet` object (signing example):
 
 ```tsx
 try {
@@ -71,6 +69,7 @@ catch (err) {
 2. Add `class` which implements `Wallet`.
    Example: `export class FooWallet implements Wallet`
 3. Add the wallet instance in `supportedWallets` array in `libs/wallets/src/lib/wallets.ts`.
+4. IMPORTANT: The `logo` should not exceed 10KB so it will be automatically inlined.
 
 ## Troubleshooting
 

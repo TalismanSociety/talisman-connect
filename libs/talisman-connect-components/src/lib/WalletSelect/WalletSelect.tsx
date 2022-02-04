@@ -1,51 +1,106 @@
-import { AccountProps, getWallets, Wallet } from '@talisman-connect/wallets';
+import { WalletAccount, getWallets, Wallet } from '@talisman-connect/wallets';
 import { useState } from 'react';
 import Modal, { ModalProps } from '../../lib/Modal/Modal';
+import { ReactComponent as ChevronRightIcon } from '../../assets/icons/chevron-right.svg';
 import styles from './WalletSelect.module.css';
 
-/* eslint-disable-next-line */
-export interface WalletSelectProps {}
+export interface WalletSelectProps {
+  onWalletConnectOpen?: (wallets: Wallet[]) => unknown;
+  onWalletConnectClose?: () => unknown;
+  onWalletSelected?: (wallet: Wallet) => unknown;
+  onUpdatedAccounts?: (accounts: WalletAccount[]) => unknown;
+  onAccountSelected: (account: WalletAccount) => unknown;
+}
+
+function NoWalletLink() {
+  return (
+    <div
+      style={{
+        textAlign: 'center',
+        width: '100%',
+        fontSize: 'small',
+        opacity: 0.5,
+      }}
+    >
+      I don't have a wallet
+    </div>
+  );
+}
 
 function WalletSelectModal(props: ModalProps) {
   return <Modal className={styles['modal-overrides']} {...props} />;
 }
 
 export function WalletSelect(props: WalletSelectProps) {
+  const {
+    onWalletConnectOpen,
+    onWalletConnectClose,
+    onWalletSelected,
+    onUpdatedAccounts,
+    onAccountSelected,
+  } = props;
+
   const [supportedWallets, setWallets] = useState<Wallet[]>();
   const [selectedWallet, setSelectedWallet] = useState<Wallet>();
-  const [accounts, setAccounts] = useState<AccountProps[] | undefined>();
+  const [accounts, setAccounts] = useState<WalletAccount[] | undefined>();
 
   const [isOpen, setIsOpen] = useState(false);
 
   return (
     <div>
-      <h1>Welcome to WalletSelect!</h1>
       <button
         onClick={() => {
-          setWallets(getWallets());
+          const wallets = getWallets();
+          setWallets(wallets);
           setIsOpen(true);
+          if (onWalletConnectOpen) {
+            onWalletConnectOpen(wallets);
+          }
         }}
       >
         Connect wallet
       </button>
       <WalletSelectModal
-        handleClose={() => setIsOpen(false)}
+        title={<div>Connect wallet</div>}
+        footer={<NoWalletLink />}
+        handleClose={() => {
+          setIsOpen(false);
+          if (onWalletConnectClose) {
+            onWalletConnectClose();
+          }
+        }}
         isOpen={isOpen && !selectedWallet}
       >
         {supportedWallets?.map((wallet) => {
+          console.log(`>>> wallet`, wallet.logo);
           return (
-            <div key={wallet.extensionName}>
-              <button
-                onClick={() => {
-                  setSelectedWallet(wallet);
-                  wallet.subscribeAccounts((accounts) => {
-                    setAccounts(accounts);
-                  });
-                }}
-              >
+            <button
+              key={wallet.extensionName}
+              className={styles['row-button']}
+              onClick={() => {
+                setSelectedWallet(wallet);
+                if (onWalletSelected) {
+                  onWalletSelected(wallet);
+                }
+                wallet.subscribeAccounts((accounts) => {
+                  setAccounts(accounts);
+                  if (onUpdatedAccounts) {
+                    onUpdatedAccounts(accounts);
+                  }
+                });
+              }}
+            >
+              <span className={styles['flex']}>
+                <img
+                  src={wallet.logo.src}
+                  alt={wallet.logo.alt}
+                  width={32}
+                  height={32}
+                />
                 {wallet.title}
-              </button>
-            </div>
+              </span>
+              <ChevronRightIcon />
+            </button>
           );
         })}
       </WalletSelectModal>
@@ -53,6 +108,9 @@ export function WalletSelect(props: WalletSelectProps) {
         handleClose={() => {
           setIsOpen(false);
           setSelectedWallet(undefined);
+          if (onWalletConnectClose) {
+            onWalletConnectClose();
+          }
         }}
         handleBack={() => {
           setSelectedWallet(undefined);
@@ -70,21 +128,25 @@ export function WalletSelect(props: WalletSelectProps) {
                 <span>{account.address}</span>
                 <button
                   onClick={async () => {
-                    try {
-                      const payload = 'dummy message';
-                      const signer = account.wallet.signer;
-                      // Example signing
-                      const { signature } = await signer.signRaw({
-                        type: 'payload',
-                        data: payload,
-                        address: account.address,
-                      });
-                    } catch (err) {
-                      console.log(`>>> err`, err);
+                    if (onAccountSelected) {
+                      onAccountSelected(account);
                     }
+                    // TODO: Comment here as this is showing an example signing
+                    // try {
+                    //   const payload = 'dummy message';
+                    //   const signer = account.wallet.signer;
+                    //   // Example signing
+                    //   const { signature } = await signer.signRaw({
+                    //     type: 'payload',
+                    //     data: payload,
+                    //     address: account.address,
+                    //   });
+                    // } catch (err) {
+                    //   console.log(`>>> err`, err);
+                    // }
                   }}
                 >
-                  Sign
+                  Select
                 </button>
               </div>
             );

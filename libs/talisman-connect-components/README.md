@@ -1,4 +1,4 @@
-# talisman-connect-components
+# @talisman-connect/components
 
 ## Installation:
 
@@ -14,7 +14,13 @@ import { WalletSelect } from '@talisman-connect/components';
 // Need to import styles as well
 import '@talisman-connect/components/talisman-connect-components.esm.css';
 
-<WalletSelect />;
+<WalletSelect
+  onWalletConnectOpen={}
+  onWalletConnectClose={}
+  onWalletSelected={}
+  onUpdatedAccounts={}
+  onAccountSelected={}
+/>;
 ```
 
 ## Overriding styles
@@ -23,11 +29,25 @@ import '@talisman-connect/components/talisman-connect-components.esm.css';
 :root {
   /* ... other styles ... */
   --talisman-modal-border-radius: 0;
-  --talisman-modal-padding: 0;
+  --talisman-modal-gutter: 0;
   --talisman-modal-color-background: #fafafa;
   --talisman-modal-color-text: #222;
 }
 ```
+
+## WalletSelect props
+
+```tsx
+interface WalletSelectProps {
+  onWalletConnectOpen?: (wallets: Wallet[]) => unknown;
+  onWalletConnectClose?: () => unknown;
+  onWalletSelected?: (wallet: Wallet) => unknown;
+  onUpdatedAccounts?: (accounts: WalletAccount[]) => unknown;
+  onAccountSelected: (account: WalletAccount) => unknown;
+}
+```
+
+Underlying
 
 ## Running unit tests
 
