@@ -72,6 +72,17 @@ catch (err) {
    Example: `export class FooWallet implements Wallet`
 3. Add the wallet instance in `supportedWallets` array in `libs/wallets/src/lib/wallets.ts`.
 
+## Troubleshooting
+
+If in case there is an error parsing `import.meta`, please add the following to webpack config:
+
+```js
+webpackConfig.module.rules.push({
+  test: /\.js$/,
+  loader: require.resolve('@open-wc/webpack-import-meta-loader'),
+});
+```
+
 ## Running unit tests
 
 Run `nx test wallets` to execute the unit tests via [Jest](https://jestjs.io).

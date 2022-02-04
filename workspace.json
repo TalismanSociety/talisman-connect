@@ -123,6 +123,49 @@
         }
       }
     },
+    "talisman-connect-ui": {
+      "root": "libs/talisman-connect-ui",
+      "sourceRoot": "libs/talisman-connect-ui/src",
+      "projectType": "library",
+      "targets": {
+        "build": {
+          "executor": "@nrwl/web:package",
+          "outputs": ["{options.outputPath}"],
+          "options": {
+            "outputPath": "dist/libs/talisman-connect-ui",
+            "tsConfig": "libs/talisman-connect-ui/tsconfig.lib.json",
+            "project": "libs/talisman-connect-ui/package.json",
+            "entryFile": "libs/talisman-connect-ui/src/index.ts",
+            "external": ["react/jsx-runtime"],
+            "rollupConfig": "@nrwl/react/plugins/bundle-rollup",
+            "assets": [
+              {
+                "glob": "libs/talisman-connect-ui/README.md",
+                "input": ".",
+                "output": "."
+              }
+            ]
+          }
+        },
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "outputs": ["{options.outputFile}"],
+          "options": {
+            "lintFilePatterns": [
+              "libs/talisman-connect-ui/**/*.{ts,tsx,js,jsx}"
+            ]
+          }
+        },
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/talisman-connect-ui"],
+          "options": {
+            "jestConfig": "libs/talisman-connect-ui/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
+    },
     "wallets": {
       "root": "libs/wallets",
       "sourceRoot": "libs/wallets/src",

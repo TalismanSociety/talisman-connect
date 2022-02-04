@@ -38,6 +38,9 @@
       "tags": [],
       "implicitDependencies": ["talisman-connect"]
     },
+    "talisman-connect-ui": {
+      "tags": []
+    },
     "wallets": {
       "tags": []
     }
