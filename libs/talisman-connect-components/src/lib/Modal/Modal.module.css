@@ -8,13 +8,11 @@
   justify-content: center;
   transition: all 0.3s ease-in-out;
   overflow: hidden;
-  /* z-index: 999; */
-  /* padding: 40px 20px 20px; */
 }
 
 .modal-content {
   font-family: var(--talisman-font-family, sans-serif);
-  background-color: var(--talisman-modal-color-background, #fafafa);
+  background: var(--talisman-modal-background, #fafafa);
   color: var(--talisman-modal-color-text, #222);
   border-radius: var(--talisman-modal-border-radius, 1rem);
   padding: var(--talisman-modal-gutter);

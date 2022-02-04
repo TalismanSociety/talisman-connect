@@ -30,7 +30,7 @@ import '@talisman-connect/components/talisman-connect-components.esm.css';
   /* ... other styles ... */
   --talisman-modal-border-radius: 0;
   --talisman-modal-gutter: 0;
-  --talisman-modal-color-background: #fafafa;
+  --talisman-modal-background: #fafafa;
   --talisman-modal-color-text: #222;
 }
 ```

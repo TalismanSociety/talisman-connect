@@ -1,0 +1,11 @@
+/* TODO: Create common reset class */
+button.no-styles {
+  padding: var(--talisman-connect-button-gutter, 0);
+  border: none;
+  outline: none;
+  font: inherit;
+  color: var(--talisman-connect-button-color, inherit);
+  background: var(--talisman-connect-button-background, none);
+  cursor: pointer;
+  border-radius: var(--talisman-connect-border-radius, 0);
+}

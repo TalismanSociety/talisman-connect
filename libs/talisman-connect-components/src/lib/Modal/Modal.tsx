@@ -1,8 +1,8 @@
 import { ReactNode, useEffect, useLayoutEffect, useRef, useState } from 'react';
 import { createPortal } from 'react-dom';
 import useOnClickOutside from '../useOnClickOutside/useOnClickOutside';
-import { ReactComponent as XIcon } from '../assets/icons/x.svg';
-import { ReactComponent as ChevronLeftIcon } from '../assets/icons/chevron-left.svg';
+import { ReactComponent as XIcon } from '../../assets/icons/x.svg';
+import { ReactComponent as ChevronLeftIcon } from '../../assets/icons/chevron-left.svg';
 import styles from './Modal.module.css';
 
 export interface ModalProps {

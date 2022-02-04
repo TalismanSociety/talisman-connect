@@ -1,9 +1,10 @@
-import { WalletAccount, getWallets, Wallet } from '@talisman-connect/wallets';
+import { WalletAccount, Wallet } from '@talisman-connect/wallets';
 import { useState } from 'react';
 import Modal, { ModalProps } from '../../lib/Modal/Modal';
-import { ReactComponent as ChevronRightIcon } from '../assets/icons/chevron-right.svg';
+import { ReactComponent as ChevronRightIcon } from '../../assets/icons/chevron-right.svg';
 import styles from './WalletSelect.module.css';
 import { truncateMiddle } from '../../utils/truncateMiddle';
+import WalletConnectButton from '../WalletConnectButton/WalletConnectButton';
 
 export interface WalletSelectProps {
   onWalletConnectOpen?: (wallets: Wallet[]) => unknown;
@@ -29,7 +30,7 @@ function NoWalletLink() {
 }
 
 function WalletSelectModal(props: ModalProps) {
-  return <Modal className={styles['modal-overrides']} {...props} />;
+  return <Modal className={styles['wallet-select-overrides']} {...props} />;
 }
 
 export function WalletSelect(props: WalletSelectProps) {
@@ -49,9 +50,9 @@ export function WalletSelect(props: WalletSelectProps) {
 
   return (
     <div>
-      <button
-        onClick={() => {
-          const wallets = getWallets();
+      <WalletConnectButton
+        className={styles['wallet-select-overrides']}
+        onClick={(wallets) => {
           setWallets(wallets);
           setIsOpen(true);
           if (onWalletConnectOpen) {
@@ -60,7 +61,7 @@ export function WalletSelect(props: WalletSelectProps) {
         }}
       >
         Connect wallet
-      </button>
+      </WalletConnectButton>
       <WalletSelectModal
         title={'Connect wallet'}
         footer={<NoWalletLink />}
