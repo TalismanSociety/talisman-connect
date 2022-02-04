@@ -9,6 +9,8 @@ export function Index() {
       <WalletSelect
         onAccountSelected={(account) => {
           console.log(`>>> account selected`, account);
+          localStorage.setItem('selectedAccountAddress', account.address);
+          localStorage.setItem('selectedAccountSource', account.source);
         }}
       />
     </div>
