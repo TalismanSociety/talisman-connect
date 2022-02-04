@@ -3,6 +3,7 @@ import { useState } from 'react';
 import Modal, { ModalProps } from '../../lib/Modal/Modal';
 import { ReactComponent as ChevronRightIcon } from '../../assets/icons/chevron-right.svg';
 import styles from './WalletSelect.module.css';
+import { truncateMiddle } from '../../utils/truncateMiddle';
 
 export interface WalletSelectProps {
   onWalletConnectOpen?: (wallets: Wallet[]) => unknown;
@@ -61,7 +62,7 @@ export function WalletSelect(props: WalletSelectProps) {
         Connect wallet
       </button>
       <WalletSelectModal
-        title={<div>Connect wallet</div>}
+        title={'Connect wallet'}
         footer={<NoWalletLink />}
         handleClose={() => {
           setIsOpen(false);
@@ -105,6 +106,7 @@ export function WalletSelect(props: WalletSelectProps) {
         })}
       </WalletSelectModal>
       <WalletSelectModal
+        title={`Select ${selectedWallet?.title} account`}
         handleClose={() => {
           setIsOpen(false);
           setSelectedWallet(undefined);
@@ -123,32 +125,33 @@ export function WalletSelect(props: WalletSelectProps) {
           )
           .map((account) => {
             return (
-              <div key={`${account.source}-${account.address}`}>
-                <span>{account.source}</span>
-                <span>{account.address}</span>
-                <button
-                  onClick={async () => {
-                    if (onAccountSelected) {
-                      onAccountSelected(account);
-                    }
-                    // TODO: Comment here as this is showing an example signing
-                    // try {
-                    //   const payload = 'dummy message';
-                    //   const signer = account.wallet.signer;
-                    //   // Example signing
-                    //   const { signature } = await signer.signRaw({
-                    //     type: 'payload',
-                    //     data: payload,
-                    //     address: account.address,
-                    //   });
-                    // } catch (err) {
-                    //   console.log(`>>> err`, err);
-                    // }
-                  }}
-                >
-                  Select
-                </button>
-              </div>
+              <button
+                key={`${account.source}-${account.address}`}
+                className={styles['row-button']}
+                onClick={async () => {
+                  if (onAccountSelected) {
+                    onAccountSelected(account);
+                  }
+                  setIsOpen(false);
+                  setSelectedWallet(undefined);
+                  // TODO: Comment here as this is showing an example signing
+                  // try {
+                  //   const payload = 'dummy message';
+                  //   const signer = account.wallet.signer;
+                  //   // Example signing
+                  //   const { signature } = await signer.signRaw({
+                  //     type: 'payload',
+                  //     data: payload,
+                  //     address: account.address,
+                  //   });
+                  // } catch (err) {
+                  //   console.log(`>>> err`, err);
+                  // }
+                }}
+              >
+                {truncateMiddle(account.address, 4, 4)}
+                <ChevronRightIcon />
+              </button>
             );
           })}
       </WalletSelectModal>
