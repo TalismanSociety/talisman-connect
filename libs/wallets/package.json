@@ -1,6 +1,6 @@
 {
   "name": "@talisman-connect/wallets",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "dependencies": {
     "@polkadot/extension-dapp": "^0.42.7"
   }
