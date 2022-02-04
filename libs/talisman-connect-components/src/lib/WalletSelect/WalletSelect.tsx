@@ -29,8 +29,63 @@ function NoWalletLink() {
   );
 }
 
-function WalletSelectModal(props: ModalProps) {
-  return <Modal className={styles['wallet-select-overrides']} {...props} />;
+interface ListWithClickProps<T> {
+  items: T[] | undefined;
+  onClick: (item: T) => unknown;
+}
+
+function WalletList(props: ListWithClickProps<Wallet>) {
+  const { items, onClick } = props;
+  if (!items) {
+    return null;
+  }
+  return (
+    <>
+      {items.map((wallet) => {
+        return (
+          <button
+            key={wallet.extensionName}
+            className={styles['row-button']}
+            onClick={() => onClick(wallet)}
+          >
+            <span className={styles['flex']}>
+              <img
+                src={wallet.logo.src}
+                alt={wallet.logo.alt}
+                width={32}
+                height={32}
+              />
+              {wallet.title}
+            </span>
+            <ChevronRightIcon />
+          </button>
+        );
+      })}
+    </>
+  );
+}
+
+function AccountList(props: ListWithClickProps<WalletAccount>) {
+  const { items, onClick } = props;
+  if (!items) {
+    return null;
+  }
+  return (
+    <>
+      {items.map((account) => {
+        return (
+          <button
+            key={`${account.source}-${account.address}`}
+            className={styles['row-button']}
+            onClick={() => onClick(account)}
+          >
+            {truncateMiddle(account.address, 4, 4)}
+            <ChevronRightIcon />
+          </button>
+        );
+      })}
+    </>
+  );
 }
 
 export function WalletSelect(props: WalletSelectProps) {
@@ -62,7 +117,8 @@ export function WalletSelect(props: WalletSelectProps) {
       >
         Connect wallet
       </WalletConnectButton>
-      <WalletSelectModal
+      <Modal
+        className={styles['wallet-select-overrides']}
         title={'Connect wallet'}
         footer={<NoWalletLink />}
         handleClose={() => {
@@ -73,39 +129,24 @@ export function WalletSelect(props: WalletSelectProps) {
         }}
         isOpen={isOpen && !selectedWallet}
       >
-        {supportedWallets?.map((wallet) => {
-          return (
-            <button
-              key={wallet.extensionName}
-              className={styles['row-button']}
-              onClick={() => {
-                setSelectedWallet(wallet);
-                if (onWalletSelected) {
-                  onWalletSelected(wallet);
-                }
-                wallet.subscribeAccounts((accounts) => {
-                  setAccounts(accounts);
-                  if (onUpdatedAccounts) {
-                    onUpdatedAccounts(accounts);
-                  }
-                });
-              }}
-            >
-              <span className={styles['flex']}>
-                <img
-                  src={wallet.logo.src}
-                  alt={wallet.logo.alt}
-                  width={32}
-                  height={32}
-                />
-                {wallet.title}
-              </span>
-              <ChevronRightIcon />
-            </button>
-          );
-        })}
-      </WalletSelectModal>
-      <WalletSelectModal
+        <WalletList
+          items={supportedWallets}
+          onClick={(wallet) => {
+            setSelectedWallet(wallet);
+            if (onWalletSelected) {
+              onWalletSelected(wallet);
+            }
+            wallet.subscribeAccounts((accounts) => {
+              setAccounts(accounts);
+              if (onUpdatedAccounts) {
+                onUpdatedAccounts(accounts);
+              }
+            });
+          }}
+        />
+      </Modal>
+      <Modal
+        className={styles['wallet-select-overrides']}
         title={`Select ${selectedWallet?.title} account`}
         handleClose={() => {
           setIsOpen(false);
@@ -119,42 +160,19 @@ export function WalletSelect(props: WalletSelectProps) {
         }}
         isOpen={!!selectedWallet}
       >
-        {accounts
-          ?.filter(
+        <AccountList
+          items={accounts?.filter(
             (account) => account.source === selectedWallet?.extensionName
-          )
-          .map((account) => {
-            return (
-              <button
-                key={`${account.source}-${account.address}`}
-                className={styles['row-button']}
-                onClick={async () => {
-                  if (onAccountSelected) {
-                    onAccountSelected(account);
-                  }
-                  setIsOpen(false);
-                  setSelectedWallet(undefined);
-                  // TODO: Comment here as this is showing an example signing
-                  // try {
-                  //   const payload = 'dummy message';
-                  //   const signer = account.wallet.signer;
-                  //   // Example signing
-                  //   const { signature } = await signer.signRaw({
-                  //     type: 'payload',
-                  //     data: payload,
-                  //     address: account.address,
-                  //   });
-                  // } catch (err) {
-                  //   console.log(`>>> err`, err);
-                  // }
-                }}
-              >
-                {truncateMiddle(account.address, 4, 4)}
-                <ChevronRightIcon />
-              </button>
-            );
-          })}
-      </WalletSelectModal>
+          )}
+          onClick={(account) => {
+            if (onAccountSelected) {
+              onAccountSelected(account);
+            }
+            setIsOpen(false);
+            setSelectedWallet(undefined);
+          }}
+        />
+      </Modal>
     </div>
   );
 }
