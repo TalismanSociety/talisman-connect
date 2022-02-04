@@ -10,6 +10,7 @@ const DAPP_NAME = 'Talisman'; // TODO: Get dapp name
 export class BaseDotsamaWallet implements Wallet {
   extensionName = '';
   title = '';
+  installUrl = '';
   logo = {
     src: '',
     alt: '',
