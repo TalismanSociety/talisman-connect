@@ -1,7 +1,7 @@
 import { WalletAccount, getWallets, Wallet } from '@talisman-connect/wallets';
 import { useState } from 'react';
 import Modal, { ModalProps } from '../../lib/Modal/Modal';
-import { ReactComponent as ChevronRightIcon } from '../../assets/icons/chevron-right.svg';
+import { ReactComponent as ChevronRightIcon } from '../assets/icons/chevron-right.svg';
 import styles from './WalletSelect.module.css';
 import { truncateMiddle } from '../../utils/truncateMiddle';
 

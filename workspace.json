@@ -67,7 +67,10 @@
             "project": "libs/talisman-connect-components/package.json",
             "entryFile": "libs/talisman-connect-components/src/index.ts",
             "external": ["react/jsx-runtime"],
-            "rollupConfig": "@nrwl/react/plugins/bundle-rollup",
+            "rollupConfig": [
+              "@nrwl/react/plugins/bundle-rollup",
+              "libs/talisman-connect-components/bundle-rollup.js"
+            ],
             "assets": [
               {
                 "glob": "libs/talisman-connect-components/README.md",
