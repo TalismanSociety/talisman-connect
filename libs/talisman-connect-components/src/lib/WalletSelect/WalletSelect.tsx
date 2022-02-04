@@ -73,7 +73,6 @@ export function WalletSelect(props: WalletSelectProps) {
         isOpen={isOpen && !selectedWallet}
       >
         {supportedWallets?.map((wallet) => {
-          console.log(`>>> wallet`, wallet.logo);
           return (
             <button
               key={wallet.extensionName}
