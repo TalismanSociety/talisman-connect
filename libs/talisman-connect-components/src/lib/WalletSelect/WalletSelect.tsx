@@ -115,7 +115,6 @@ export function WalletSelect(props: WalletSelectProps) {
   return (
     <div>
       <WalletConnectButton
-        className={styles['wallet-select-overrides']}
         onClick={(wallets) => {
           setWallets(wallets);
           setIsOpen(true);
@@ -127,7 +126,6 @@ export function WalletSelect(props: WalletSelectProps) {
         Connect wallet
       </WalletConnectButton>
       <Modal
-        className={styles['wallet-select-overrides']}
         title={'Connect wallet'}
         footer={<NoWalletLink />}
         handleClose={() => {
@@ -155,7 +153,6 @@ export function WalletSelect(props: WalletSelectProps) {
         />
       </Modal>
       <Modal
-        className={styles['wallet-select-overrides']}
         title={
           selectedWallet?.extension
             ? `Select ${selectedWallet?.title} account`

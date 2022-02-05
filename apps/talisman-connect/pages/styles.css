@@ -1,3 +1,39 @@
+:root {
+  --talisman-font-family: sans-serif;
+  --talisman-modal-border-radius: 1rem;
+  --talisman-modal-gutter: 2rem;
+
+  /* dark theme */
+  --talisman-modal-background: #222;
+  --talisman-modal-color-text: #fafafa;
+  --talisman-modal-color-lightgrey: #383838;
+  --talisman-modal-color-midgrey: #5a5a5a;
+
+  /* light theme */
+  /* --talisman-modal-background: #fafafa;
+  --talisman-modal-color-text: #222;
+  --talisman-modal-color-lightgrey: #f2f2f2;
+  --talisman-modal-color-midgrey: #e5e5e5; */
+
+  --talisman-modal-min-width: 320px;
+  --talisman-modal-max-width: 320px;
+
+  --talisman-modal-min-height: 768px;
+  --talisman-modal-max-height: 1000px;
+
+  --talisman-connect-button-gutter: 1rem;
+  --talisman-connect-border-radius: 0.5rem;
+  --talisman-connect-button-color: var(--talisman-modal-color-text);
+  --talisman-connect-button-background: var(--talisman-modal-color-midgrey);
+}
+
+@media (min-width: 768px) {
+  :root {
+    --talisman-modal-min-width: 470px;
+    --talisman-modal-max-width: 470px;
+  }
+}
+
 .app {
   font-family: sans-serif;
   min-width: 300px;
