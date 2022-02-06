@@ -253,7 +253,7 @@ export function WalletSelect(props: WalletSelectProps) {
         {hasNoAccountsFound && (
           <div>
             <div>No accounts found.</div>
-            <div>Add an account in {selectedWallet.title} to get started.</div>
+            <div>Add an account in {selectedWallet?.title} to get started.</div>
           </div>
         )}
         {hasAccounts && (
