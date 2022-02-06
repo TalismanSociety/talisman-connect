@@ -1,37 +1,60 @@
 :root {
-  --talisman-font-family: sans-serif;
-  --talisman-modal-border-radius: 1rem;
-  --talisman-modal-gutter: 2rem;
+  /* ... other styles ... */
 
-  /* dark theme */
-  --talisman-modal-background: #222;
-  --talisman-modal-color-text: #fafafa;
-  --talisman-modal-color-lightgrey: #383838;
-  --talisman-modal-color-midgrey: #5a5a5a;
+  /* Light theme */
+  --talisman-connect-control-background: #f2f2f2;
+  --talisman-connect-control-foreground: inherit;
+  --talisman-connect-active-background: #e5e5e5;
+  --talisman-connect-active-foreground: inherit;
+  --talisman-connect-modal-background: #fafafa;
+  --talisman-connect-modal-foreground: inherit;
+  --talisman-connect-button-background: var(
+    --talisman-connect-control-background
+  );
+  --talisman-connect-button-foreground: inherit;
 
-  /* light theme */
-  /* --talisman-modal-background: #fafafa;
-  --talisman-modal-color-text: #222;
-  --talisman-modal-color-lightgrey: #f2f2f2;
-  --talisman-modal-color-midgrey: #e5e5e5; */
+  --talisman-connect-modal-gutter: 2rem;
+  --talisman-connect-font-family: sans-serif;
+  --talisman-connect-border-radius: 1rem;
 
-  --talisman-modal-min-width: 320px;
-  --talisman-modal-max-width: 320px;
-
-  --talisman-modal-min-height: 768px;
-  --talisman-modal-max-height: 1000px;
+  /* TODO: Set good defaults so as to avoid exposing this unnecessarily */
+  --talisman-connect-modal-min-width: 320px;
+  --talisman-connect-modal-max-width: 320px;
 
   --talisman-connect-button-gutter: 1rem;
-  --talisman-connect-border-radius: 0.5rem;
-  --talisman-connect-button-color: var(--talisman-modal-color-text);
-  --talisman-connect-button-background: var(--talisman-modal-color-midgrey);
+  --talisman-connect-button-border-radius: 0.75rem;
+}
+
+.dark-mode {
+  --talisman-connect-control-background: #383838;
+  --talisman-connect-control-foreground: inherit;
+  --talisman-connect-active-background: #5a5a5a;
+  --talisman-connect-active-foreground: inherit;
+  --talisman-connect-modal-background: #222;
+  --talisman-connect-modal-foreground: #fafafa;
+  --talisman-connect-button-background: var(
+    --talisman-connect-control-background
+  );
+  --talisman-connect-button-foreground: #fafafa;
 }
 
 @media (min-width: 768px) {
   :root {
-    --talisman-modal-min-width: 470px;
-    --talisman-modal-max-width: 470px;
+    --talisman-connect-modal-min-width: 470px;
+    --talisman-connect-modal-max-width: 470px;
   }
+}
+
+/* Reset */
+button {
+  padding: 0;
+  border: none;
+  outline: none;
+  font: inherit;
+  color: inherit;
+  background: none;
+  cursor: pointer;
+  border-radius: 0;
 }
 
 .app {
@@ -55,22 +78,22 @@
   justify-content: center;
 }
 
-.app header {
+.app > header {
   background-color: #143055;
   color: white;
   padding: 5px;
   border-radius: 3px;
 }
 
-.app main {
+.app > main {
   padding: 0 36px;
 }
 
-.app p {
+.app > p {
   text-align: center;
 }
 
-.app h1 {
+.app > h1 {
   text-align: center;
   margin-left: 18px;
   font-size: 24px;

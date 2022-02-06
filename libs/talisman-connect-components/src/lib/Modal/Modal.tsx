@@ -11,26 +11,34 @@ export interface ModalProps {
   children: ReactNode;
   className?: string;
   isOpen: boolean;
+  appId?: string;
   handleClose: () => unknown;
   handleBack?: () => unknown;
 }
 
-function createWrapperAndAppendToBody(wrapperId: string) {
+function createWrapperAndAppendToBody(wrapperId: string, appendToId?: string) {
   const wrapperElement = document.createElement('div');
   wrapperElement.setAttribute('id', wrapperId);
-  document.body.appendChild(wrapperElement);
+  const destinationElement = appendToId
+    ? document.getElementById(appendToId)
+    : document.body;
+  if (destinationElement) {
+    destinationElement.appendChild(wrapperElement);
+  }
   return wrapperElement;
 }
 
 interface ReactPortalProps {
   children: ReactNode;
   wrapperId: string;
+  appId?: string;
 }
 
 // Also, set a default value for wrapperId prop if none provided
 function ReactPortal({
   children,
   wrapperId = 'react-portal-wrapper',
+  appId,
 }: ReactPortalProps) {
   const [wrapperElement, setWrapperElement] = useState<HTMLElement | null>(
     null
@@ -43,7 +51,7 @@ function ReactPortal({
     // create and append to body
     if (!element) {
       systemCreated = true;
-      element = createWrapperAndAppendToBody(wrapperId);
+      element = createWrapperAndAppendToBody(wrapperId, appId);
     }
     setWrapperElement(element);
 
@@ -53,7 +61,7 @@ function ReactPortal({
         element.parentNode.removeChild(element);
       }
     };
-  }, [wrapperId]);
+  }, [appId, wrapperId]);
 
   // wrapperElement state will be null on very first render.
   if (wrapperElement === null) {
@@ -72,6 +80,7 @@ export function Modal(props: ModalProps) {
     title,
     className = '',
     footer,
+    appId,
   } = props;
   const modalRef = useRef<HTMLDivElement>(null);
   const modalContentRef = useRef<HTMLDivElement>(null);
@@ -90,7 +99,7 @@ export function Modal(props: ModalProps) {
   if (!isOpen) return null;
 
   return (
-    <ReactPortal wrapperId="react-portal-modal-container">
+    <ReactPortal wrapperId="react-portal-modal-container" appId={appId}>
       <div ref={modalRef} className={`${styles.modal} ${className}`}>
         <div ref={modalContentRef} className={styles['modal-content']}>
           <header className={styles['modal-header']}>

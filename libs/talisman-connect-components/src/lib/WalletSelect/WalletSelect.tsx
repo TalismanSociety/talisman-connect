@@ -1,17 +1,19 @@
 import { WalletAccount, Wallet } from '@talisman-connect/wallets';
-import { useState } from 'react';
-import Modal, { ModalProps } from '../../lib/Modal/Modal';
+import { cloneElement, ReactElement, useEffect, useState } from 'react';
+import Modal from '../../lib/Modal/Modal';
 import { ReactComponent as ChevronRightIcon } from '../../assets/icons/chevron-right.svg';
 import styles from './WalletSelect.module.css';
 import { truncateMiddle } from '../../utils/truncateMiddle';
-import WalletConnectButton from '../WalletConnectButton/WalletConnectButton';
+import { WalletConnectButtonProps } from '../WalletConnectButton/WalletConnectButton';
 
 export interface WalletSelectProps {
   onWalletConnectOpen?: (wallets: Wallet[]) => unknown;
   onWalletConnectClose?: () => unknown;
   onWalletSelected?: (wallet: Wallet) => unknown;
-  onUpdatedAccounts?: (accounts: WalletAccount[]) => unknown;
+  onUpdatedAccounts?: (accounts: WalletAccount[] | undefined) => unknown;
   onAccountSelected: (account: WalletAccount) => unknown;
+
+  triggerComponent?: ReactElement<WalletConnectButtonProps>;
 }
 
 function NoWalletLink() {
@@ -29,10 +31,13 @@ function NoWalletLink() {
   );
 }
 
-interface ListWithClickProps<T> {
-  items: T[] | undefined;
-  onClick: (item: T) => unknown;
-}
+type ListWithClickProps<T> =
+  | {
+      items?: T[];
+      onClick: (item: T) => unknown;
+      skeleton?: false;
+    }
+  | { skeleton: true; items?: never; onClick?: never };
 
 function WalletList(props: ListWithClickProps<Wallet>) {
   const { items, onClick } = props;
@@ -42,12 +47,11 @@ function WalletList(props: ListWithClickProps<Wallet>) {
   return (
     <>
       {items.map((wallet) => {
-        const noExtension = !wallet.extension;
         return (
           <button
             key={wallet.extensionName}
             className={styles['row-button']}
-            onClick={() => onClick(wallet)}
+            onClick={() => onClick?.(wallet)}
           >
             <span className={styles['flex']}>
               <img
@@ -56,7 +60,6 @@ function WalletList(props: ListWithClickProps<Wallet>) {
                 width={32}
                 height={32}
               />
-              {noExtension && `Try `}
               {wallet.title}
             </span>
             <ChevronRightIcon />
@@ -68,26 +71,39 @@ function WalletList(props: ListWithClickProps<Wallet>) {
 }
 
 function AccountList(props: ListWithClickProps<WalletAccount>) {
-  const { items, onClick } = props;
-  if (!items) {
+  const { items, onClick, skeleton = false } = props;
+  if (!items && !skeleton) {
     return null;
   }
+  const listItems = skeleton
+    ? Array.from(
+        { length: 2 },
+        (v, i): WalletAccount => ({
+          name: 'dummy',
+          source: `${i}`,
+          address: 'dummy',
+        })
+      )
+    : items;
   return (
+    // eslint-disable-next-line react/jsx-no-useless-fragment
     <>
-      {items.map((account) => {
+      {listItems?.map((account) => {
         return (
           <button
             key={`${account.source}-${account.address}`}
             className={styles['row-button']}
-            onClick={() => onClick(account)}
+            onClick={() => onClick?.(account)}
           >
-            <span style={{ textAlign: 'left' }}>
+            <span
+              style={{ textAlign: 'left', opacity: skeleton ? 0 : 'unset' }}
+            >
               <div>{account.name}</div>
               <div style={{ fontSize: 'small', opacity: 0.5 }}>
                 {truncateMiddle(account.address)}
               </div>
             </span>
-            <ChevronRightIcon />
+            {!skeleton && <ChevronRightIcon />}
           </button>
         );
       })}
@@ -102,30 +118,47 @@ export function WalletSelect(props: WalletSelectProps) {
     onWalletSelected,
     onUpdatedAccounts,
     onAccountSelected,
+    triggerComponent,
   } = props;
 
   const [supportedWallets, setWallets] = useState<Wallet[]>();
   const [selectedWallet, setSelectedWallet] = useState<Wallet>();
   const [accounts, setAccounts] = useState<WalletAccount[] | undefined>();
+  const [loadingAccounts, setLoadingAccounts] = useState(false);
+  const [unsubscribe, setUnsubscribe] = useState<() => unknown>();
 
   const [isOpen, setIsOpen] = useState(false);
 
+  // Cleanup
+  useEffect(() => {
+    return () => {
+      if (unsubscribe) {
+        console.log(`>>> Cleanup`);
+        unsubscribe();
+      }
+    };
+  });
+
   console.log(`>>> accounts`, accounts);
+
+  const accountsSelectionTitle = selectedWallet?.installed
+    ? `Select ${selectedWallet?.title} account`
+    : `Haven't got a wallet yet?`;
 
   return (
     <div>
-      <WalletConnectButton
-        onClick={(wallets) => {
-          setWallets(wallets);
-          setIsOpen(true);
-          if (onWalletConnectOpen) {
-            onWalletConnectOpen(wallets);
-          }
-        }}
-      >
-        Connect wallet
-      </WalletConnectButton>
+      {triggerComponent &&
+        cloneElement(triggerComponent, {
+          onClick: (wallets: Wallet[]) => {
+            setWallets(wallets);
+            setIsOpen(true);
+            if (onWalletConnectOpen) {
+              onWalletConnectOpen(wallets);
+            }
+          },
+        })}
       <Modal
+        className={styles['modal-overrides']}
         title={'Connect wallet'}
         footer={<NoWalletLink />}
         handleClose={() => {
@@ -138,26 +171,33 @@ export function WalletSelect(props: WalletSelectProps) {
       >
         <WalletList
           items={supportedWallets}
-          onClick={(wallet) => {
+          onClick={async (wallet) => {
+            setLoadingAccounts(true);
+
             setSelectedWallet(wallet);
             if (onWalletSelected) {
               onWalletSelected(wallet);
             }
-            wallet.subscribeAccounts((accounts) => {
+
+            // Unsubscribe previous subscription before subscribing to a new one.
+            unsubscribe?.();
+
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
+            const unsub: any = await wallet.subscribeAccounts((accounts) => {
+              setLoadingAccounts(false);
               setAccounts(accounts);
               if (onUpdatedAccounts) {
                 onUpdatedAccounts(accounts);
               }
             });
+
+            setUnsubscribe(unsub);
           }}
         />
       </Modal>
       <Modal
-        title={
-          selectedWallet?.extension
-            ? `Select ${selectedWallet?.title} account`
-            : `Haven't got a wallet yet?`
-        }
+        className={styles['modal-overrides']}
+        title={loadingAccounts ? 'Loading...' : accountsSelectionTitle}
         handleClose={() => {
           setIsOpen(false);
           setSelectedWallet(undefined);
@@ -165,12 +205,11 @@ export function WalletSelect(props: WalletSelectProps) {
             onWalletConnectClose();
           }
         }}
-        handleBack={() => {
-          setSelectedWallet(undefined);
-        }}
+        handleBack={() => setSelectedWallet(undefined)}
         isOpen={!!selectedWallet}
       >
-        {!selectedWallet?.extension && (
+        {loadingAccounts && <AccountList skeleton />}
+        {!loadingAccounts && !selectedWallet?.installed && (
           <>
             <div className={styles['no-extension-message']}>
               {selectedWallet?.noExtensionMessage}
@@ -196,7 +235,7 @@ export function WalletSelect(props: WalletSelectProps) {
             </a>
           </>
         )}
-        {selectedWallet?.extension && (
+        {!loadingAccounts && selectedWallet?.installed && (
           <AccountList
             items={accounts?.filter(
               (account) => account.source === selectedWallet?.extensionName

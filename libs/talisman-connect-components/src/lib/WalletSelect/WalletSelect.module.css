@@ -1,3 +1,25 @@
+.modal-overrides {
+  --modal-background: var(--talisman-connect-modal-background, #fafafa);
+  --modal-foreground: var(--talisman-connect-modal-foreground, #222);
+  --modal-control-background: var(
+    --talisman-connect-control-background,
+    #f2f2f2
+  );
+  --modal-active-background: var(--talisman-connect-active-background, #d2d2d2);
+  --modal-border-radius: var(--talisman-connect-border-radius, 1rem);
+  --modal-gutter: var(--talisman-connect-modal-gutter, 2rem);
+  --modal-min-width: var(--talisman-connect-modal-min-width, 320px);
+  --modal-max-width: var(--talisman-connect-modal-max-width, 470px);
+  --modal-min-height: var(--talisman-connect-modal-min-height);
+  --modal-max-height: var(--talisman-connect-modal-max-height);
+  --modal-font-family: var(--talisman-connect-font-family, sans-serif);
+
+  --modal-button-background: var(
+    --talisman-connect-button-background,
+    var(--talisman-connect-control-background)
+  );
+}
+
 .flex {
   display: flex;
   align-items: center;
@@ -9,19 +31,19 @@ button.row-button {
   justify-content: space-between;
   align-items: center;
   padding: 1rem;
-  border-radius: calc(var(--talisman-modal-border-radius) * 0.75);
+  border-radius: calc(var(--modal-border-radius) * 0.75);
   border: none;
   outline: none;
   font: inherit;
   color: inherit;
-  background: var(--talisman-modal-color-lightgrey);
+  background: var(--modal-control-background);
   cursor: pointer;
   width: 100%;
   margin-bottom: 0.5rem;
 }
 
 button.row-button:hover {
-  background: var(--talisman-modal-color-midgrey);
+  background: var(--modal-active-background);
 }
 
 a.row-button {

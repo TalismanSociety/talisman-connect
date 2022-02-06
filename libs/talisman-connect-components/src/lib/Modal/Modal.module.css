@@ -12,14 +12,17 @@
 }
 
 .modal-content {
-  font-family: var(--talisman-font-family, sans-serif);
-  background: var(--talisman-modal-background, #fafafa);
-  color: var(--talisman-modal-color-text, #222);
-  border-radius: var(--talisman-modal-border-radius, 1rem);
-  padding: var(--talisman-modal-gutter);
-  min-width: var(--talisman-modal-min-width);
-  max-width: var(--talisman-modal-max-width);
-  max-height: 80%;
+  font-family: var(--modal-font-family, inherit);
+  background: var(--modal-background);
+  color: var(--modal-foreground);
+  border-radius: var(--modal-border-radius);
+  padding: var(--modal-gutter);
+  min-width: var(--modal-min-width);
+  max-width: var(--modal-max-width);
+  /* min-height: 33%; */
+  /* max-height: var(--modal-max-height, 33%); */
+  min-height: auto;
+  max-height: 320px;
   display: grid;
   grid-template-columns: auto;
   grid-template-rows: max-content 1fr max-content;
@@ -40,13 +43,13 @@
 .modal-header::after {
   content: '';
   display: block;
-  margin-bottom: calc(var(--talisman-modal-gutter) * 0.5);
+  margin-bottom: calc(var(--modal-gutter) * 0.5);
 }
 
 .modal-content-footer::before {
   content: '';
   display: block;
-  margin-top: calc(var(--talisman-modal-gutter) * 0.5);
+  margin-top: calc(var(--modal-gutter) * 0.5);
 }
 
 button.icon-button {

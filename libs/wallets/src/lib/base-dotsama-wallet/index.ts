@@ -1,6 +1,7 @@
 import {
   InjectedExtension,
   InjectedAccountWithMeta,
+  InjectedWindow,
 } from '@polkadot/extension-inject/types';
 import type { Signer as InjectedSigner } from '@polkadot/api/types';
 import { SubscriptionFn, Wallet } from '../../types';
@@ -18,6 +19,7 @@ export class BaseDotsamaWallet implements Wallet {
 
   _extension: InjectedExtension | undefined;
   _signer: InjectedSigner | undefined;
+  _installed: boolean | undefined;
 
   // API docs: https://polkadot.js.org/docs/extension/
   get extension() {
@@ -29,11 +31,40 @@ export class BaseDotsamaWallet implements Wallet {
     return this._signer;
   }
 
+  get installed() {
+    return this._installed;
+  }
+
   subscribeAccounts = async (callback: SubscriptionFn) => {
-    const { web3Enable, web3AccountsSubscribe } = await import(
+    // const { web3Enable } = await import('@talismn/dapp-connect'); // TODO: Figure out exports error
+    const { web3Enable, web3AccountsSubscribe, isWeb3Injected } = await import(
       '@polkadot/extension-dapp'
     );
-    // const { web3Enable } = await import('@talismn/dapp-connect'); // TODO: Figure out exports error
+
+    const injectedWindow = window as Window & InjectedWindow;
+    const injectedExtension =
+      injectedWindow?.injectedWeb3?.[this.extensionName];
+    const isInstalled = isWeb3Injected && injectedExtension;
+
+    this._installed = !!isInstalled;
+
+    if (!isInstalled) {
+      callback(undefined);
+      return null;
+    }
+
+    // NOTE: Using web3Enable will do a double popup if multiple extensions are installed.
+    // However, calling `.enable` only returns the `Injected` type.
+    // So manually building out the `extension` object here is necessary for consistency
+    // with the return type of `web3Enable`.
+    // const rawExtension = await injectedExtension.enable(DAPP_NAME);
+    // const extension: InjectedExtension = {
+    //   name: this.extensionName,
+    //   version: injectedExtension.version,
+    //   ...rawExtension,
+    // };
+
+    // TODO: Deprecate. Shows the usage with `web3Enable`.
     const injectedExtensions = await web3Enable(DAPP_NAME);
     const extension = injectedExtensions.find(
       (ext) => ext.name === this.extensionName

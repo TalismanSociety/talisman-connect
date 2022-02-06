@@ -8,7 +8,7 @@ function CustomApp({ Component, pageProps }: AppProps) {
       <Head>
         <title>Welcome to talisman-connect!</title>
       </Head>
-      <div className="app">
+      <div className="app" id="app">
         <main>
           <Component {...pageProps} />
         </main>

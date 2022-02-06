@@ -1,12 +1,11 @@
-import { Wallet } from '../../types';
 import { BaseDotsamaWallet } from '../base-dotsama-wallet';
 import logo from './TalismanLogo.svg';
 
-export class TalismanWallet extends BaseDotsamaWallet implements Wallet {
+export class TalismanWallet extends BaseDotsamaWallet {
   extensionName = 'talisman';
   title = 'Talisman';
   installUrl =
-    'https://chrome.google.com/webstore/detail/polkadot%7Bjs%7D-extension/mopnmbcafieddcagagdcbnhejhlodfdd/related';
+    'https://chrome.google.com/webstore/detail/talisman-wallet-alpha/fijngjgcjhjmmpcmkeiomlglpeiijkld';
   noExtensionMessage =
     'You can use any Polkadot compatible wallet but we recommend using Talisman';
   logo = {

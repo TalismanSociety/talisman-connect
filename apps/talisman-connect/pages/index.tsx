@@ -1,10 +1,10 @@
 import {
   truncateMiddle,
   useLocalStorage,
+  WalletConnectButton,
   WalletSelect,
 } from '@talisman-connect/components';
 import Link from 'next/link';
-import { useEffect } from 'react';
 import styles from './index.module.css';
 
 export function Index() {
@@ -15,10 +15,20 @@ export function Index() {
   const [source, setSource] = useLocalStorage(
     'talisman-connect/account.source'
   );
+
   return (
     <div className={styles.page}>
       <Link href="/crowdloans">Go to Crowdloans</Link>
       <WalletSelect
+        triggerComponent={
+          <WalletConnectButton
+            onClick={(wallets) => {
+              console.log(`>>> wallets`, wallets);
+            }}
+          >
+            Connect wallet
+          </WalletConnectButton>
+        }
         onAccountSelected={(account) => {
           console.log(`>>> account selected`, account);
           setAddress(account.address);

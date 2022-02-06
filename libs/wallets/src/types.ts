@@ -1,5 +1,5 @@
 export type SubscriptionFn = (
-  accounts: WalletAccount[]
+  accounts: WalletAccount[] | undefined
 ) => void | Promise<void>;
 
 export interface WalletLogoProps {
@@ -11,9 +11,9 @@ export interface WalletLogoProps {
 
 export interface WalletAccount {
   address: string;
-  name?: string;
   source: string;
-  wallet: Wallet;
+  name?: string;
+  wallet?: Wallet;
   signer?: unknown;
 }
 
@@ -31,6 +31,8 @@ export interface WalletData {
 }
 
 export interface WalletExtension {
+  installed: boolean | undefined;
+
   // The raw extension object which will have everything a dapp developer needs.
   // Refer to a specific wallet's extension documentation
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -48,6 +50,9 @@ export interface Signer {
 }
 
 export interface Connector {
+  // Must be called first
+  // enable: () => unknown;
+
   // The subscribe to accounts function
   subscribeAccounts: (callback: SubscriptionFn) => unknown;
 }
