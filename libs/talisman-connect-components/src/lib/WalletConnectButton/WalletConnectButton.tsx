@@ -26,19 +26,6 @@ export function WalletConnectButton(props: WalletConnectButtonProps) {
       })}
     </>
   );
-  // return (
-  //   <button
-  //     className={`${styles['wallet-connect-button']} ${className}`}
-  //     onClick={() => {
-  //       const wallets = getWallets();
-  //       if (onClick) {
-  //         onClick(wallets);
-  //       }
-  //     }}
-  //   >
-  //     {children}
-  //   </button>
-  // );
 }
 
 export default WalletConnectButton;

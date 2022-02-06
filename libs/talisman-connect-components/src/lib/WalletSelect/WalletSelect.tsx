@@ -26,7 +26,7 @@ function NoWalletLink() {
         opacity: 0.5,
       }}
     >
-      I don't have a wallet
+      <a href="/">I don't have a wallet</a>
     </div>
   );
 }
@@ -145,6 +145,20 @@ export function WalletSelect(props: WalletSelectProps) {
     ? `Select ${selectedWallet?.title} account`
     : `Haven't got a wallet yet?`;
 
+  const selectedWalletAccounts = accounts?.filter(
+    (account) => account.source === selectedWallet?.extensionName
+  );
+
+  const isNotInstalled = !loadingAccounts && !selectedWallet?.installed;
+  const hasNoAccountsFound =
+    !loadingAccounts &&
+    selectedWallet?.installed &&
+    !selectedWalletAccounts?.length;
+  const hasAccounts =
+    !loadingAccounts &&
+    selectedWallet?.installed &&
+    selectedWalletAccounts?.length > 0;
+
   return (
     <div>
       {triggerComponent &&
@@ -180,7 +194,7 @@ export function WalletSelect(props: WalletSelectProps) {
             }
 
             // Unsubscribe previous subscription before subscribing to a new one.
-            unsubscribe?.();
+            // unsubscribe?.();
 
             // eslint-disable-next-line @typescript-eslint/no-explicit-any
             const unsub: any = await wallet.subscribeAccounts((accounts) => {
@@ -209,7 +223,7 @@ export function WalletSelect(props: WalletSelectProps) {
         isOpen={!!selectedWallet}
       >
         {loadingAccounts && <AccountList skeleton />}
-        {!loadingAccounts && !selectedWallet?.installed && (
+        {isNotInstalled && (
           <>
             <div className={styles['no-extension-message']}>
               {selectedWallet?.noExtensionMessage}
@@ -235,11 +249,15 @@ export function WalletSelect(props: WalletSelectProps) {
             </a>
           </>
         )}
-        {!loadingAccounts && selectedWallet?.installed && (
+        {hasNoAccountsFound && (
+          <div>
+            <div>No accounts found.</div>
+            <div>Add an account in {selectedWallet.title} to get started.</div>
+          </div>
+        )}
+        {hasAccounts && (
           <AccountList
-            items={accounts?.filter(
-              (account) => account.source === selectedWallet?.extensionName
-            )}
+            items={selectedWalletAccounts}
             onClick={(account) => {
               if (onAccountSelected) {
                 onAccountSelected(account);

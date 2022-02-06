@@ -26,13 +26,17 @@ import '@talisman-connect/components/talisman-connect-components.esm.css';
 
 ## Overriding styles (Example)
 
-NOTE: By default `WalletSelect` modal is appended in the `document.body` and might be outside of the App's `root` div. So
+NOTE: By default `WalletSelect` modal is appended in the `document.body`.
+So if your base styles (i.e `font-family`, `color`, etc.) are done from `html` and/or `body` for example,
+then `WalletSelect` will inherit the correct styles.
+
+Otherwise, if styles are done off some `div` inside the `body`, then provide the `appId` prop in `WalletSelect`.
 
 ```css
 :root {
   /* ... other styles ... */
 
-  /* Default: Light mode */
+  /* Light theme */
   --talisman-connect-control-background: #f2f2f2;
   --talisman-connect-control-foreground: inherit;
   --talisman-connect-active-background: #e5e5e5;
@@ -48,10 +52,9 @@ NOTE: By default `WalletSelect` modal is appended in the `document.body` and mig
   --talisman-connect-font-family: sans-serif;
   --talisman-connect-border-radius: 1rem;
 
-  --talisman-connect-modal-min-width: 320px;
-  --talisman-connect-modal-max-width: 320px;
-  --talisman-connect-modal-min-height: 768px;
-  --talisman-connect-modal-max-height: 1000px;
+  --talisman-connect-modal-width: 90%;
+  --talisman-connect-modal-max-width: 470px;
+  --talisman-connect-modal-max-height: 470px;
 
   --talisman-connect-button-gutter: 1rem;
   --talisman-connect-button-border-radius: 0.75rem;

@@ -53,18 +53,6 @@ export class BaseDotsamaWallet implements Wallet {
       return null;
     }
 
-    // NOTE: Using web3Enable will do a double popup if multiple extensions are installed.
-    // However, calling `.enable` only returns the `Injected` type.
-    // So manually building out the `extension` object here is necessary for consistency
-    // with the return type of `web3Enable`.
-    // const rawExtension = await injectedExtension.enable(DAPP_NAME);
-    // const extension: InjectedExtension = {
-    //   name: this.extensionName,
-    //   version: injectedExtension.version,
-    //   ...rawExtension,
-    // };
-
-    // TODO: Deprecate. Shows the usage with `web3Enable`.
     const injectedExtensions = await web3Enable(DAPP_NAME);
     const extension = injectedExtensions.find(
       (ext) => ext.name === this.extensionName
