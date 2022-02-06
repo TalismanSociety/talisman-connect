@@ -8,10 +8,10 @@
   --modal-active-background: var(--talisman-connect-active-background, #d2d2d2);
   --modal-border-radius: var(--talisman-connect-border-radius, 1rem);
   --modal-gutter: var(--talisman-connect-modal-gutter, 2rem);
-  --modal-min-width: var(--talisman-connect-modal-min-width, 320px);
+  --modal-width: var(--talisman-connect-modal-min-width, 90%);
   --modal-max-width: var(--talisman-connect-modal-max-width, 470px);
-  --modal-min-height: var(--talisman-connect-modal-min-height);
-  --modal-max-height: var(--talisman-connect-modal-max-height);
+  --modal-min-height: var(--talisman-connect-modal-min-height, auto);
+  --modal-max-height: var(--talisman-connect-modal-max-height, 320px);
   --modal-font-family: var(--talisman-connect-font-family, sans-serif);
 
   --modal-button-background: var(

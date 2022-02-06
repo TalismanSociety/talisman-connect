@@ -12,17 +12,16 @@
 }
 
 .modal-content {
+  box-sizing: border-box;
   font-family: var(--modal-font-family, inherit);
   background: var(--modal-background);
   color: var(--modal-foreground);
   border-radius: var(--modal-border-radius);
   padding: var(--modal-gutter);
-  min-width: var(--modal-min-width);
-  max-width: var(--modal-max-width);
-  /* min-height: 33%; */
-  /* max-height: var(--modal-max-height, 33%); */
-  min-height: auto;
-  max-height: 320px;
+  width: var(--modal-width, 90%);
+  max-width: var(--modal-max-width, 470px);
+  min-height: var(--modal-min-height, auto);
+  max-height: var(--modal-max-height, 320px);
   display: grid;
   grid-template-columns: auto;
   grid-template-rows: max-content 1fr max-content;

@@ -17,9 +17,9 @@
   --talisman-connect-font-family: sans-serif;
   --talisman-connect-border-radius: 1rem;
 
-  /* TODO: Set good defaults so as to avoid exposing this unnecessarily */
-  --talisman-connect-modal-min-width: 320px;
-  --talisman-connect-modal-max-width: 320px;
+  --talisman-connect-modal-width: 90%;
+  --talisman-connect-modal-max-width: 470px;
+  --talisman-connect-modal-max-height: 470px;
 
   --talisman-connect-button-gutter: 1rem;
   --talisman-connect-button-border-radius: 0.75rem;
