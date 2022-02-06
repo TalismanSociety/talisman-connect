@@ -157,6 +157,7 @@ export function WalletSelect(props: WalletSelectProps) {
   const hasAccounts =
     !loadingAccounts &&
     selectedWallet?.installed &&
+    selectedWalletAccounts &&
     selectedWalletAccounts?.length > 0;
 
   return (
