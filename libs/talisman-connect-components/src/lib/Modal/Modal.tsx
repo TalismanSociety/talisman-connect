@@ -1,4 +1,4 @@
-import { ReactNode, useEffect, useLayoutEffect, useRef, useState } from 'react';
+import { ReactNode, useEffect, useRef, useState } from 'react';
 import { createPortal } from 'react-dom';
 import useOnClickOutside from '../useOnClickOutside/useOnClickOutside';
 import { ReactComponent as XIcon } from '../../assets/icons/x.svg';
@@ -44,7 +44,7 @@ function ReactPortal({
     null
   );
 
-  useLayoutEffect(() => {
+  useEffect(() => {
     let element = document.getElementById(wrapperId);
     let systemCreated = false;
     // if element is not found with wrapperId or wrapperId is not provided,

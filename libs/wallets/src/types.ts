@@ -50,6 +50,8 @@ export interface Signer {
 }
 
 export interface Connector {
+  enable: () => unknown;
+
   // The subscribe to accounts function
   subscribeAccounts: (callback: SubscriptionFn) => unknown;
 }

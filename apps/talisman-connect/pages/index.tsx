@@ -29,12 +29,18 @@ export function Index() {
             Connect wallet
           </button>
         }
-        onAccountSelected={(account) => {
-          console.log(`>>> account selected`, account);
-          setAddress(account.address);
-          setName(account.name);
-          setSource(account.source);
+        onWalletSelected={(wallet) => {
+          console.log(`>>> selected wallet`, wallet);
         }}
+        onUpdatedAccounts={(accounts) => {
+          console.log(`>>> accounts`, accounts);
+        }}
+        // onAccountSelected={(account) => {
+        //   console.log(`>>> account selected`, account);
+        //   setAddress(account.address);
+        //   setName(account.name);
+        //   setSource(account.source);
+        // }}
       />
       <div>Name: {name}</div>
       <div>Address: {truncateMiddle(address)}</div>

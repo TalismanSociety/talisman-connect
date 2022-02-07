@@ -6,7 +6,7 @@ import {
 import type { Signer as InjectedSigner } from '@polkadot/api/types';
 import { SubscriptionFn, Wallet } from '../../types';
 
-const DAPP_NAME = 'Talisman'; // TODO: Get dapp name
+const DAPP_NAME = 'Talisman Connect'; // TODO: Get dapp name
 
 export class BaseDotsamaWallet implements Wallet {
   extensionName = '';
@@ -34,6 +34,18 @@ export class BaseDotsamaWallet implements Wallet {
   get installed() {
     return this._installed;
   }
+
+  enable = async () => {
+    const { web3Enable } = await import('@polkadot/extension-dapp');
+    const injectedExtensions = await web3Enable(DAPP_NAME);
+    const extension = injectedExtensions.find(
+      (ext) => ext.name === this.extensionName
+    );
+
+    this._extension = extension;
+    this._signer = extension?.signer;
+    this._installed = !!extension;
+  };
 
   subscribeAccounts = async (callback: SubscriptionFn) => {
     // const { web3Enable } = await import('@talismn/dapp-connect'); // TODO: Figure out exports error

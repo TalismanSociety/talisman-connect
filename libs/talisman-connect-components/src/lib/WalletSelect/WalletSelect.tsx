@@ -11,7 +11,9 @@ export interface WalletSelectProps {
   onWalletConnectClose?: () => unknown;
   onWalletSelected?: (wallet: Wallet) => unknown;
   onUpdatedAccounts?: (accounts: WalletAccount[] | undefined) => unknown;
-  onAccountSelected: (account: WalletAccount) => unknown;
+
+  // If `onAccountSelected` is specified, then account selection modal will show up.
+  onAccountSelected?: (account: WalletAccount) => unknown;
 
   triggerComponent?: ReactElement<WalletConnectButtonProps>;
 }
@@ -124,7 +126,7 @@ export function WalletSelect(props: WalletSelectProps) {
   const [supportedWallets, setWallets] = useState<Wallet[]>();
   const [selectedWallet, setSelectedWallet] = useState<Wallet>();
   const [accounts, setAccounts] = useState<WalletAccount[] | undefined>();
-  const [loadingAccounts, setLoadingAccounts] = useState(false);
+  const [loadingAccounts, setLoadingAccounts] = useState<boolean | undefined>();
   const [unsubscribe, setUnsubscribe] = useState<() => unknown>();
 
   const [isOpen, setIsOpen] = useState(false);
@@ -139,23 +141,30 @@ export function WalletSelect(props: WalletSelectProps) {
     };
   });
 
-  console.log(`>>> accounts`, accounts);
+  const onModalClose = () => {
+    setIsOpen(false);
+    if (onWalletConnectClose) {
+      onWalletConnectClose();
+    }
+  };
+
+  const showAccountSelection = !!onAccountSelected;
 
   const accountsSelectionTitle = selectedWallet?.installed
     ? `Select ${selectedWallet?.title} account`
+    : loadingAccounts
+    ? `Loading...`
     : `Haven't got a wallet yet?`;
+
+  const title = !selectedWallet ? 'Connect wallet' : accountsSelectionTitle;
 
   const selectedWalletAccounts = accounts?.filter(
     (account) => account.source === selectedWallet?.extensionName
   );
 
-  const isNotInstalled = !loadingAccounts && !selectedWallet?.installed;
-  const hasNoAccountsFound =
-    !loadingAccounts &&
-    selectedWallet?.installed &&
-    !selectedWalletAccounts?.length;
+  const hasLoaded = loadingAccounts === false;
   const hasAccounts =
-    !loadingAccounts &&
+    hasLoaded &&
     selectedWallet?.installed &&
     selectedWalletAccounts &&
     selectedWalletAccounts?.length > 0;
@@ -176,100 +185,98 @@ export function WalletSelect(props: WalletSelectProps) {
         })}
       <Modal
         className={styles['modal-overrides']}
-        title={'Connect wallet'}
-        footer={<NoWalletLink />}
-        handleClose={() => {
-          setIsOpen(false);
-          if (onWalletConnectClose) {
-            onWalletConnectClose();
-          }
-        }}
-        isOpen={isOpen && !selectedWallet}
+        title={title}
+        footer={!selectedWallet && <NoWalletLink />}
+        handleClose={onModalClose}
+        handleBack={
+          selectedWallet ? () => setSelectedWallet(undefined) : undefined
+        }
+        isOpen={isOpen}
       >
-        <WalletList
-          items={supportedWallets}
-          onClick={async (wallet) => {
-            setLoadingAccounts(true);
-
-            setSelectedWallet(wallet);
-            if (onWalletSelected) {
-              onWalletSelected(wallet);
-            }
-
-            // Unsubscribe previous subscription before subscribing to a new one.
-            // unsubscribe?.();
-
-            // eslint-disable-next-line @typescript-eslint/no-explicit-any
-            const unsub: any = await wallet.subscribeAccounts((accounts) => {
-              setLoadingAccounts(false);
-              setAccounts(accounts);
-              if (onUpdatedAccounts) {
-                onUpdatedAccounts(accounts);
+        {!selectedWallet && (
+          <WalletList
+            items={supportedWallets}
+            onClick={async (wallet) => {
+              setLoadingAccounts(true);
+              setSelectedWallet(wallet);
+              // await wallet.enable();
+              if (onWalletSelected) {
+                onWalletSelected(wallet);
               }
-            });
 
-            setUnsubscribe(unsub);
-          }}
-        />
-      </Modal>
-      <Modal
-        className={styles['modal-overrides']}
-        title={loadingAccounts ? 'Loading...' : accountsSelectionTitle}
-        handleClose={() => {
-          setIsOpen(false);
-          setSelectedWallet(undefined);
-          if (onWalletConnectClose) {
-            onWalletConnectClose();
-          }
-        }}
-        handleBack={() => setSelectedWallet(undefined)}
-        isOpen={!!selectedWallet}
-      >
-        {loadingAccounts && <AccountList skeleton />}
-        {isNotInstalled && (
-          <>
-            <div className={styles['no-extension-message']}>
-              {selectedWallet?.noExtensionMessage}
-            </div>
-            <a
-              className={styles['row-button']}
-              href={selectedWallet?.installUrl}
-              target="_blank"
-              rel="noreferrer noopener"
-            >
-              <button className={styles['row-button']}>
-                <span className={styles['flex']}>
-                  <img
-                    src={selectedWallet?.logo.src}
-                    alt={selectedWallet?.logo.alt}
-                    width={32}
-                    height={32}
-                  />
-                  Install {selectedWallet?.title}
-                </span>
-                <ChevronRightIcon />
-              </button>
-            </a>
-          </>
-        )}
-        {hasNoAccountsFound && (
-          <div>
-            <div>No accounts found.</div>
-            <div>Add an account in {selectedWallet?.title} to get started.</div>
-          </div>
-        )}
-        {hasAccounts && (
-          <AccountList
-            items={selectedWalletAccounts}
-            onClick={(account) => {
-              if (onAccountSelected) {
-                onAccountSelected(account);
+              // eslint-disable-next-line @typescript-eslint/no-explicit-any
+              const unsub: any = await wallet.subscribeAccounts((accounts) => {
+                setLoadingAccounts(false);
+                setAccounts(accounts);
+                if (onUpdatedAccounts) {
+                  onUpdatedAccounts(accounts);
+                }
+              });
+
+              setUnsubscribe(unsub);
+
+              if (!showAccountSelection && wallet.installed) {
+                setSelectedWallet(undefined);
+                setIsOpen(false);
               }
-              setIsOpen(false);
-              setSelectedWallet(undefined);
             }}
           />
         )}
+        {selectedWallet && loadingAccounts && <AccountList skeleton />}
+        {selectedWallet &&
+          !selectedWallet?.installed &&
+          loadingAccounts === false && (
+            <>
+              <div className={styles['no-extension-message']}>
+                {selectedWallet?.noExtensionMessage}
+              </div>
+              <a
+                className={styles['row-button']}
+                href={selectedWallet?.installUrl}
+                target="_blank"
+                rel="noreferrer noopener"
+              >
+                <button className={styles['row-button']}>
+                  <span className={styles['flex']}>
+                    <img
+                      src={selectedWallet?.logo.src}
+                      alt={selectedWallet?.logo.alt}
+                      width={32}
+                      height={32}
+                    />
+                    Install {selectedWallet?.title}
+                  </span>
+                  <ChevronRightIcon />
+                </button>
+              </a>
+            </>
+          )}
+        {selectedWallet &&
+          selectedWallet?.installed &&
+          showAccountSelection &&
+          loadingAccounts === false && (
+            <>
+              {!hasAccounts && (
+                <div>
+                  <div>No accounts found.</div>
+                  <div>
+                    Add an account in {selectedWallet?.title} to get started.
+                  </div>
+                </div>
+              )}
+              {hasAccounts && (
+                <AccountList
+                  items={selectedWalletAccounts}
+                  onClick={(account) => {
+                    if (onAccountSelected) {
+                      onAccountSelected(account);
+                    }
+                    onModalClose();
+                  }}
+                />
+              )}
+            </>
+          )}
       </Modal>
     </div>
   );
