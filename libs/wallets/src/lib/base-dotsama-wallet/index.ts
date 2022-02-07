@@ -1,6 +1,7 @@
 import {
   InjectedExtension,
   InjectedAccountWithMeta,
+  InjectedAccount,
   InjectedWindow,
 } from '@polkadot/extension-inject/types';
 import type { Signer as InjectedSigner } from '@polkadot/api/types';
@@ -36,11 +37,25 @@ export class BaseDotsamaWallet implements Wallet {
   }
 
   enable = async () => {
-    const { web3Enable } = await import('@polkadot/extension-dapp');
-    const injectedExtensions = await web3Enable(DAPP_NAME);
-    const extension = injectedExtensions.find(
-      (ext) => ext.name === this.extensionName
-    );
+    const injectedWindow = window as Window & InjectedWindow;
+    const injectedExtension =
+      injectedWindow?.injectedWeb3?.[this.extensionName];
+
+    if (!injectedExtension) {
+      return;
+    }
+
+    const rawExtension = await injectedExtension?.enable(DAPP_NAME);
+    if (!rawExtension) {
+      return;
+    }
+
+    const extension: InjectedExtension = {
+      ...rawExtension,
+      // Manually add `InjectedExtensionInfo` so as to have a consistent response.
+      name: this.extensionName,
+      version: injectedExtension.version,
+    };
 
     this._extension = extension;
     this._signer = extension?.signer;
@@ -48,45 +63,29 @@ export class BaseDotsamaWallet implements Wallet {
   };
 
   subscribeAccounts = async (callback: SubscriptionFn) => {
-    // const { web3Enable } = await import('@talismn/dapp-connect'); // TODO: Figure out exports error
-    const { web3Enable, web3AccountsSubscribe, isWeb3Injected } = await import(
-      '@polkadot/extension-dapp'
-    );
+    if (!this._extension) {
+      await this?.enable();
+    }
 
-    const injectedWindow = window as Window & InjectedWindow;
-    const injectedExtension =
-      injectedWindow?.injectedWeb3?.[this.extensionName];
-    const isInstalled = isWeb3Injected && injectedExtension;
-
-    this._installed = !!isInstalled;
-
-    if (!isInstalled) {
+    if (!this._extension) {
       callback(undefined);
       return null;
     }
 
-    const injectedExtensions = await web3Enable(DAPP_NAME);
-    const extension = injectedExtensions.find(
-      (ext) => ext.name === this.extensionName
-    );
-
-    this._extension = extension;
-    this._signer = extension?.signer;
-
-    const unsubscribe = web3AccountsSubscribe((accounts) => {
-      const accountsWithWallet = accounts.map(
-        (account: InjectedAccountWithMeta) => {
+    const unsubscribe = this._extension.accounts.subscribe(
+      (accounts: InjectedAccount[]) => {
+        const accountsWithWallet = accounts.map((account) => {
           return {
             ...account,
-            name: account.meta.name,
-            source: account.meta.source,
+            source: this._extension?.name as string,
+            // Added extra fields here for convenience
             wallet: this,
-            signer: extension?.signer,
+            signer: this._extension?.signer,
           };
-        }
-      );
-      callback(accountsWithWallet);
-    });
+        });
+        callback(accountsWithWallet);
+      }
+    );
 
     return unsubscribe;
   };
