@@ -27,7 +27,7 @@ button.row-button {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 1rem;
+  padding: calc(var(--modal-gutter) * 0.5);
   border-radius: calc(var(--modal-border-radius) * 0.75);
   border: none;
   outline: none;
