@@ -23,6 +23,7 @@ export function Index() {
         // showAccountsList
         triggerComponent={
           <button
+            style={{ border: '1px solid black', padding: '1rem 1.5rem' }}
             onClick={(wallets) => {
               console.log(`>>> wallets`, wallets);
             }}
@@ -32,6 +33,7 @@ export function Index() {
         }
         onWalletSelected={(wallet) => {
           console.log(`>>> selected wallet`, wallet);
+          setSource(wallet.extensionName);
         }}
         onUpdatedAccounts={(accounts) => {
           console.log(`>>> accounts`, accounts);

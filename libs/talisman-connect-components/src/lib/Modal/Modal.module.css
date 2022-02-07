@@ -9,6 +9,7 @@
   justify-content: center;
   transition: all 0.3s ease-in-out;
   overflow: hidden;
+  z-index: var(--modal-z-index, 999);
 }
 
 .modal-content {

@@ -14,10 +14,7 @@
   --modal-max-height: var(--talisman-connect-modal-max-height, 320px);
   --modal-font-family: var(--talisman-connect-font-family, sans-serif);
 
-  --modal-button-background: var(
-    --talisman-connect-button-background,
-    var(--talisman-connect-control-background)
-  );
+  --modal-z-index: var(--talisman-connect-modal-z-index, 999);
 }
 
 .flex {

@@ -20,7 +20,6 @@ export class BaseDotsamaWallet implements Wallet {
 
   _extension: InjectedExtension | undefined;
   _signer: InjectedSigner | undefined;
-  _installed: boolean | undefined;
 
   // API docs: https://polkadot.js.org/docs/extension/
   get extension() {
@@ -33,18 +32,26 @@ export class BaseDotsamaWallet implements Wallet {
   }
 
   get installed() {
-    return this._installed;
-  }
-
-  enable = async () => {
     const injectedWindow = window as Window & InjectedWindow;
     const injectedExtension =
       injectedWindow?.injectedWeb3?.[this.extensionName];
 
-    if (!injectedExtension) {
+    return !!injectedExtension;
+  }
+
+  get rawExtension() {
+    const injectedWindow = window as Window & InjectedWindow;
+    const injectedExtension =
+      injectedWindow?.injectedWeb3?.[this.extensionName];
+    return injectedExtension;
+  }
+
+  enable = async () => {
+    if (!this.installed) {
       return;
     }
 
+    const injectedExtension = this.rawExtension;
     const rawExtension = await injectedExtension?.enable(DAPP_NAME);
     if (!rawExtension) {
       return;
@@ -59,7 +66,6 @@ export class BaseDotsamaWallet implements Wallet {
 
     this._extension = extension;
     this._signer = extension?.signer;
-    this._installed = !!extension;
   };
 
   subscribeAccounts = async (callback: SubscriptionFn) => {

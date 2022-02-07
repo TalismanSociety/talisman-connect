@@ -20,6 +20,7 @@
   --talisman-connect-modal-width: 90%;
   --talisman-connect-modal-max-width: 470px;
   --talisman-connect-modal-max-height: 470px;
+  --talisman-connect-modal-z-index: 999;
 
   --talisman-connect-button-gutter: 1rem;
   --talisman-connect-button-border-radius: 0.75rem;
