@@ -2,7 +2,6 @@ import { WalletAccount, Wallet, getWallets } from '@talisman-connect/wallets';
 import { cloneElement, ReactElement, useEffect, useState } from 'react';
 import Modal from '../../lib/Modal/Modal';
 import styles from './WalletSelect.module.css';
-import { useCheckSelectedWallet } from './useCheckSelectedWallet';
 import { NoWalletLink } from './NoWalletLink';
 import { WalletList } from './WalletList';
 import { ListSkeleton } from './ListSkeleton';
