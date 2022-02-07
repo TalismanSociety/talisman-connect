@@ -1,6 +1,6 @@
 {
   "name": "@talisman-connect/components",
-  "version": "0.0.19",
+  "version": "0.0.20",
   "dependencies": {
     "@talisman-connect/wallets": "latest"
   }

@@ -1,6 +1,5 @@
 import {
   InjectedExtension,
-  InjectedAccountWithMeta,
   InjectedAccount,
   InjectedWindow,
 } from '@polkadot/extension-inject/types';
