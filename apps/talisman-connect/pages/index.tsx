@@ -21,13 +21,13 @@ export function Index() {
       <Link href="/crowdloans">Go to Crowdloans</Link>
       <WalletSelect
         triggerComponent={
-          <WalletConnectButton
+          <button
             onClick={(wallets) => {
               console.log(`>>> wallets`, wallets);
             }}
           >
             Connect wallet
-          </WalletConnectButton>
+          </button>
         }
         onAccountSelected={(account) => {
           console.log(`>>> account selected`, account);

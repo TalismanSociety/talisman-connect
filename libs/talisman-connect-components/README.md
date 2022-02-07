@@ -15,13 +15,29 @@ import { WalletSelect } from '@talisman-connect/components';
 import '@talisman-connect/components/talisman-connect-components.esm.css';
 
 <WalletSelect
-  triggerComponent={}
+  triggerComponent={
+    <button
+      onClick={(wallets) => {
+        // Do stuff with the supported wallets
+      }}
+    >
+      Connect to wallet
+    </button>
+  }
   onWalletConnectOpen={}
   onWalletConnectClose={}
   onWalletSelected={}
   onUpdatedAccounts={}
   onAccountSelected={}
 />;
+```
+
+## Using the `WalletConnectButton` independently
+
+```tsx
+<WalletConnectButton onClick={(wallets) => {}}>
+  Connect wallet
+</WalletConnectButton>
 ```
 
 ## Overriding styles (Example)

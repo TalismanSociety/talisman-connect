@@ -1,4 +1,4 @@
-import { WalletAccount, Wallet } from '@talisman-connect/wallets';
+import { WalletAccount, Wallet, getWallets } from '@talisman-connect/wallets';
 import { cloneElement, ReactElement, useEffect, useState } from 'react';
 import Modal from '../../lib/Modal/Modal';
 import { ReactComponent as ChevronRightIcon } from '../../assets/icons/chevron-right.svg';
@@ -164,12 +164,14 @@ export function WalletSelect(props: WalletSelectProps) {
     <div>
       {triggerComponent &&
         cloneElement(triggerComponent, {
-          onClick: (wallets: Wallet[]) => {
+          onClick: () => {
+            const wallets = getWallets();
             setWallets(wallets);
             setIsOpen(true);
             if (onWalletConnectOpen) {
               onWalletConnectOpen(wallets);
             }
+            triggerComponent.props.onClick(wallets);
           },
         })}
       <Modal
