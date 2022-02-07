@@ -1,5 +1,13 @@
 import { WalletAccount, Wallet, getWallets } from '@talisman-connect/wallets';
-import { cloneElement, ReactElement, useEffect, useState } from 'react';
+import {
+  ButtonHTMLAttributes,
+  cloneElement,
+  ReactElement,
+  ReactHTMLElement,
+  ReactPropTypes,
+  useEffect,
+  useState,
+} from 'react';
 import Modal from '../../lib/Modal/Modal';
 import { ReactComponent as ChevronRightIcon } from '../../assets/icons/chevron-right.svg';
 import styles from './WalletSelect.module.css';
@@ -17,18 +25,21 @@ export interface WalletSelectProps {
   showAccountsList?: boolean;
 }
 
-function NoWalletLink() {
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+function NoWalletLink(props: any) {
   return (
-    <div
+    <button
       style={{
         textAlign: 'center',
+        textDecoration: 'underline',
         width: '100%',
         fontSize: 'small',
         opacity: 0.5,
       }}
+      onClick={props.onClick}
     >
-      <a href="/">I don't have a wallet</a>
-    </div>
+      I don't have a wallet
+    </button>
   );
 }
 
@@ -149,6 +160,30 @@ export function WalletSelect(props: WalletSelectProps) {
     }
   };
 
+  const onWalletListSelected = async (wallet: Wallet) => {
+    setLoadingAccounts(true);
+    setSelectedWallet(wallet);
+    if (onWalletSelected) {
+      onWalletSelected(wallet);
+    }
+
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const unsub: any = await wallet.subscribeAccounts((accounts) => {
+      setLoadingAccounts(false);
+      setAccounts(accounts);
+      if (onUpdatedAccounts) {
+        onUpdatedAccounts(accounts);
+      }
+    });
+
+    setUnsubscribe(unsub);
+
+    if (!showAccountsList && wallet.installed) {
+      setSelectedWallet(undefined);
+      setIsOpen(false);
+    }
+  };
+
   const accountsSelectionTitle = selectedWallet?.installed
     ? `Select ${selectedWallet?.title} account`
     : loadingAccounts
@@ -186,7 +221,17 @@ export function WalletSelect(props: WalletSelectProps) {
       <Modal
         className={styles['modal-overrides']}
         title={title}
-        footer={!selectedWallet && <NoWalletLink />}
+        footer={
+          !selectedWallet && (
+            <NoWalletLink
+              onClick={async () => {
+                // TODO: Figure out this flow. Blindly pointing to Talisman does not work.
+                // First one is top priority
+                await onWalletListSelected(supportedWallets?.[0] as Wallet);
+              }}
+            />
+          )
+        }
         handleClose={onModalClose}
         handleBack={
           selectedWallet ? () => setSelectedWallet(undefined) : undefined
@@ -194,32 +239,7 @@ export function WalletSelect(props: WalletSelectProps) {
         isOpen={isOpen}
       >
         {!selectedWallet && (
-          <WalletList
-            items={supportedWallets}
-            onClick={async (wallet) => {
-              setLoadingAccounts(true);
-              setSelectedWallet(wallet);
-              if (onWalletSelected) {
-                onWalletSelected(wallet);
-              }
-
-              // eslint-disable-next-line @typescript-eslint/no-explicit-any
-              const unsub: any = await wallet.subscribeAccounts((accounts) => {
-                setLoadingAccounts(false);
-                setAccounts(accounts);
-                if (onUpdatedAccounts) {
-                  onUpdatedAccounts(accounts);
-                }
-              });
-
-              setUnsubscribe(unsub);
-
-              if (!showAccountsList && wallet.installed) {
-                setSelectedWallet(undefined);
-                setIsOpen(false);
-              }
-            }}
-          />
+          <WalletList items={supportedWallets} onClick={onWalletListSelected} />
         )}
         {selectedWallet && showAccountsList && loadingAccounts && (
           <AccountList skeleton />
@@ -258,7 +278,7 @@ export function WalletSelect(props: WalletSelectProps) {
           loadingAccounts === false && (
             <>
               {!hasAccounts && (
-                <div>
+                <div className={styles['no-extension-message']}>
                   <div>No accounts found.</div>
                   <div>
                     Add an account in {selectedWallet?.title} to get started.
