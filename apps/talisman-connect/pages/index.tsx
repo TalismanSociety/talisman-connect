@@ -20,7 +20,7 @@ export function Index() {
     <div className={styles.page}>
       <Link href="/crowdloans">Go to Crowdloans</Link>
       <WalletSelect
-        showAccountsList
+        // showAccountsList
         triggerComponent={
           <button
             onClick={(wallets) => {

@@ -198,7 +198,6 @@ export function WalletSelect(props: WalletSelectProps) {
             onClick={async (wallet) => {
               setLoadingAccounts(true);
               setSelectedWallet(wallet);
-              // await wallet.enable();
               if (onWalletSelected) {
                 onWalletSelected(wallet);
               }
@@ -221,7 +220,9 @@ export function WalletSelect(props: WalletSelectProps) {
             }}
           />
         )}
-        {selectedWallet && loadingAccounts && <AccountList skeleton />}
+        {selectedWallet && showAccountsList && loadingAccounts && (
+          <AccountList skeleton />
+        )}
         {selectedWallet &&
           !selectedWallet?.installed &&
           loadingAccounts === false && (
