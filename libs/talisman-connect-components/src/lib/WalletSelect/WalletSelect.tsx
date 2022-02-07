@@ -11,11 +11,11 @@ export interface WalletSelectProps {
   onWalletConnectClose?: () => unknown;
   onWalletSelected?: (wallet: Wallet) => unknown;
   onUpdatedAccounts?: (accounts: WalletAccount[] | undefined) => unknown;
-
-  // If `onAccountSelected` is specified, then account selection modal will show up.
   onAccountSelected?: (account: WalletAccount) => unknown;
-
   triggerComponent?: ReactElement<WalletConnectButtonProps>;
+
+  // If `showAccountsList` is specified, then account selection modal will show up.
+  showAccountsList?: boolean;
 }
 
 function NoWalletLink() {
@@ -121,6 +121,7 @@ export function WalletSelect(props: WalletSelectProps) {
     onUpdatedAccounts,
     onAccountSelected,
     triggerComponent,
+    showAccountsList,
   } = props;
 
   const [supportedWallets, setWallets] = useState<Wallet[]>();
@@ -147,8 +148,6 @@ export function WalletSelect(props: WalletSelectProps) {
       onWalletConnectClose();
     }
   };
-
-  const showAccountSelection = !!onAccountSelected;
 
   const accountsSelectionTitle = selectedWallet?.installed
     ? `Select ${selectedWallet?.title} account`
@@ -215,7 +214,7 @@ export function WalletSelect(props: WalletSelectProps) {
 
               setUnsubscribe(unsub);
 
-              if (!showAccountSelection && wallet.installed) {
+              if (!showAccountsList && wallet.installed) {
                 setSelectedWallet(undefined);
                 setIsOpen(false);
               }
@@ -253,7 +252,7 @@ export function WalletSelect(props: WalletSelectProps) {
           )}
         {selectedWallet &&
           selectedWallet?.installed &&
-          showAccountSelection &&
+          showAccountsList &&
           loadingAccounts === false && (
             <>
               {!hasAccounts && (
