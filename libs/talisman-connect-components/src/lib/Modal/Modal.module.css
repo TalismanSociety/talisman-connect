@@ -12,6 +12,12 @@
   z-index: var(--modal-z-index, 999);
 }
 
+/* TODO: Need to observe svgs when imported and used. The default one breaks the svg sizes. */
+.modal svg {
+  width: unset;
+  height: unset;
+}
+
 .modal-content {
   box-sizing: border-box;
   font-family: var(--modal-font-family, inherit);
