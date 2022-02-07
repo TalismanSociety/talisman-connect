@@ -132,7 +132,7 @@ export function WalletSelect(props: WalletSelectProps) {
 
   const [isOpen, setIsOpen] = useState(false);
 
-  // Cleanup
+  // TODO: Proper Cleanup
   useEffect(() => {
     return () => {
       if (unsubscribe) {
