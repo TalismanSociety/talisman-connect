@@ -4,7 +4,6 @@ import Modal from '../../lib/Modal/Modal';
 import { ReactComponent as ChevronRightIcon } from '../../assets/icons/chevron-right.svg';
 import styles from './WalletSelect.module.css';
 import { truncateMiddle } from '../../utils/truncateMiddle';
-import { WalletConnectButtonProps } from '../WalletConnectButton/WalletConnectButton';
 
 export interface WalletSelectProps {
   onWalletConnectOpen?: (wallets: Wallet[]) => unknown;
@@ -12,7 +11,7 @@ export interface WalletSelectProps {
   onWalletSelected?: (wallet: Wallet) => unknown;
   onUpdatedAccounts?: (accounts: WalletAccount[] | undefined) => unknown;
   onAccountSelected?: (account: WalletAccount) => unknown;
-  triggerComponent?: ReactElement<WalletConnectButtonProps>;
+  triggerComponent?: ReactElement;
 
   // If `showAccountsList` is specified, then account selection modal will show up.
   showAccountsList?: boolean;
@@ -173,7 +172,8 @@ export function WalletSelect(props: WalletSelectProps) {
     <>
       {triggerComponent &&
         cloneElement(triggerComponent, {
-          onClick: () => {
+          onClick: (e: Event) => {
+            e.stopPropagation();
             const wallets = getWallets();
             setWallets(wallets);
             setIsOpen(true);
