@@ -3,7 +3,7 @@ import { cloneElement, ReactElement, ReactNode } from 'react';
 import styles from './WalletConnectButton.module.css';
 
 export interface WalletConnectButtonProps {
-  onClick: (wallets: Wallet[]) => unknown;
+  onClick?: (wallets: Wallet[]) => unknown;
   children: ReactNode;
   className?: string;
   Component?: ReactElement;
