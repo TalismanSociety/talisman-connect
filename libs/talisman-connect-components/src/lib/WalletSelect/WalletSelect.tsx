@@ -179,7 +179,7 @@ export function WalletSelect(props: WalletSelectProps) {
             if (onWalletConnectOpen) {
               onWalletConnectOpen(wallets);
             }
-            triggerComponent.props.onClick(wallets);
+            triggerComponent.props.onClick?.(wallets);
           },
         })}
       <Modal
