@@ -169,7 +169,7 @@ export function WalletSelect(props: WalletSelectProps) {
     selectedWalletAccounts?.length > 0;
 
   return (
-    <div>
+    <>
       {triggerComponent &&
         cloneElement(triggerComponent, {
           onClick: () => {
@@ -278,7 +278,7 @@ export function WalletSelect(props: WalletSelectProps) {
             </>
           )}
       </Modal>
-    </div>
+    </>
   );
 }
 
