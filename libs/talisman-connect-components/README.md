@@ -40,6 +40,17 @@ import '@talisman-connect/components/talisman-connect-components.esm.css';
 </WalletConnectButton>
 ```
 
+## Events and persistence
+
+### `@talisman-connect/selected-wallet-name` (LocalStorage)
+
+Description: Updated on `WalletSelect.onWalletSelected`.
+
+### `@talisman-connect/wallet-selected` (CustomEvent)
+
+Description: Dispatched on `WalletSelect.onWalletSelected`.
+Params: `{ detail: Wallet }`
+
 ## Overriding styles (Example)
 
 NOTE: By default `WalletSelect` modal is appended in the `document.body`.

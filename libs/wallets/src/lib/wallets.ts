@@ -9,8 +9,15 @@ export function getWallets(): Wallet[] {
   return supportedWallets;
 }
 
-export function getWalletBySource(source: string): Wallet | undefined {
+export function getWalletBySource(
+  source: string | unknown
+): Wallet | undefined {
   return supportedWallets.find((wallet) => {
     return wallet.extensionName === source;
   });
+}
+
+export function isWalletInstalled(source: string | unknown): boolean {
+  const wallet = getWalletBySource(source);
+  return wallet?.installed as boolean;
 }

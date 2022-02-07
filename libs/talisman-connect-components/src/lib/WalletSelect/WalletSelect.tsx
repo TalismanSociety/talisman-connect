@@ -1,4 +1,9 @@
-import { WalletAccount, Wallet, getWallets } from '@talisman-connect/wallets';
+import {
+  WalletAccount,
+  Wallet,
+  getWallets,
+  isWalletInstalled,
+} from '@talisman-connect/wallets';
 import {
   ButtonHTMLAttributes,
   cloneElement,
@@ -143,11 +148,18 @@ export function WalletSelect(props: WalletSelectProps) {
 
   const [isOpen, setIsOpen] = useState(false);
 
-  // TODO: Proper Cleanup
   useEffect(() => {
+    // Check saved `@talisman-connect/selected-wallet-name`
+    // to see if the it is still installed or not.
+    const selectedName = localStorage.getItem(
+      '@talisman-connect/selected-wallet-name'
+    );
+    if (!isWalletInstalled(selectedName)) {
+      localStorage.removeItem('@talisman-connect/selected-wallet-name');
+    }
     return () => {
+      // TODO: Proper Cleanup
       if (unsubscribe) {
-        console.log(`>>> Cleanup`);
         unsubscribe();
       }
     };
@@ -166,6 +178,19 @@ export function WalletSelect(props: WalletSelectProps) {
     if (onWalletSelected) {
       onWalletSelected(wallet);
     }
+
+    localStorage.setItem(
+      '@talisman-connect/selected-wallet-name',
+      wallet.extensionName
+    );
+
+    const walletSelectedEvent = new CustomEvent(
+      '@talisman-connect/wallet-selected',
+      {
+        detail: wallet,
+      }
+    );
+    document.dispatchEvent(walletSelectedEvent);
 
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const unsub: any = await wallet.subscribeAccounts((accounts) => {
