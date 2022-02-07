@@ -47,7 +47,6 @@ export function WalletSelect(props: WalletSelectProps) {
     removeIfUninstalled();
     return () => {
       if (unsubscribe) {
-        console.log(`>>> unsubscribe`, unsubscribe);
         Object.values(unsubscribe).forEach((unsubscribeFn) => {
           unsubscribeFn?.();
         });
