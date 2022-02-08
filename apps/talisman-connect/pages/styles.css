@@ -13,7 +13,7 @@
   );
   --talisman-connect-button-foreground: inherit;
 
-  --talisman-connect-modal-gutter: 2rem;
+  /* --talisman-connect-modal-gutter: 2rem; */
   --talisman-connect-font-family: sans-serif;
   --talisman-connect-border-radius: 1rem;
 

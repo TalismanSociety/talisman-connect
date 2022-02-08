@@ -22,9 +22,9 @@
   box-sizing: border-box;
   font-family: var(--modal-font-family, inherit);
   background: var(--modal-background);
-  color: var(--modal-foreground);
+  color: var(--modal-foreground, #121212);
   border-radius: var(--modal-border-radius);
-  padding: var(--modal-gutter);
+  padding: var(--modal-gutter, '32px 30px');
   width: var(--modal-width, 90%);
   max-width: var(--modal-max-width, 470px);
   min-height: var(--modal-min-height, auto);
@@ -44,18 +44,21 @@
   grid-template-columns: 32px 1fr 32px;
   justify-items: center;
   align-items: center;
+  font-size: var(--modal-header-font-size, 1.5rem);
 }
 
 .modal-header::after {
   content: '';
   display: block;
-  margin-bottom: calc(var(--modal-gutter) * 0.5);
+  /* margin-bottom: calc(var(--modal-gutter) * 0.25); */
+  margin-bottom: var(--modal-gutter);
 }
 
 .modal-content-footer::before {
   content: '';
   display: block;
-  margin-top: calc(var(--modal-gutter) * 0.5);
+  /* margin-top: calc(var(--modal-gutter) * 0.25); */
+  margin-top: var(--modal-gutter);
 }
 
 button.icon-button {
@@ -66,4 +69,6 @@ button.icon-button {
   color: inherit;
   background: none;
   cursor: pointer;
+  display: inline-flex;
+  align-items: center;
 }

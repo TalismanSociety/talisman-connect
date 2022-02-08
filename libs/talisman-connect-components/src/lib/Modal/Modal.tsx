@@ -5,6 +5,7 @@ import { ReactComponent as XIcon } from '../../assets/icons/x.svg';
 import { ReactComponent as ChevronLeftIcon } from '../../assets/icons/chevron-left.svg';
 import styles from './Modal.module.css';
 
+// TODO: Move this to @talisman-connect/ui
 export interface ModalProps {
   title?: ReactNode;
   footer?: ReactNode;

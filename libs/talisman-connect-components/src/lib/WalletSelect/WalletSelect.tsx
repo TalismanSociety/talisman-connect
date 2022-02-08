@@ -130,17 +130,18 @@ export function WalletSelect(props: WalletSelectProps) {
       <Modal
         className={styles['modal-overrides']}
         title={title}
-        footer={
-          !selectedWallet && (
-            <NoWalletLink
-              onClick={async () => {
-                // TODO: Figure out this flow. Blindly pointing to Talisman does not work.
-                // First one is top priority
-                await onWalletListSelected(supportedWallets?.[0] as Wallet);
-              }}
-            />
-          )
-        }
+        // TODO: Remove for now. Will need to figure out a better UX for this.
+        // footer={
+        //   !selectedWallet && (
+        //     <NoWalletLink
+        //       onClick={async () => {
+        //         // TODO: Figure out this flow. Blindly pointing to Talisman does not work.
+        //         // First one is top priority
+        //         await onWalletListSelected(supportedWallets?.[0] as Wallet);
+        //       }}
+        //     />
+        //   )
+        // }
         handleClose={onModalClose}
         handleBack={
           selectedWallet ? () => setSelectedWallet(undefined) : undefined

@@ -13,6 +13,10 @@
   --modal-min-height: var(--talisman-connect-modal-min-height, auto);
   --modal-max-height: var(--talisman-connect-modal-max-height, 320px);
   --modal-font-family: var(--talisman-connect-font-family, sans-serif);
+  --modal-header-font-size: var(
+    --talisman-connect-modal-header-font-size,
+    1.5rem
+  );
 
   --modal-z-index: var(--talisman-connect-modal-z-index, 999);
 }
@@ -51,10 +55,5 @@ a.row-button {
 .no-extension-message {
   padding: 1rem 2rem 2rem;
   text-align: center;
-}
-
-@media (min-width: 768px) {
-  .no-extension-message {
-    padding: 1rem 6rem 2rem;
-  }
+  opacity: 0.7;
 }
