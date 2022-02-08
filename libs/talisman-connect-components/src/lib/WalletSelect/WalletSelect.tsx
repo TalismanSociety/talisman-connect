@@ -69,7 +69,9 @@ export function WalletSelect(props: WalletSelectProps) {
       onWalletSelected(wallet);
     }
 
-    saveAndDispatchWalletSelect(wallet);
+    if (wallet.installed) {
+      saveAndDispatchWalletSelect(wallet);
+    }
 
     const unsubscribeFn = unsubscribe?.[wallet.extensionName];
 

@@ -24,7 +24,6 @@ export function WalletList(props: ListWithClickProps<Wallet>) {
                 width={32}
                 height={32}
               />
-              {!wallet.installed && 'Try '}
               {wallet.title}
             </span>
             <ChevronRightIcon />
