@@ -2,14 +2,12 @@ import { WalletAccount, Wallet, getWallets } from '@talisman-connect/wallets';
 import { cloneElement, ReactElement, useEffect, useState } from 'react';
 import Modal from '../../lib/Modal/Modal';
 import styles from './WalletSelect.module.css';
-import { NoWalletLink } from './NoWalletLink';
 import { WalletList } from './WalletList';
 import { ListSkeleton } from './ListSkeleton';
 import { AccountList } from './AccountList';
 import { InstallExtension } from './InstallExtension';
 import { NoAccounts } from './NoAccounts';
 import { saveAndDispatchWalletSelect } from './saveAndDispatchWalletSelect';
-import { removeIfUninstalled } from './removeIfUninstalled';
 
 export interface WalletSelectProps {
   onWalletConnectOpen?: (wallets: Wallet[]) => unknown;
@@ -44,7 +42,10 @@ export function WalletSelect(props: WalletSelectProps) {
   const [isOpen, setIsOpen] = useState(false);
 
   useEffect(() => {
-    removeIfUninstalled();
+    // TODO: Commenting out for now.
+    // In the webapp, the `wallet.installed` is sometimes delayed for some reason.
+    // Will need to figure out how to solve this one.
+    // removeIfUninstalled();
     return () => {
       if (unsubscribe) {
         Object.values(unsubscribe).forEach((unsubscribeFn) => {
