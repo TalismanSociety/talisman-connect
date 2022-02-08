@@ -24,7 +24,7 @@ const supportedWallets = getWallets();
         <button
           onClick={() =>
             // save "selected" wallet
-            wallet.subscribe((accounts) => {
+            wallet.subscribeAccounts((accounts) => {
               // save accounts
             })
           }
