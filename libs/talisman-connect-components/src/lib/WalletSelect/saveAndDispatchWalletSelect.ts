@@ -12,5 +12,7 @@ export function saveAndDispatchWalletSelect(wallet: Wallet) {
       detail: wallet,
     }
   );
+
   document.dispatchEvent(walletSelectedEvent);
+  console.log(`>>> Event: @talisman-connect/wallet-selected`, wallet);
 }
