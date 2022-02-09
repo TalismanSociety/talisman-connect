@@ -85,10 +85,6 @@ export function WalletSelect(props: WalletSelectProps) {
     setLoadingAccounts(true);
     setSelectedWallet(wallet);
 
-    if (wallet.installed) {
-      saveAndDispatchWalletSelect(wallet);
-    }
-
     const unsubscribeFn = unsubscribe?.[wallet.extensionName];
 
     if (!unsubscribeFn) {
@@ -105,6 +101,10 @@ export function WalletSelect(props: WalletSelectProps) {
         setUnsubscribe({
           [wallet.extensionName]: unsub,
         });
+
+        if (wallet.installed) {
+          saveAndDispatchWalletSelect(wallet);
+        }
 
         if (!showAccountsList && wallet.installed) {
           onModalClose();
