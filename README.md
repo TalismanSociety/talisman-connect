@@ -71,3 +71,7 @@ npm publish --access public
 - WebComponents version
 - Github "Code of Conduct" for contributors
 - Licence
+
+**Long term**
+
+- Move other projects from different repos into this monorepo.
