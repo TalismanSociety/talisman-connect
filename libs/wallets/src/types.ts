@@ -1,3 +1,5 @@
+import { WalletError } from '.';
+
 export type SubscriptionFn = (
   accounts: WalletAccount[] | undefined
 ) => void | Promise<void>;
@@ -17,7 +19,7 @@ export interface WalletAccount {
   signer?: unknown;
 }
 
-export interface WalletData {
+interface WalletData {
   // The name of the wallet extension. Should match `Account.source`
   extensionName: string;
   // Display name for the wallet extension
@@ -30,7 +32,7 @@ export interface WalletData {
   logo: WalletLogoProps;
 }
 
-export interface WalletExtension {
+interface WalletExtension {
   installed: boolean | undefined;
 
   // The raw extension object which will have everything a dapp developer needs.
@@ -44,20 +46,25 @@ export interface WalletExtension {
   signer: any;
 }
 
-export interface Signer {
+interface Signer {
   // Sign function
   sign?: (address: string, payload: string) => unknown;
 }
 
-export interface Connector {
+interface Connector {
   enable: () => unknown;
 
   // The subscribe to accounts function
   subscribeAccounts: (callback: SubscriptionFn) => unknown;
 }
 
+interface WalletErrors {
+  transformError: (err: WalletError) => Error;
+}
+
 export interface Wallet
   extends WalletData,
     WalletExtension,
     Connector,
-    Signer {}
+    Signer,
+    WalletErrors {}

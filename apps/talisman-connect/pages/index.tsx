@@ -1,13 +1,15 @@
 import {
   truncateMiddle,
   useLocalStorage,
-  WalletConnectButton,
   WalletSelect,
 } from '@talisman-connect/components';
+import { BaseWalletError } from '@talisman-connect/wallets';
 import Link from 'next/link';
+import { useState } from 'react';
 import styles from './index.module.css';
 
 export function Index() {
+  const [error, setError] = useState<Error>();
   const [address, setAddress] = useLocalStorage(
     'talisman-connect/account.address'
   );
@@ -26,6 +28,7 @@ export function Index() {
             style={{ border: '1px solid black', padding: '1rem 1.5rem' }}
             onClick={(wallets) => {
               console.log(`>>> wallets`, wallets);
+              setError(null);
             }}
           >
             Connect wallet
@@ -38,6 +41,15 @@ export function Index() {
         onUpdatedAccounts={(accounts) => {
           console.log(`>>> accounts`, accounts);
         }}
+        onError={(err: Error) => {
+          setError(err);
+          console.log(
+            `>>> err`,
+            err?.name,
+            err?.message,
+            (err as BaseWalletError)?.wallet
+          );
+        }}
         // onAccountSelected={(account) => {
         //   console.log(`>>> account selected`, account);
         //   setAddress(account.address);
@@ -48,6 +60,7 @@ export function Index() {
       <div>Name: {name}</div>
       <div>Address: {truncateMiddle(address)}</div>
       <div>Source: {source}</div>
+      {error && <div style={{ color: 'red' }}>{error.message}</div>}
     </div>
   );
 }

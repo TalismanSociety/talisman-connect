@@ -5,6 +5,8 @@ import {
 } from '@polkadot/extension-inject/types';
 import type { Signer as InjectedSigner } from '@polkadot/api/types';
 import { SubscriptionFn, Wallet } from '../../types';
+import { AuthError } from '../errors/AuthError';
+import { BaseWalletError, WalletError } from '../errors/BaseWalletError';
 
 const DAPP_NAME = 'Talisman Connect'; // TODO: Get dapp name
 
@@ -45,26 +47,37 @@ export class BaseDotsamaWallet implements Wallet {
     return injectedExtension;
   }
 
+  transformError = (err: Error): WalletError | Error => {
+    if (err.message.includes('pending authorization request')) {
+      return new AuthError(err.message, this);
+    }
+    return err;
+  };
+
   enable = async () => {
     if (!this.installed) {
       return;
     }
 
-    const injectedExtension = this.rawExtension;
-    const rawExtension = await injectedExtension?.enable(DAPP_NAME);
-    if (!rawExtension) {
-      return;
+    try {
+      const injectedExtension = this.rawExtension;
+      const rawExtension = await injectedExtension?.enable(DAPP_NAME);
+      if (!rawExtension) {
+        return;
+      }
+
+      const extension: InjectedExtension = {
+        ...rawExtension,
+        // Manually add `InjectedExtensionInfo` so as to have a consistent response.
+        name: this.extensionName,
+        version: injectedExtension.version,
+      };
+
+      this._extension = extension;
+      this._signer = extension?.signer;
+    } catch (err) {
+      throw this.transformError(err as WalletError);
     }
-
-    const extension: InjectedExtension = {
-      ...rawExtension,
-      // Manually add `InjectedExtensionInfo` so as to have a consistent response.
-      name: this.extensionName,
-      version: injectedExtension.version,
-    };
-
-    this._extension = extension;
-    this._signer = extension?.signer;
   };
 
   subscribeAccounts = async (callback: SubscriptionFn) => {

@@ -3,7 +3,6 @@ import { cloneElement, ReactElement, useEffect, useState } from 'react';
 import Modal from '../../lib/Modal/Modal';
 import styles from './WalletSelect.module.css';
 import { WalletList } from './WalletList';
-import { ListSkeleton } from './ListSkeleton';
 import { AccountList } from './AccountList';
 import { InstallExtension } from './InstallExtension';
 import { NoAccounts } from './NoAccounts';
@@ -15,6 +14,7 @@ export interface WalletSelectProps {
   onWalletSelected?: (wallet: Wallet) => unknown;
   onUpdatedAccounts?: (accounts: WalletAccount[] | undefined) => unknown;
   onAccountSelected?: (account: WalletAccount) => unknown;
+  onError?: (error?: unknown) => unknown;
   triggerComponent?: ReactElement;
 
   // If `showAccountsList` is specified, then account selection modal will show up.
@@ -28,10 +28,12 @@ export function WalletSelect(props: WalletSelectProps) {
     onWalletSelected,
     onUpdatedAccounts,
     onAccountSelected,
+    onError,
     triggerComponent,
     showAccountsList,
   } = props;
 
+  const [error, setError] = useState<Error>();
   const [supportedWallets, setWallets] = useState<Wallet[]>();
   const [selectedWallet, setSelectedWallet] = useState<Wallet>();
   const [accounts, setAccounts] = useState<WalletAccount[] | undefined>();
@@ -55,19 +57,33 @@ export function WalletSelect(props: WalletSelectProps) {
     };
   });
 
+  // TODO: Do proper error clearing...
+  useEffect(() => {
+    if (!selectedWallet) {
+      setError(undefined);
+    }
+  }, [selectedWallet]);
+
+  // Update error on consumers...
+  useEffect(() => {
+    if (onError) {
+      onError(error || undefined);
+    }
+  }, [error, onError]);
+
   const onModalClose = () => {
     setIsOpen(false);
+    setSelectedWallet(undefined);
+    setError(undefined);
     if (onWalletConnectClose) {
       onWalletConnectClose();
     }
   };
 
   const onWalletListSelected = async (wallet: Wallet) => {
+    setError(undefined);
     setLoadingAccounts(true);
     setSelectedWallet(wallet);
-    if (onWalletSelected) {
-      onWalletSelected(wallet);
-    }
 
     if (wallet.installed) {
       saveAndDispatchWalletSelect(wallet);
@@ -76,31 +92,46 @@ export function WalletSelect(props: WalletSelectProps) {
     const unsubscribeFn = unsubscribe?.[wallet.extensionName];
 
     if (!unsubscribeFn) {
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      const unsub: any = await wallet.subscribeAccounts((accounts) => {
-        setLoadingAccounts(false);
-        setAccounts(accounts);
-        if (onUpdatedAccounts) {
-          onUpdatedAccounts(accounts);
-        }
-      });
+      try {
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        const unsub: any = await wallet.subscribeAccounts((accounts) => {
+          setLoadingAccounts(false);
+          setAccounts(accounts);
+          if (onUpdatedAccounts) {
+            onUpdatedAccounts(accounts);
+          }
+        });
 
-      setUnsubscribe({
-        [wallet.extensionName]: unsub,
-      });
+        setUnsubscribe({
+          [wallet.extensionName]: unsub,
+        });
+
+        if (!showAccountsList && wallet.installed) {
+          onModalClose();
+        }
+      } catch (err) {
+        setError(err as Error);
+        setLoadingAccounts(false);
+        onError?.(err);
+      }
     }
 
-    if (!showAccountsList && wallet.installed) {
-      setSelectedWallet(undefined);
-      setIsOpen(false);
+    if (onWalletSelected) {
+      onWalletSelected(wallet);
     }
   };
 
-  const accountsSelectionTitle = selectedWallet?.installed
-    ? `Select ${selectedWallet?.title} account`
-    : loadingAccounts
+  const installedTitle = error
+    ? `${selectedWallet?.title} error`
+    : `Select ${selectedWallet?.title} account`;
+
+  const uninstalledTitle = loadingAccounts
     ? `Loading...`
     : `Haven't got a wallet yet?`;
+
+  const accountsSelectionTitle = selectedWallet?.installed
+    ? installedTitle
+    : uninstalledTitle;
 
   const title = !selectedWallet ? 'Connect wallet' : accountsSelectionTitle;
 
@@ -124,10 +155,10 @@ export function WalletSelect(props: WalletSelectProps) {
             const wallets = getWallets();
             setWallets(wallets);
             setIsOpen(true);
+            triggerComponent.props.onClick?.(wallets);
             if (onWalletConnectOpen) {
               onWalletConnectOpen(wallets);
             }
-            triggerComponent.props.onClick?.(wallets);
           },
         })}
       <Modal
@@ -154,8 +185,16 @@ export function WalletSelect(props: WalletSelectProps) {
         {!selectedWallet && (
           <WalletList items={supportedWallets} onClick={onWalletListSelected} />
         )}
-        {selectedWallet && showAccountsList && loadingAccounts && (
-          <ListSkeleton />
+        {selectedWallet && loadingAccounts && (
+          <div
+            style={{
+              width: '100%',
+              display: 'inline-flex',
+              justifyContent: 'center',
+            }}
+          >
+            <div className={styles['lds-dual-ring']} />
+          </div>
         )}
         {selectedWallet &&
           !selectedWallet?.installed &&
@@ -181,6 +220,7 @@ export function WalletSelect(props: WalletSelectProps) {
               )}
             </>
           )}
+        {error && <div className={styles['message']}>{error.message}</div>}
       </Modal>
     </>
   );
