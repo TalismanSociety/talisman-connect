@@ -1,5 +1,13 @@
 # @talisman-connect/components
 
+This project aims to provide the components necessary for Dapp developers to be able to quickly and seamlessly provide essential Web3 functionalities.
+
+One example is the Wallet Connection UI which every Dapp developer will have to implement logic and edge cases of connecting to different wallets which may take days.
+
+The `WalletSelect` component will be a massive time saver for Dapp developers.
+
+More components will be developed along the way.
+
 ## Setup:
 
 ### npm
@@ -143,9 +151,14 @@ then `WalletSelect` will inherit the correct styles.
 }
 ```
 
-References:
-`@talisman-connect/wallets`
-`@talisman-connect/ui`
+## Adding new wallets into the `WalletSelect` Modal
+
+Refer to `@talisman-connect/wallets` for more details.
+
+## Dependencies:
+
+- `@talisman-connect/wallets`
+- `@talisman-connect/ui`
 
 ## Running unit tests
 
