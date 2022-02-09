@@ -56,6 +56,7 @@ npm publish --access public
 - `WalletSelect` support additional footer.
 - `WalletSelect` figure out "no wallet link".
 - `WalletConnectButton` maybe deprecate and remove.
+- Error UI (or Error Boundaries)
 
 **`@talisman-connect/wallets`**
 
