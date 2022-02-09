@@ -40,7 +40,33 @@ npm publish --access public
 
 ## TODO
 
+**Monorepo**:
+
 - Github actions for CI/CD publishing packages.
-- Add more reusable UI components and hooks into `@talisman-connect/ui`
+- Auto bump package.json version.
 - `.gif` support in `libs`
-- ...more
+- Export styles from `libs` properly
+
+**`@talisman-connect/ui`**
+
+- Add more reusable UI components and hooks
+
+**`@talisman-connect/components`**
+
+- `WalletSelect` support additional footer.
+- `WalletSelect` figure out "no wallet link".
+- `WalletConnectButton` maybe deprecate and remove.
+
+**`@talisman-connect/wallets`**
+
+- Figure out if we can move `@polkadot/extension-dapp` to peerDependecies.
+- Ditch `web3Enable` and replace with the a-la carte version.
+- Make `wallet.subscribeAccounts` emit a CustomEvent.
+- Make `wallet.enable` emit a CustomEvent.
+
+**General**
+
+- VueJS version
+- WebComponents version
+- Github "Code of Conduct" for contributors
+- Licence
