@@ -1,9 +1,9 @@
 import { ReactNode, useEffect, useRef, useState } from 'react';
 import { createPortal } from 'react-dom';
-import useOnClickOutside from '../useOnClickOutside/useOnClickOutside';
 import { ReactComponent as XIcon } from '../../assets/icons/x.svg';
 import { ReactComponent as ChevronLeftIcon } from '../../assets/icons/chevron-left.svg';
 import styles from './Modal.module.css';
+import useOnClickOutside from '../useOnClickOutside/useOnClickOutside';
 
 // TODO: Move this to @talisman-connect/ui
 export interface ModalProps {

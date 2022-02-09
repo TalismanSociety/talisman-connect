@@ -1,6 +1,6 @@
+import { truncateMiddle } from '@talisman-connect/ui';
 import { WalletAccount } from '@talisman-connect/wallets';
 import styles from './WalletSelect.module.css';
-import { truncateMiddle } from '../../utils/truncateMiddle';
 
 export function ListSkeleton() {
   const listItems = Array.from(

@@ -1,12 +1,12 @@
 import { WalletAccount, Wallet, getWallets } from '@talisman-connect/wallets';
 import { cloneElement, ReactElement, useEffect, useState } from 'react';
-import Modal from '../../lib/Modal/Modal';
 import styles from './WalletSelect.module.css';
 import { WalletList } from './WalletList';
 import { AccountList } from './AccountList';
 import { InstallExtension } from './InstallExtension';
 import { NoAccounts } from './NoAccounts';
 import { saveAndDispatchWalletSelect } from './saveAndDispatchWalletSelect';
+import { Modal } from '@talisman-connect/ui';
 
 export interface WalletSelectProps {
   onWalletConnectOpen?: (wallets: Wallet[]) => unknown;
