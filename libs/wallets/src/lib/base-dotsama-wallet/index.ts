@@ -6,7 +6,7 @@ import {
 import type { Signer as InjectedSigner } from '@polkadot/api/types';
 import { SubscriptionFn, Wallet } from '../../types';
 import { AuthError } from '../errors/AuthError';
-import { BaseWalletError, WalletError } from '../errors/BaseWalletError';
+import { WalletError } from '../errors/BaseWalletError';
 
 const DAPP_NAME = 'Talisman Connect'; // TODO: Get dapp name
 
