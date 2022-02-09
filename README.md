@@ -61,7 +61,6 @@ npm publish --access public
 **`@talisman-connect/wallets`**
 
 - Figure out if we can move `@polkadot/extension-dapp` to peerDependecies.
-- Ditch `web3Enable` and replace with the a-la carte version.
 - Make `wallet.subscribeAccounts` emit a CustomEvent.
 - Make `wallet.enable` emit a CustomEvent.
 
@@ -71,6 +70,7 @@ npm publish --access public
 - WebComponents version
 - Github "Code of Conduct" for contributors
 - Licence
+- Ditch `web3Enable` usage in Web App and replace with the a-la carte version.
 
 **Long term**
 
