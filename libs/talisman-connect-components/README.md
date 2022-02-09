@@ -3,7 +3,7 @@
 ## Installation:
 
 ```
-npm i --save @talisman-connect/components
+npm i --save @talisman-connect/components @talisman-connect/wallets @talisman-connect/ui
 ```
 
 ## Usage
@@ -11,8 +11,9 @@ npm i --save @talisman-connect/components
 ```tsx
 import { WalletSelect } from '@talisman-connect/components';
 
-// Need to import styles as well
+// Need to import styles as well, preferrable from the App level
 import '@talisman-connect/components/talisman-connect-components.esm.css';
+import '@talisman-connect/ui/talisman-connect-ui.esm.css';
 
 <WalletSelect
   triggerComponent={

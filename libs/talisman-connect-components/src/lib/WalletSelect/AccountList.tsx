@@ -1,8 +1,8 @@
 import { WalletAccount } from '@talisman-connect/wallets';
 import { ReactComponent as ChevronRightIcon } from '../../assets/icons/chevron-right.svg';
 import styles from './WalletSelect.module.css';
-import { truncateMiddle } from '../../utils/truncateMiddle';
 import { ListWithClickProps } from './types';
+import { truncateMiddle } from '@talisman-connect/ui';
 
 export function AccountList(props: ListWithClickProps<WalletAccount>) {
   const { items, onClick } = props;
