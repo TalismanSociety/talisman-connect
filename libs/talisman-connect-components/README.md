@@ -3,7 +3,7 @@
 ## Installation:
 
 ```
-npm i --save @talisman-connect/components
+npm i --save @talisman-connect/components @talisman-connect/wallets @talisman-connect/ui
 ```
 
 ## Usage
