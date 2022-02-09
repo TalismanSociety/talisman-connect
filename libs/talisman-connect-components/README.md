@@ -1,23 +1,36 @@
 # @talisman-connect/components
 
-## Installation:
+## Setup:
+
+### npm
 
 ```
 npm i --save @talisman-connect/components @talisman-connect/wallets @talisman-connect/ui
 ```
 
+### yarn
+
+```
+yarn add @talisman-connect/components @talisman-connect/wallets @talisman-connect/ui
+```
+
 ## Usage
+
+### [Important] Import styles from the App level
+
+```tsx
+import '@talisman-connect/components/talisman-connect-components.esm.css';
+import '@talisman-connect/ui/talisman-connect-ui.esm.css';
+```
 
 ```tsx
 import { WalletSelect } from '@talisman-connect/components';
 
-// Need to import styles as well, preferrable from the App level
-import '@talisman-connect/components/talisman-connect-components.esm.css';
-import '@talisman-connect/ui/talisman-connect-ui.esm.css';
-
 <WalletSelect
+  // The component that opens the WalletSelect Modal
   triggerComponent={
     <button
+      // `onClick` is optional here
       onClick={(wallets) => {
         // Do stuff with the supported wallets
       }}
@@ -25,40 +38,61 @@ import '@talisman-connect/ui/talisman-connect-ui.esm.css';
       Connect to wallet
     </button>
   }
-  onWalletConnectOpen={}
-  onWalletConnectClose={}
-  onWalletSelected={}
-  onUpdatedAccounts={}
-  onAccountSelected={}
+
+  // If `showAccountsList={true}`, then account selection modal will show up after selecting the a wallet. Default is `false`.
+  showAccountsList={false}
+
+  // Callback when the WalletSelect Modal is opened
+  onWalletConnectOpen={(wallets) => { ... }}
+
+  // Callback when the WalletSelect Modal is closed
+  onWalletConnectClose={() => { ... }}
+
+  // Callback when a wallet is selected on the WalletSelect Modal
+  onWalletSelected={(wallet) => { ... }}
+
+  // Callback when the subscribed accounts for a selected wallet are updated
+  onUpdatedAccounts={(accounts) => { ... }}
+
+  // Callback when an account is selected on the WalletSelect Account Modal. Only relevant when `showAccountsList=true`
+  onAccountSelected={(account) => { ... }}
+
+  // Callback when an error occurs. Also clears the error on Modal actions:
+  // `onWalletConnectOpen`, `onWalletSelected`, `onAccountSelected` and `onWalletConnectClose`,
+  onError={(error) => { ... }}
 />;
-```
-
-## Using the `WalletConnectButton` independently
-
-```tsx
-<WalletConnectButton onClick={(wallets) => {}}>
-  Connect wallet
-</WalletConnectButton>
 ```
 
 ## Events and persistence
 
 ### `@talisman-connect/selected-wallet-name` (LocalStorage)
 
-Description: Updated on `WalletSelect.onWalletSelected`.
+Description:
+Updated on `WalletSelect.onWalletSelected` ONLY if there are no errors for the selected wallet.
+
+Removing this item will be equivalent to a "disconnection" behaviour for Dapps.
 
 ### `@talisman-connect/wallet-selected` (CustomEvent)
 
-Description: Dispatched on `WalletSelect.onWalletSelected`.
+Description:
+Dispatched on `WalletSelect.onWalletSelected` ONLY if there are no errors for the selected wallet.
+
 Params: `{ detail: Wallet }`
+
+To listen to this event:
+
+```
+document.addEventListener('@talisman-connect/wallet-selected', function() {
+  // ...
+})
+```
 
 ## Overriding styles (Example)
 
-NOTE: By default `WalletSelect` modal is appended in the `document.body`.
+NOTE: By default `WalletSelect` modal is appended as the last child of `document.body`.
+
 So if your base styles (i.e `font-family`, `color`, etc.) are done from `html` and/or `body` for example,
 then `WalletSelect` will inherit the correct styles.
-
-Otherwise, if styles are done off some `div` inside the `body`, then provide the `appId` prop in `WalletSelect`.
 
 ```css
 :root {
@@ -109,19 +143,9 @@ Otherwise, if styles are done off some `div` inside the `body`, then provide the
 }
 ```
 
-## WalletSelect props
-
-```tsx
-interface WalletSelectProps {
-  onWalletConnectOpen?: (wallets: Wallet[]) => unknown;
-  onWalletConnectClose?: () => unknown;
-  onWalletSelected?: (wallet: Wallet) => unknown;
-  onUpdatedAccounts?: (accounts: WalletAccount[]) => unknown;
-  onAccountSelected: (account: WalletAccount) => unknown;
-}
-```
-
-NOTE: Refer to `@talisman-connect/wallets` for the underlying classes and logic
+References:
+`@talisman-connect/wallets`
+`@talisman-connect/ui`
 
 ## Running unit tests
 
