@@ -41,6 +41,6 @@ npm publish --access public
 ## TODO
 
 - Github actions for CI/CD publishing packages.
-- Add more reusable UI into `@talisman-connect/ui`
+- Add more reusable UI components and hooks into `@talisman-connect/ui`
 - `.gif` support in `libs`
 - ...more
