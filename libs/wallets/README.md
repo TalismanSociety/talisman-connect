@@ -1,12 +1,14 @@
 # @talisman-connect/wallets
 
-## Installation:
+## Setup:
 
 ```
 npm i --save @talisman-connect/wallets
 ```
 
-## Get wallets (Need to be called first):
+## `getWallets(): Wallet[]`
+
+Retrieves all the supported wallets. Needs to be called first before everything else.
 
 ```tsx
 import { getWallets } from '@talisman-connect/wallets';
@@ -14,7 +16,44 @@ import { getWallets } from '@talisman-connect/wallets';
 const supportedWallets = getWallets();
 ```
 
-## Subscribe to accounts:
+## `getWalletBySource(source: string): Wallet`
+
+Retrieves the wallet by extension name (source).
+Useful if `account` object is not available.
+
+## `wallet.extension`
+
+This is the main object that Dapp developers will need to interface.
+
+Refer to the appropriate documentation on what the object has to offer. Example `BaseDotsamaWallet.extension()`.
+
+## `wallet.signer`
+
+This is for convenience and is derived from the `wallet.extension`.
+
+## `wallet.enable()`
+
+Connects to the wallet extension.
+
+This will trigger the extension to pop-up if it's the first time being enabled.
+
+```tsx
+try {
+  await wallet.enable();
+} catch (err) {
+  // Handle error. Refer to `libs/wallets/src/lib/errors`
+}
+```
+
+## `wallet.subscribeAccounts(callback): UnsubscribeFn`
+
+Subscribe to the wallet's accounts.
+
+Internally, this calls `wallet.enable()` which is responsible for connecting to the wallet extension.
+
+`wallet.enable()` can be called independently before `wallet.subscribeAccounts`.
+
+NOTE: Call the returned `unsubscribe` function on unmount.
 
 ```tsx
 <div>
@@ -22,12 +61,16 @@ const supportedWallets = getWallets();
     return (
       <div key={wallet.extensionName}>
         <button
-          onClick={() =>
-            // save "selected" wallet
-            wallet.subscribeAccounts((accounts) => {
-              // save accounts
-            })
-          }
+          onClick={() => {
+            try {
+              // save "selected" wallet
+              const unsubscribe = await wallet.subscribeAccounts((accounts) => {
+                // save "accounts"
+              })
+            } catch (err) {
+              // Handle error. Refer to `libs/wallets/src/lib/errors`
+            }
+          }}
         >
         </button>
       </div>
@@ -36,21 +79,13 @@ const supportedWallets = getWallets();
 </div>
 ```
 
-## Display accounts: (`accounts` are saved via `useState`)
-
-```tsx
-<div>
-  {accounts?.map((account) => {
-    return <div key={account.address}>{account.address}</div>;
-  })}
-</div>
-```
-
 ## Using the `wallet` object (signing example):
 
 ```tsx
 try {
+  // NOTE: Can also use `getWalletBySource` to get the wallet then the signer.
   const signer = account.wallet.signer;
+
   // NOTE: This line will trigger the extension to pop up
   const { signature } = await signer.signRaw({
     type: 'payload',
@@ -62,14 +97,20 @@ catch (err) {
 }
 ```
 
+## Interfaces
+
+Refer to `libs/wallets/src/types.ts`.
+
 ## Contributing new wallets
 
-1. Add wallet under `/src/lib`.
-   Example: `/src/lib/foo-wallet/index.ts`
-2. Add `class` which implements `Wallet`.
-   Example: `export class FooWallet implements Wallet`
+1. Add wallet under `/src/lib`. (i.e. `/src/lib/foo-wallet/index.ts`)
+2. Add a `class` which implements `Wallet`. (i.e. `export class FooWallet implements Wallet`)
 3. Add the wallet instance in `supportedWallets` array in `libs/wallets/src/lib/wallets.ts`.
-4. IMPORTANT: The `logo` should not exceed 10KB so it will be automatically inlined.
+4. IMPORTANT: The `logo` should not exceed 10KB (will be inlined)
+
+NOTE: There may be 2 or more wallets that share a common wallet interface. It is recommended to create a base class in this case.
+
+Refer to `BaseDotsamaWallet` for an example base class and its derived classes.
 
 ## Troubleshooting
 
