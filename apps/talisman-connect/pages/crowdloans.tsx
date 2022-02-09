@@ -1,5 +1,5 @@
-import { truncateMiddle, WalletSelect } from '@talisman-connect/components';
-import { useLocalStorage } from '@talisman-connect/ui';
+import { WalletSelect } from '@talisman-connect/components';
+import { truncateMiddle, useLocalStorage } from '@talisman-connect/ui';
 import { getWalletBySource } from '@talisman-connect/wallets';
 import Link from 'next/link';
 import { useState } from 'react';
