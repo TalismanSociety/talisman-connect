@@ -47,6 +47,12 @@ import { WalletSelect } from '@talisman-connect/components';
     </button>
   }
 
+  // Override the default header
+  header={}
+
+  // Override the default footer
+  footer={}
+
   // If `showAccountsList={true}`, then account selection modal will show up after selecting the a wallet. Default is `false`.
   showAccountsList={false}
 

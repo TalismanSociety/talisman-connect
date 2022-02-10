@@ -1,5 +1,11 @@
 import { WalletAccount, Wallet, getWallets } from '@talisman-connect/wallets';
-import { cloneElement, ReactElement, useEffect, useState } from 'react';
+import {
+  cloneElement,
+  ReactElement,
+  ReactNode,
+  useEffect,
+  useState,
+} from 'react';
 import styles from './WalletSelect.module.css';
 import { WalletList } from './WalletList';
 import { AccountList } from './AccountList';
@@ -19,6 +25,9 @@ export interface WalletSelectProps {
 
   // If `showAccountsList` is specified, then account selection modal will show up.
   showAccountsList?: boolean;
+
+  header?: ReactNode;
+  footer?: ReactNode;
 }
 
 export function WalletSelect(props: WalletSelectProps) {
@@ -31,6 +40,8 @@ export function WalletSelect(props: WalletSelectProps) {
     onError,
     triggerComponent,
     showAccountsList,
+    header,
+    footer,
   } = props;
 
   const [error, setError] = useState<Error>();
@@ -133,7 +144,8 @@ export function WalletSelect(props: WalletSelectProps) {
     ? installedTitle
     : uninstalledTitle;
 
-  const title = !selectedWallet ? 'Connect wallet' : accountsSelectionTitle;
+  const defaultTitle = header || 'Connect wallet';
+  const modalTitle = !selectedWallet ? defaultTitle : accountsSelectionTitle;
 
   const selectedWalletAccounts = accounts?.filter(
     (account) => account.source === selectedWallet?.extensionName
@@ -163,7 +175,7 @@ export function WalletSelect(props: WalletSelectProps) {
         })}
       <Modal
         className={styles['modal-overrides']}
-        title={title}
+        title={modalTitle}
         // TODO: Remove for now. Will need to figure out a better UX for this.
         // footer={
         //   !selectedWallet && (
@@ -176,6 +188,7 @@ export function WalletSelect(props: WalletSelectProps) {
         //     />
         //   )
         // }
+        footer={footer}
         handleClose={onModalClose}
         handleBack={
           selectedWallet ? () => setSelectedWallet(undefined) : undefined
