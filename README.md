@@ -4,9 +4,9 @@ This is the monorepo for the Talisman Connect project. Refer to the packages bel
 
 ## Packages
 
-- `@talisman-connect/components`
-- `@talisman-connect/wallets`
-- `@talisman-connect/ui`
+- [`@talisman-connect/components`](https://github.com/TalismanSociety/talisman-connect/tree/master/libs/talisman-connect-components)
+- [`@talisman-connect/wallets`](https://github.com/TalismanSociety/talisman-connect/tree/master/libs/talisman-connect-wallets)
+- [`@talisman-connect/ui`](https://github.com/TalismanSociety/talisman-connect/tree/master/libs/talisman-connect-ui)
 
 ## Setup
 
