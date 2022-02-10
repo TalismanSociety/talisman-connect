@@ -45,6 +45,7 @@
   justify-items: center;
   align-items: center;
   font-size: var(--modal-header-font-size, 1.5rem);
+  text-align: center;
 }
 
 .modal-header::after {
@@ -71,4 +72,6 @@ button.icon-button {
   cursor: pointer;
   display: inline-flex;
   align-items: center;
+  align-self: baseline;
+  opacity: 0.5;
 }

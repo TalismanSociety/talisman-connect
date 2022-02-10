@@ -4,6 +4,7 @@ import { BaseWalletError } from '@talisman-connect/wallets';
 import Link from 'next/link';
 import { useState } from 'react';
 import styles from './index.module.css';
+import { ReactComponent as Logo } from '../public/PolkadotLogo.svg';
 
 export function Index() {
   const [error, setError] = useState<Error>();
@@ -30,6 +31,27 @@ export function Index() {
           >
             Connect wallet
           </button>
+        }
+        header={
+          <>
+            <div>
+              <Logo width="48px" height="48px" />
+            </div>
+            <div>Connect Wallet</div>
+            <div style={{ opacity: 0.5, fontSize: 'small' }}>
+              To start using Talisman apps
+            </div>
+          </>
+        }
+        footer={
+          <div style={{ textAlign: 'center' }}>
+            <span style={{ opacity: 0.5 }}>
+              By connecting, I accept Talisman{' '}
+            </span>
+            <Link href="/crowdloans" passHref>
+              <a style={{ color: 'inherit' }}>Terms of service</a>
+            </Link>
+          </div>
         }
         onWalletSelected={(wallet) => {
           console.log(`>>> selected wallet`, wallet);

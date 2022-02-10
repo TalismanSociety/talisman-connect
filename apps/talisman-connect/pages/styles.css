@@ -15,7 +15,7 @@
 
   /* --talisman-connect-modal-gutter: 2rem; */
   --talisman-connect-font-family: sans-serif;
-  --talisman-connect-border-radius: 1rem;
+  --talisman-connect-border-radius: 1.5rem;
 
   --talisman-connect-modal-width: 90%;
   --talisman-connect-modal-max-width: 470px;
@@ -24,9 +24,9 @@
 
   --talisman-connect-button-gutter: 1rem;
   --talisman-connect-button-border-radius: 0.75rem;
-  /* }
+}
 
-.dark-mode { */
+.dark-mode {
   --talisman-connect-control-background: #383838;
   --talisman-connect-control-foreground: inherit;
   --talisman-connect-active-background: #5a5a5a;
