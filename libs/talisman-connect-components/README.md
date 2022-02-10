@@ -2,7 +2,7 @@
 
 This project aims to provide the components necessary for Dapp developers to be able to quickly and seamlessly provide essential Web3 functionalities.
 
-One example is the Wallet Connection UI which every Dapp developer will have to implement logic and edge cases of connecting to different wallets which may take days.
+One example is the Wallet Connection UI which every Dapp developer will have to implement logic and edge cases of connecting to different wallets which may take days to implement.
 
 The `WalletSelect` component will be a massive time saver for Dapp developers.
 
