@@ -159,12 +159,12 @@ then `WalletSelect` will inherit the correct styles.
 
 ## Adding new wallets into the `WalletSelect` Modal
 
-Refer to `@talisman-connect/wallets` for more details.
+Refer to [`@talisman-connect/wallets`](https://github.com/TalismanSociety/talisman-connect/tree/master/libs/talisman-connect-wallets) for more details.
 
 ## Dependencies:
 
-- `@talisman-connect/wallets`
-- `@talisman-connect/ui`
+- [`@talisman-connect/wallets`](https://github.com/TalismanSociety/talisman-connect/tree/master/libs/talisman-connect-wallets)
+- [`@talisman-connect/ui`](https://github.com/TalismanSociety/talisman-connect/tree/master/libs/talisman-connect-ui)
 
 ## Running unit tests
 
