@@ -21,6 +21,27 @@ Run app on `localhost:4200`.
 
 This is a barebones Dapp that showcases the `WalletSelect` Modal which uses the packages above.
 
+## Troubleshooting
+
+### Talisman Extension (< 0.9.1) not detected by `WalletSelect` Modal
+
+Steps to enable localhost Talisman Extension:
+0. Ensure Talisman Extension is installed and browser refreshed after install.
+1. Open manifest.json in the extension folder.
+2. Append `http://localhost:*/*` to wherever there’s `https://*/*`.
+```
+Example:
+  "content_scripts": [
+    {
+      "matches": ["https://*/*", "http://localhost:*/*"],
+    }
+  ],
+  "permissions": ["https://*/*", "http://localhost:*/*", "storage", "tabs"],
+```
+3. On chrome://extensions (or brave://extensions), reload the Talisman extension.
+4. On your Dapp, refresh the browser.
+
+
 ## Build
 
 NOTE: Dependencies will be added as `peerDependencies`
