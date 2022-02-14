@@ -26,6 +26,7 @@ This is a barebones Dapp that showcases the `WalletSelect` Modal which uses the 
 ### Talisman Extension (< 0.9.1) not detected by `WalletSelect` Modal
 
 Steps to enable localhost Talisman Extension:
+
 0. Ensure Talisman Extension is installed and browser refreshed after install.
 1. Open manifest.json in the extension folder.
 2. Append `http://localhost:*/*` to wherever there’s `https://*/*`.
