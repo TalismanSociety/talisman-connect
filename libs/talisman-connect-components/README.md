@@ -77,6 +77,30 @@ import { WalletSelect } from '@talisman-connect/components';
 />;
 ```
 
+## Remove `web3Enable` (and replace related functions)
+
+If there are multiple PolkadotJS based browser extensions installed,
+the `web3Enable` function will trigger multiple pop ups as well.
+
+This is not ideal for dapps that have one wallet active at one time.
+So we need to remove calls to `web3Enable`.
+
+Related functions like `web3FromAddress` or `web3FromSource` will not work anymore once `web3Enable` is removed.
+
+Replace the `web3*` functions with the following for now.
+```
+import { getWalletBySource } from '@talisman-connect/wallets'
+
+// As this is a single-wallet interface, the addresses retrieved here belongs to the same wallet.
+// Therefore, it is ok to get the wallet from the one saved in localstorage.
+const selectedWalletName = localStorage.getItem('@talisman-connect/selected-wallet-name')
+const wallet = getWalletBySource(selectedWalletName as string)
+const injector = wallet?.extension
+```
+
+This will be abstracted away in a function in the next release.
+
+
 ## Events and persistence
 
 ### `@talisman-connect/selected-wallet-name` (LocalStorage)
