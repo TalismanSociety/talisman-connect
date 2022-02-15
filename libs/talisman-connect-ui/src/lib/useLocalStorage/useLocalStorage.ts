@@ -9,7 +9,11 @@ export function useLocalStorage(
     const item =
       typeof window !== 'undefined' ? window.localStorage.getItem(key) : false;
     if (item) {
-      setStoredValue(JSON.parse(item));
+      try {
+        setStoredValue(JSON.parse(item));
+      } catch (err) {
+        setStoredValue(item);
+      }
     }
   }, [key, setStoredValue]);
 

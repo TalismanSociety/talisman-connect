@@ -6,17 +6,11 @@ One example is the Wallet Connection UI which every Dapp developer will have to 
 
 The `WalletSelect` component will be a massive time saver for Dapp developers.
 
+If you have an existing modal, the `WalletSelectButton` might be better suited to your needs.
+
 More components will be developed along the way.
 
 ## Setup:
-
-### npm
-
-```
-npm i --save @talisman-connect/components @talisman-connect/wallets @talisman-connect/ui
-```
-
-### yarn
 
 ```
 yarn add @talisman-connect/components @talisman-connect/wallets @talisman-connect/ui
@@ -30,6 +24,25 @@ yarn add @talisman-connect/components @talisman-connect/wallets @talisman-connec
 import '@talisman-connect/components/talisman-connect-components.esm.css';
 import '@talisman-connect/ui/talisman-connect-ui.esm.css';
 ```
+
+### [Important] Replace related functions from `@polkadot/extension-dapp`
+
+If there are multiple PolkadotJS based browser extensions installed,
+the `web3Enable` function will trigger multiple popups as well.
+
+This is not ideal for dapps that have one wallet active at one time.
+
+So we need to remove calls to `web3Enable`.
+
+However, calls to `web3*` functions from `@polkadot/extension-dapp` will not work anymore once `web3Enable` is removed.
+
+Only `web3FromSource` has a drop-in replacement for now. Please see below for an example.
+
+If you have calls to `web3FromAddress`, do note that `web3FromSource` will suffice as all the addresses will be from the same "source" anyway.
+
+### WalletSelect
+
+This component is the wallet selection modal.
 
 ```tsx
 import { WalletSelect } from '@talisman-connect/components';
@@ -77,29 +90,44 @@ import { WalletSelect } from '@talisman-connect/components';
 />;
 ```
 
-## Remove `web3Enable` (and replace related functions)
+### web3FromSource
 
-If there are multiple PolkadotJS based browser extensions installed,
-the `web3Enable` function will trigger multiple pop ups as well.
+This function is a drop-in replacement for the `@polkadot/extension-dapp` version which triggers multiple popups.
 
-This is not ideal for dapps that have one wallet active at one time.
-So we need to remove calls to `web3Enable`.
+This uses the localStorage value for `@talisman-connect/selected-wallet-name` which is updated by `WalletSelect` or `WalletSelectButton` and retrieves the extension object.
 
-Related functions like `web3FromAddress` or `web3FromSource` will not work anymore once `web3Enable` is removed.
+```tsx
+import { web3FromSource } from '@talisman-connect/components';
 
-Replace the `web3*` functions with the following for now.
-```
-import { getWalletBySource } from '@talisman-connect/wallets'
-
-// As this is a single-wallet interface, the addresses retrieved here belongs to the same wallet.
-// Therefore, it is ok to get the wallet from the one saved in localstorage.
-const selectedWalletName = localStorage.getItem('@talisman-connect/selected-wallet-name')
-const wallet = getWalletBySource(selectedWalletName as string)
-const injector = wallet?.extension
+// This is the object that cointains the `signer` amongs all others.
+const injector = web3FromSource();
 ```
 
-This will be abstracted away in a function in the next release.
+### WalletSelectButton (WIP)
 
+This component is the actual wallet selector. You can use this is if you have an existing modal. However, we do recommend using `WalletSelect` in general.
+
+```tsx
+import { WalletSelectButton } from '@talisman-connect/components';
+import { TalismanWallet } from '@talisman-connect/wallets';
+
+const talismanWallet = new TalismanWallet();
+
+<WalletSelectButton
+  wallet={talismanWallet}
+  onClick={(accounts) => {
+    // accounts === undefined is an Error state
+  }}
+>
+  <img
+    width={32}
+    height={32}
+    src={talismanWallet.logo.src}
+    alt={talismanWallet.logo.alt}
+  />
+  {talismanWallet.title}
+</WalletSelectButton>;
+```
 
 ## Events and persistence
 

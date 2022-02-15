@@ -1,13 +1,15 @@
-import { WalletSelect } from '@talisman-connect/components';
+import { WalletSelect, WalletSelectButton } from '@talisman-connect/components';
 import { truncateMiddle, useLocalStorage } from '@talisman-connect/ui';
-import { BaseWalletError } from '@talisman-connect/wallets';
+import { BaseWalletError, TalismanWallet } from '@talisman-connect/wallets';
 import Link from 'next/link';
+import Image from 'next/image';
 import { useState } from 'react';
 import styles from './index.module.css';
 import { ReactComponent as Logo } from '../public/PolkadotLogo.svg';
 
 export function Index() {
-  const [error, setError] = useState<Error>();
+  const [modalError, setModalError] = useState<Error>();
+  const [buttonError, setButtonError] = useState<Error>();
   const [address, setAddress] = useLocalStorage(
     'talisman-connect/account.address'
   );
@@ -16,9 +18,13 @@ export function Index() {
     'talisman-connect/account.source'
   );
 
+  const talismanWallet = new TalismanWallet();
+
   return (
     <div className={styles.page}>
-      <Link href="/crowdloans">Go to Crowdloans</Link>
+      <div>
+        <Link href="/crowdloans">Go to sign dummy message</Link>
+      </div>
       <WalletSelect
         // showAccountsList
         triggerComponent={
@@ -26,7 +32,7 @@ export function Index() {
             style={{ border: '1px solid black', padding: '1rem 1.5rem' }}
             onClick={(wallets) => {
               console.log(`>>> wallets`, wallets);
-              setError(null);
+              setModalError(null);
             }}
           >
             Connect wallet
@@ -61,7 +67,7 @@ export function Index() {
           console.log(`>>> accounts`, accounts);
         }}
         onError={(err: Error) => {
-          setError(err);
+          setModalError(err);
           console.log(
             `>>> err`,
             err?.name,
@@ -79,7 +85,41 @@ export function Index() {
       <div>Name: {name}</div>
       <div>Address: {truncateMiddle(address)}</div>
       <div>Source: {source}</div>
-      {error && <div style={{ color: 'red' }}>{error.message}</div>}
+      {modalError && <div style={{ color: 'red' }}>{modalError.message}</div>}
+      {buttonError && <div style={{ color: 'red' }}>{buttonError.message}</div>}
+
+      <div>
+        <WalletSelectButton
+          wallet={talismanWallet}
+          onClick={(accounts) => {
+            setButtonError(undefined);
+            console.log(`>>> accounts`, accounts);
+            if (!accounts) {
+              setButtonError(new Error('Not installed'));
+            }
+          }}
+        >
+          <div
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              border: '1px solid black',
+              padding: '0.5rem',
+              gap: '0.5rem',
+            }}
+          >
+            <span>
+              <Image
+                width={32}
+                height={32}
+                src={talismanWallet.logo.src}
+                alt={talismanWallet.logo.alt}
+              />
+            </span>
+            {talismanWallet.title}
+          </div>
+        </WalletSelectButton>
+      </div>
     </div>
   );
 }

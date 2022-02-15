@@ -19,7 +19,9 @@ export function Crowdloans(props: CrowdloansProps) {
   );
   return (
     <div>
-      <Link href="/">Home</Link>
+      <div>
+        <Link href="/">Home</Link>
+      </div>
       <WalletSelect
         showAccountsList
         triggerComponent={
