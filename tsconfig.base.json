@@ -18,6 +18,7 @@
       "@talisman-connect/components": [
         "libs/talisman-connect-components/src/index.ts"
       ],
+      "@talisman-connect/nft": ["libs/nft/src/index.ts"],
       "@talisman-connect/ui": ["libs/talisman-connect-ui/src/index.ts"],
       "@talisman-connect/wallets": ["libs/wallets/src/index.ts"]
     }

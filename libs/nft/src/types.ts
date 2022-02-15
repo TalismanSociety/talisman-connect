@@ -1,0 +1,3 @@
+interface NFTData {}
+
+interface NFT {}
