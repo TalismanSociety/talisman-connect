@@ -7,9 +7,9 @@ import type { Signer as InjectedSigner } from '@polkadot/api/types';
 import { SubscriptionFn, Wallet } from '../../types';
 import { AuthError } from '../errors/AuthError';
 import { WalletError } from '../errors/BaseWalletError';
+import { NotInstalledError } from '../errors/NotInstalledError';
 
-const DAPP_NAME = 'Talisman Connect'; // TODO: Get dapp name
-
+// TODO: Create a proper BaseWallet class to offload common checks
 export class BaseDotsamaWallet implements Wallet {
   extensionName = '';
   title = '';
@@ -54,16 +54,24 @@ export class BaseDotsamaWallet implements Wallet {
     return err;
   };
 
-  enable = async () => {
-    if (!this.installed) {
-      return;
+  enable = async (dappName: string) => {
+    if (!dappName) {
+      throw new Error('MissingParamsError: Dapp name is required.');
     }
-
+    if (!this.installed) {
+      throw new NotInstalledError(
+        `Refresh the browser if ${this.title} is already installed.`,
+        this
+      );
+    }
     try {
       const injectedExtension = this.rawExtension;
-      const rawExtension = await injectedExtension?.enable(DAPP_NAME);
+      const rawExtension = await injectedExtension?.enable(dappName);
       if (!rawExtension) {
-        return;
+        throw new NotInstalledError(
+          `${this.title} is installed but is not returned by the 'Wallet.enable(dappname)' function`,
+          this
+        );
       }
 
       const extension: InjectedExtension = {
@@ -82,14 +90,11 @@ export class BaseDotsamaWallet implements Wallet {
 
   subscribeAccounts = async (callback: SubscriptionFn) => {
     if (!this._extension) {
-      await this?.enable();
+      throw new NotInstalledError(
+        `The 'Wallet.enable(dappname)' function should be called first.`,
+        this
+      );
     }
-
-    if (!this._extension) {
-      callback(undefined);
-      return null;
-    }
-
     const unsubscribe = this._extension.accounts.subscribe(
       (accounts: InjectedAccount[]) => {
         const accountsWithWallet = accounts.map((account) => {

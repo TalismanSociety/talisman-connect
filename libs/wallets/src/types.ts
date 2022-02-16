@@ -20,7 +20,7 @@ export interface WalletAccount {
 }
 
 interface WalletData {
-  // The name of the wallet extension. Should match `Account.source`
+  // The name of the wallet extension. Should match `WalletAccount.source`
   extensionName: string;
   // Display name for the wallet extension
   title: string;
@@ -52,7 +52,7 @@ interface Signer {
 }
 
 interface Connector {
-  enable: () => unknown;
+  enable: (dappName: string) => unknown;
 
   // The subscribe to accounts function
   subscribeAccounts: (callback: SubscriptionFn) => unknown;

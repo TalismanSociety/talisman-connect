@@ -13,6 +13,7 @@ import {
 import styles from './WalletSelectButton.module.css';
 
 export interface WalletSelectButtonProps {
+  dappName: string;
   wallet: Wallet;
   onClick?: (accounts: WalletAccount[] | undefined) => unknown;
   onError?: (error?: unknown) => unknown;
@@ -31,6 +32,7 @@ export function WalletSelectButton(props: WalletSelectButtonProps) {
     children,
     Component,
     className = '',
+    dappName,
   } = props;
   const ConnectComponent = Component || <button />;
 
@@ -61,6 +63,7 @@ export function WalletSelectButton(props: WalletSelectButtonProps) {
           }
           if (!unsubsribe) {
             try {
+              await wallet.enable(dappName);
               const unsub = await wallet.subscribeAccounts(
                 (accounts: WalletAccount[] | undefined) => {
                   onClick?.(accounts);

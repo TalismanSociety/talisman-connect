@@ -57,6 +57,8 @@ a.row-button {
 }
 
 .message {
+  font-size: x-small;
+  margin: 1rem 2rem 0;
   text-align: center;
   opacity: 0.7;
 }
@@ -69,29 +71,4 @@ a.row-button {
   padding: 1rem 2rem 2rem;
   text-align: center;
   opacity: 0.7;
-}
-
-.lds-dual-ring {
-  display: inline-block;
-  width: auto;
-  height: 100%;
-}
-.lds-dual-ring:after {
-  content: ' ';
-  display: block;
-  width: 64px;
-  height: 64px;
-  margin: 8px;
-  border-radius: 50%;
-  border: 6px solid #fff;
-  border-color: #fff transparent #fff transparent;
-  animation: lds-dual-ring 1.2s linear infinite;
-}
-@keyframes lds-dual-ring {
-  0% {
-    transform: rotate(0deg);
-  }
-  100% {
-    transform: rotate(360deg);
-  }
 }

@@ -23,6 +23,7 @@ export function Crowdloans(props: CrowdloansProps) {
         <Link href="/">Home</Link>
       </div>
       <WalletSelect
+        dappName="Some other dapp"
         showAccountsList
         triggerComponent={
           <button

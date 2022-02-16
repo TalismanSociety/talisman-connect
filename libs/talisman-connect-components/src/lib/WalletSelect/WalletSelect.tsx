@@ -3,6 +3,7 @@ import {
   cloneElement,
   ReactElement,
   ReactNode,
+  useCallback,
   useEffect,
   useState,
 } from 'react';
@@ -13,8 +14,12 @@ import { InstallExtension } from './InstallExtension';
 import { NoAccounts } from './NoAccounts';
 import { saveAndDispatchWalletSelect } from './saveAndDispatchWalletSelect';
 import { Modal } from '@talisman-connect/ui';
+import { Loading } from './Loading';
 
 export interface WalletSelectProps {
+  dappName: string;
+  open?: boolean;
+
   onWalletConnectOpen?: (wallets: Wallet[]) => unknown;
   onWalletConnectClose?: () => unknown;
   onWalletSelected?: (wallet: Wallet) => unknown;
@@ -42,6 +47,8 @@ export function WalletSelect(props: WalletSelectProps) {
     showAccountsList,
     header,
     footer,
+    dappName,
+    open = false,
   } = props;
 
   const [error, setError] = useState<Error>();
@@ -53,6 +60,27 @@ export function WalletSelect(props: WalletSelectProps) {
     useState<Record<string, () => unknown>>();
 
   const [isOpen, setIsOpen] = useState(false);
+
+  const onModalOpen = useCallback(() => {
+    const wallets = getWallets();
+    setWallets(wallets);
+    setIsOpen(true);
+    setLoadingAccounts(false);
+    if (onWalletConnectOpen) {
+      onWalletConnectOpen(wallets);
+    }
+    return wallets;
+  }, [onWalletConnectOpen]);
+
+  const onModalClose = useCallback(() => {
+    setIsOpen(false);
+    setSelectedWallet(undefined);
+    setError(undefined);
+    setLoadingAccounts(false);
+    if (onWalletConnectClose) {
+      onWalletConnectClose();
+    }
+  }, [onWalletConnectClose]);
 
   useEffect(() => {
     // TODO: Commenting out for now.
@@ -68,6 +96,12 @@ export function WalletSelect(props: WalletSelectProps) {
     };
   });
 
+  useEffect(() => {
+    if (open) {
+      onModalOpen();
+    }
+  }, [onModalOpen, open]);
+
   // TODO: Do proper error clearing...
   useEffect(() => {
     if (!selectedWallet) {
@@ -82,24 +116,15 @@ export function WalletSelect(props: WalletSelectProps) {
     }
   }, [error, onError]);
 
-  const onModalClose = () => {
-    setIsOpen(false);
-    setSelectedWallet(undefined);
-    setError(undefined);
-    if (onWalletConnectClose) {
-      onWalletConnectClose();
-    }
-  };
+  const onWalletListSelected = useCallback(
+    async (wallet: Wallet) => {
+      setError(undefined);
+      setSelectedWallet(wallet);
 
-  const onWalletListSelected = async (wallet: Wallet) => {
-    setError(undefined);
-    setLoadingAccounts(true);
-    setSelectedWallet(wallet);
-
-    const unsubscribeFn = unsubscribe?.[wallet.extensionName];
-
-    if (!unsubscribeFn) {
       try {
+        setLoadingAccounts(true);
+        await wallet.enable(dappName);
+
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
         const unsub: any = await wallet.subscribeAccounts((accounts) => {
           setLoadingAccounts(false);
@@ -125,12 +150,20 @@ export function WalletSelect(props: WalletSelectProps) {
         setLoadingAccounts(false);
         onError?.(err);
       }
-    }
 
-    if (onWalletSelected) {
-      onWalletSelected(wallet);
-    }
-  };
+      if (onWalletSelected) {
+        onWalletSelected(wallet);
+      }
+    },
+    [
+      dappName,
+      onError,
+      onModalClose,
+      onUpdatedAccounts,
+      onWalletSelected,
+      showAccountsList,
+    ]
+  );
 
   const installedTitle = error
     ? `${selectedWallet?.title} error`
@@ -164,30 +197,13 @@ export function WalletSelect(props: WalletSelectProps) {
         cloneElement(triggerComponent, {
           onClick: (e: Event) => {
             e.stopPropagation();
-            const wallets = getWallets();
-            setWallets(wallets);
-            setIsOpen(true);
+            const wallets = onModalOpen();
             triggerComponent.props.onClick?.(wallets);
-            if (onWalletConnectOpen) {
-              onWalletConnectOpen(wallets);
-            }
           },
         })}
       <Modal
         className={styles['modal-overrides']}
         title={modalTitle}
-        // TODO: Remove for now. Will need to figure out a better UX for this.
-        // footer={
-        //   !selectedWallet && (
-        //     <NoWalletLink
-        //       onClick={async () => {
-        //         // TODO: Figure out this flow. Blindly pointing to Talisman does not work.
-        //         // First one is top priority
-        //         await onWalletListSelected(supportedWallets?.[0] as Wallet);
-        //       }}
-        //     />
-        //   )
-        // }
         footer={footer}
         handleClose={onModalClose}
         handleBack={
@@ -198,17 +214,7 @@ export function WalletSelect(props: WalletSelectProps) {
         {!selectedWallet && (
           <WalletList items={supportedWallets} onClick={onWalletListSelected} />
         )}
-        {selectedWallet && loadingAccounts && (
-          <div
-            style={{
-              width: '100%',
-              display: 'inline-flex',
-              justifyContent: 'center',
-            }}
-          >
-            <div className={styles['lds-dual-ring']} />
-          </div>
-        )}
+        {selectedWallet && loadingAccounts && <Loading />}
         {selectedWallet &&
           !selectedWallet?.installed &&
           loadingAccounts === false && (

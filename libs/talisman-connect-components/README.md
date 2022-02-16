@@ -48,6 +48,12 @@ This component is the wallet selection modal.
 import { WalletSelect } from '@talisman-connect/components';
 
 <WalletSelect
+  // [Required] The dapp name
+  dappName="My First Dapp"
+
+  // Use if the dapp is controlling the modal toggle.
+  open={true}
+
   // The component that opens the WalletSelect Modal
   triggerComponent={
     <button
@@ -211,11 +217,11 @@ then `WalletSelect` will inherit the correct styles.
 
 ## Adding new wallets into the `WalletSelect` Modal
 
-Refer to [`@talisman-connect/wallets`](https://github.com/TalismanSociety/talisman-connect/tree/master/libs/talisman-connect-wallets) for more details.
+Refer to [`@talisman-connect/wallets`](https://github.com/TalismanSociety/talisman-connect/tree/master/libs/wallets) for more details.
 
 ## Dependencies:
 
-- [`@talisman-connect/wallets`](https://github.com/TalismanSociety/talisman-connect/tree/master/libs/talisman-connect-wallets)
+- [`@talisman-connect/wallets`](https://github.com/TalismanSociety/talisman-connect/tree/master/libs/wallets)
 - [`@talisman-connect/ui`](https://github.com/TalismanSociety/talisman-connect/tree/master/libs/talisman-connect-ui)
 
 ## Running unit tests
