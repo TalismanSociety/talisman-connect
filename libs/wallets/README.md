@@ -31,15 +31,15 @@ Refer to the appropriate documentation on what the object has to offer. Example 
 
 This is for convenience and is derived from the `wallet.extension`.
 
-## `wallet.enable()`
+## `wallet.enable(dappName)`
 
-Connects to the wallet extension.
+Needs to be called first before `subscribeAccounts`. Connects to the wallet extension.
 
 This will trigger the extension to pop-up if it's the first time being enabled.
 
 ```tsx
 try {
-  await wallet.enable();
+  await wallet.enable(dappName);
 } catch (err) {
   // Handle error. Refer to `libs/wallets/src/lib/errors`
 }
@@ -48,10 +48,6 @@ try {
 ## `wallet.subscribeAccounts(callback): UnsubscribeFn`
 
 Subscribe to the wallet's accounts.
-
-Internally, this calls `wallet.enable()` which is responsible for connecting to the wallet extension.
-
-`wallet.enable()` can be called independently before `wallet.subscribeAccounts`.
 
 NOTE: Call the returned `unsubscribe` function on unmount.
 
@@ -63,6 +59,8 @@ NOTE: Call the returned `unsubscribe` function on unmount.
         <button
           onClick={() => {
             try {
+              await wallet.enable(YOUR_DAPP_NAME);
+
               // save "selected" wallet
               const unsubscribe = await wallet.subscribeAccounts((accounts) => {
                 // save "accounts"

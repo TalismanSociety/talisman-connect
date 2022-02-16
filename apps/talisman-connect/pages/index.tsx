@@ -26,6 +26,8 @@ export function Index() {
         <Link href="/crowdloans">Go to sign dummy message</Link>
       </div>
       <WalletSelect
+        open
+        dappName="My First Dapp"
         // showAccountsList
         triggerComponent={
           <button
@@ -90,6 +92,7 @@ export function Index() {
 
       <div>
         <WalletSelectButton
+          dappName="My First Dapp (single button)"
           wallet={talismanWallet}
           onClick={(accounts) => {
             setButtonError(undefined);

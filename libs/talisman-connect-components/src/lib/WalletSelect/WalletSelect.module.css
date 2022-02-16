@@ -57,6 +57,8 @@ a.row-button {
 }
 
 .message {
+  font-size: x-small;
+  margin: 1rem 2rem 0;
   text-align: center;
   opacity: 0.7;
 }
@@ -78,13 +80,14 @@ a.row-button {
 }
 .lds-dual-ring:after {
   content: ' ';
+  opacity: 0.8;
   display: block;
   width: 64px;
   height: 64px;
   margin: 8px;
   border-radius: 50%;
-  border: 6px solid #fff;
-  border-color: #fff transparent #fff transparent;
+  border: 6px solid currentColor;
+  border-color: currentColor transparent currentColor transparent;
   animation: lds-dual-ring 1.2s linear infinite;
 }
 @keyframes lds-dual-ring {

@@ -5,7 +5,7 @@ This is the monorepo for the Talisman Connect project. Refer to the packages bel
 ## Packages
 
 - [`@talisman-connect/components`](https://github.com/TalismanSociety/talisman-connect/tree/master/libs/talisman-connect-components)
-- [`@talisman-connect/wallets`](https://github.com/TalismanSociety/talisman-connect/tree/master/libs/talisman-connect-wallets)
+- [`@talisman-connect/wallets`](https://github.com/TalismanSociety/talisman-connect/tree/master/libs/wallets)
 - [`@talisman-connect/ui`](https://github.com/TalismanSociety/talisman-connect/tree/master/libs/talisman-connect-ui)
 
 ## Setup
@@ -30,6 +30,7 @@ Steps to enable localhost Talisman Extension:
 0. Ensure Talisman Extension is installed and browser refreshed after install.
 1. Open manifest.json in the extension folder.
 2. Append `http://localhost:*/*` to wherever there’s `https://*/*`.
+
 ```
 Example:
   "content_scripts": [
@@ -39,9 +40,9 @@ Example:
   ],
   "permissions": ["https://*/*", "http://localhost:*/*", "storage", "tabs"],
 ```
+
 3. On chrome://extensions (or brave://extensions), reload the Talisman extension.
 4. On your Dapp, refresh the browser.
-
 
 ## Build
 
