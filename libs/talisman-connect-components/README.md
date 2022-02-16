@@ -224,6 +224,42 @@ Refer to [`@talisman-connect/wallets`](https://github.com/TalismanSociety/talism
 - [`@talisman-connect/wallets`](https://github.com/TalismanSociety/talisman-connect/tree/master/libs/wallets)
 - [`@talisman-connect/ui`](https://github.com/TalismanSociety/talisman-connect/tree/master/libs/talisman-connect-ui)
 
+## Troubleshooting
+
+If in case there is an error parsing `import.meta`, please add the following to webpack config:
+
+```js
+webpackConfig.module.rules.push({
+  test: /\.js$/,
+  loader: require.resolve('@open-wc/webpack-import-meta-loader'),
+});
+```
+
+For "unejected" Create React App projects, please see `craco.config.js` below:
+
+```
+// craco.config.js
+// Solution comes from https://polkadot.js.org/docs/usage/FAQ/#on-webpack-4-i-have-a-parse-error-on-importmetaurl
+const ImportMetaLoaderPlugin = {
+  plugin: {
+    overrideWebpackConfig: ({ webpackConfig }) => {
+      if (!webpackConfig.module) webpackConfig.module = { rules: [] };
+      if (!webpackConfig.module.rules) webpackConfig.module.rules = [];
+      webpackConfig.module.rules.push({
+        test: /\.js$/,
+        loader: require.resolve("@open-wc/webpack-import-meta-loader"),
+      });
+
+      return webpackConfig;
+    },
+  },
+};
+
+module.exports = {
+  plugins: [ImportMetaLoaderPlugin],
+};
+```
+
 ## Running unit tests
 
 Run `nx test talisman-connect-components` to execute the unit tests via [Jest](https://jestjs.io).

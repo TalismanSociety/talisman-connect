@@ -121,6 +121,31 @@ webpackConfig.module.rules.push({
 });
 ```
 
+For "unejected" Create React App projects, please see `craco.config.js` below:
+
+```
+// craco.config.js
+// Solution comes from https://polkadot.js.org/docs/usage/FAQ/#on-webpack-4-i-have-a-parse-error-on-importmetaurl
+const ImportMetaLoaderPlugin = {
+  plugin: {
+    overrideWebpackConfig: ({ webpackConfig }) => {
+      if (!webpackConfig.module) webpackConfig.module = { rules: [] };
+      if (!webpackConfig.module.rules) webpackConfig.module.rules = [];
+      webpackConfig.module.rules.push({
+        test: /\.js$/,
+        loader: require.resolve("@open-wc/webpack-import-meta-loader"),
+      });
+
+      return webpackConfig;
+    },
+  },
+};
+
+module.exports = {
+  plugins: [ImportMetaLoaderPlugin],
+};
+```
+
 ## Running unit tests
 
 Run `nx test wallets` to execute the unit tests via [Jest](https://jestjs.io).
