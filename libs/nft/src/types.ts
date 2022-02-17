@@ -1,3 +1,7 @@
-interface NFTData {}
+export interface NFTCollection {
+  items: NFT[];
+}
 
-interface NFT {}
+export interface NFT {
+  data: unknown;
+}

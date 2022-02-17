@@ -1,6 +1,7 @@
 import { WalletSelect } from '@talisman-connect/components';
 import { truncateMiddle, useLocalStorage } from '@talisman-connect/ui';
 import { getWalletBySource } from '@talisman-connect/wallets';
+import { NftImage, useNfts } from '@talisman-connect/nft';
 import Link from 'next/link';
 import { useState } from 'react';
 import './crowdloans.module.css';
@@ -17,11 +18,15 @@ export function Crowdloans(props: CrowdloansProps) {
   const [source, setSource] = useLocalStorage(
     'talisman-connect/account.source'
   );
+
+  const { nfts, isLoading } = useNfts(address);
+
   return (
     <div>
       <div>
         <Link href="/">Home</Link>
       </div>
+      <h2>WalletSelect with showAccountsList</h2>
       <WalletSelect
         dappName="Some other dapp"
         showAccountsList
@@ -42,6 +47,11 @@ export function Crowdloans(props: CrowdloansProps) {
           setSource(account.source);
         }}
       />
+      <p>Name: {name}</p>
+      <div>Address: {truncateMiddle(address)}</div>
+      <div>Source: {source}</div>
+
+      <h2>Example Signing</h2>
       <button
         style={{ border: '1px solid black', padding: '1rem 1.5rem' }}
         onClick={async () => {
@@ -63,10 +73,22 @@ export function Crowdloans(props: CrowdloansProps) {
       >
         Sign Dummy Message
       </button>
-      <div>Name: {name}</div>
-      <div>Address: {truncateMiddle(address)}</div>
-      <div>Source: {source}</div>
-      <div>Signature: {truncateMiddle(result, 10, 10)}</div>
+      <p>Signature: {truncateMiddle(result, 10, 10)}</p>
+
+      <h2>NFTs</h2>
+      {isLoading && <span>Loading NFTs...</span>}
+      {!isLoading && nfts?.length === 0 && (
+        <span>No NFTs on {truncateMiddle(address)}</span>
+      )}
+      {!isLoading &&
+        nfts?.map((nft) => {
+          return (
+            <div key={nft.id}>
+              <div>{nft.name}</div>
+              <NftImage metadataUrl={nft.metadata} />
+            </div>
+          );
+        })}
     </div>
   );
 }
