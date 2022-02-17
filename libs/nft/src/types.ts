@@ -1,7 +1,8 @@
-export interface NFTCollection {
-  items: NFT[];
-}
+import { ReactElement } from 'react';
 
-export interface NFT {
-  data: unknown;
+export interface NftElement {
+  metadataUrl: string;
+  LoaderComponent?: ReactElement;
+  FallbackComponent?: ReactElement;
+  ErrorComponent?: ReactElement;
 }

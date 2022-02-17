@@ -1,55 +1,36 @@
-import useContentType from '../useContentType/useContentType';
+import { DualRingLoader } from '@talisman-connect/ui';
+import { cloneElement, ImgHTMLAttributes } from 'react';
+import { NftElement } from '../../types';
 import useNftMetadata, { toWeb2Url } from '../useNftMetadata/useNftMetadata';
 import './NftImage.module.css';
 
-export interface NftImageProps {
-  metadataUrl: string;
-}
-
-function NftAsset(props: NftImageProps) {
-  const { metadataUrl } = props;
-  const { nftMetadata, isLoading, error } = useNftMetadata(metadataUrl);
-  const animationUrl = toWeb2Url(nftMetadata?.animation_url);
-  const { contentType = '' } = useContentType(animationUrl);
-
-  if (isLoading) {
-    return <>Loading NFT Asset...</>;
-  }
-
-  const [type] = contentType?.split('/') as string[];
-
-  console.log(`>>> aaaa`, type);
-
-  switch (type) {
-    case 'audio':
-      return <audio controls src={animationUrl} />;
-    case 'video':
-      return <video controls src={animationUrl} />;
-    default:
-      return null;
-  }
-}
+export interface NftImageProps
+  extends ImgHTMLAttributes<HTMLImageElement>,
+    NftElement {}
 
 export function NftImage(props: NftImageProps) {
-  const { metadataUrl } = props;
+  const { metadataUrl, LoaderComponent, ErrorComponent, ...imageProps } = props;
   const { nftMetadata, isLoading, error } = useNftMetadata(metadataUrl);
   const imageUrl = toWeb2Url(nftMetadata?.image);
-
+  if (isLoading) {
+    return LoaderComponent || <DualRingLoader />;
+  }
+  if (error) {
+    return ErrorComponent ? (
+      cloneElement(ErrorComponent, {
+        error,
+      })
+    ) : (
+      <span>{error?.message}</span>
+    );
+  }
   return (
-    <>
-      {isLoading && <span>Loading NFT Metadata...</span>}
-      {!isLoading && error && <span>Error...</span>}
-      {!isLoading && (
-        <img
-          src={imageUrl}
-          alt="TODO: NFT Name"
-          width="100%"
-          height="auto"
-          loading="lazy"
-        />
-      )}
-      <NftAsset {...props} />
-    </>
+    <img
+      src={imageUrl}
+      alt={nftMetadata?.name}
+      loading="lazy"
+      {...imageProps}
+    />
   );
 }
 
