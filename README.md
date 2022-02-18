@@ -81,6 +81,7 @@ npm publish --access public
 
 **Monorepo**:
 
+- Add styleguidist for automated components docs
 - Github actions for CI/CD publishing packages.
 - Auto bump package.json version.
 - `.gif` support in `libs`
@@ -108,8 +109,8 @@ npm publish --access public
 - VueJS version
 - WebComponents version
 - Github "Code of Conduct" for contributors
-- Licence
-- Ditch `web3Enable` usage in Web App and replace with the a-la carte version.
+- [DONE] Licence
+- [DONE] Ditch `web3Enable` usage in Web App and replace with the a-la carte version.
 
 **Long term**
 
