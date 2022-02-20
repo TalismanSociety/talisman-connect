@@ -1,99 +1,112 @@
 # @talisman-connect/wallets
 
+This package provides the building blocks for wallet connection UIs.
+
+Dapps currently use the `@polkadot/extension-dapp` package with `web3Enable`.
+
+While it is a great way to enable all wallets at once, it does cause multiple unnecessary wallet extension popups.
+
+This is not a problem when it was just Polkadot.js extension. But now with Talisman and possibly some other wallet extensions coming in, the multiple popups is not desirable.
+
+Furthermore, most use cases, one wallet is selected (and enabled) at one time.
+
+`@talisman-connect/wallets` aims to solve this issue.
+
 ## Setup:
 
 ```
 npm i --save @talisman-connect/wallets
 ```
 
-## `getWallets(): Wallet[]`
+## Quick Start:
 
-Retrieves all the supported wallets. Needs to be called first before everything else.
+### Wallet Selector UI
 
 ```tsx
 import { getWallets } from '@talisman-connect/wallets';
 
-const supportedWallets = getWallets();
-```
+const DAPP_NAME = /* Get Dapp name */
 
-## `getWalletBySource(source: string): Wallet`
+// ...
 
-Retrieves the wallet by extension name (source).
-Useful if `account` object is not available.
-
-## `wallet.extension`
-
-This is the main object that Dapp developers will need to interface.
-
-Refer to the appropriate documentation on what the object has to offer. Example `BaseDotsamaWallet.extension()`.
-
-## `wallet.signer`
-
-This is for convenience and is derived from the `wallet.extension`.
-
-## `wallet.enable(dappName)`
-
-Needs to be called first before `subscribeAccounts`. Connects to the wallet extension.
-
-This will trigger the extension to pop-up if it's the first time being enabled.
-
-```tsx
-try {
-  await wallet.enable(dappName);
-} catch (err) {
-  // Handle error. Refer to `libs/wallets/src/lib/errors`
-}
-```
-
-## `wallet.subscribeAccounts(callback): UnsubscribeFn`
-
-Subscribe to the wallet's accounts.
-
-NOTE: Call the returned `unsubscribe` function on unmount.
-
-```tsx
-<div>
-  {supportedWallets?.map((wallet) => {
-    return (
-      <div key={wallet.extensionName}>
+const MyWalletSelector = () => {
+  const supportedWallets: Wallet[] = getWallets();
+  return (
+    <div>
+      {supportedWallets.map((wallet: Wallet) => {
         <button
-          onClick={() => {
+          key={wallet.extensionName}
+          onClick={async () => {
             try {
-              await wallet.enable(YOUR_DAPP_NAME);
-
-              // save "selected" wallet
-              const unsubscribe = await wallet.subscribeAccounts((accounts) => {
-                // save "accounts"
-              })
+              await wallet.enable(DAPP_NAME);
+              const unsubscribe = await wallet.subscribeAccounts((accounts: WalletAccount[]) => {
+                // Save accounts...
+                // Also save the selected wallet name as well...
+              });
             } catch (err) {
               // Handle error. Refer to `libs/wallets/src/lib/errors`
             }
           }}
         >
+          Connect to {wallet.title}
         </button>
-      </div>
-    )
-  }}
-</div>
+      })}
+    <div>
+  );
+}
 ```
 
-## Using the `wallet` object (signing example):
+### Example: Signing a message
 
 ```tsx
 try {
-  // NOTE: Can also use `getWalletBySource` to get the wallet then the signer.
+  // NOTE: If `account` object is not handy, then use `getWalletBySource` to get the wallet then the signer.
   const signer = account.wallet.signer;
 
-  // NOTE: This line will trigger the extension to pop up
+  // NOTE: This line will trigger the extension popup
   const { signature } = await signer.signRaw({
     type: 'payload',
-    data: payload,
+    data: 'Some data to sign...',
     address: account.address,
   });
-catch (err) {
-  // handle error
+} catch (err) {
+  // Handle error...
 }
 ```
+
+## Functions
+
+### `getWallets(): Wallet[]`
+
+Retrieves all the supported wallets.
+
+### `getWalletBySource(source: string): Wallet`
+
+Retrieves the wallet by extension name (source). Useful if `account: WalletAccount` object is not available.
+
+### `wallet.enable(dappName)`
+
+Needs to be called first before `subscribeAccounts`. Connects to the wallet extension.
+
+This will trigger the extension to popup if it's the first time being enabled.
+
+### `wallet.subscribeAccounts(callback): UnsubscribeFn`
+
+Subscribe to the wallet's accounts.
+
+NOTE: Call the returned `unsubscribe` function on unmount.
+
+### `wallet.extension`
+
+This is the main object that Dapp developers will need to interface.
+
+Refer to the appropriate documentation on what the object has to offer.
+
+Example in `BaseDotsamaWallet.extension()`.
+
+### `wallet.signer`
+
+This is for convenience and is derived from the `wallet.extension`.
 
 ## Interfaces
 
