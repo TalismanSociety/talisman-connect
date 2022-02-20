@@ -4,16 +4,6 @@ This is the monorepo for the Talisman Connect project.
 
 This project aims to provide the components necessary for Dapp developers to be able to quickly and seamlessly provide essential Web3 functionalities.
 
-One example is the Wallet Connection UI which every Dapp developer will have to implement logic and edge cases of connecting to different wallets which may take days to implement.
-
-The `WalletSelect` component in `@talisman-connect/components` will be a massive time saver for Dapp developers without an existing wallet selection ui.
-
-If you have an existing modal, the `WalletSelectButton` in `@talisman-connect/components` may be better suited to your needs.
-
-If you require a bespoke ui modal, you can use the `@talisman-connect/wallets` to build out your own modal.
-
-More components will be developed along the way.
-
 Refer to the packages below for more details.
 
 ## Packages
