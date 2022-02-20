@@ -1,7 +1,4 @@
-:root {
-  /* ... other styles ... */
-
-  /* Light theme */
+/* :root {
   --talisman-connect-control-background: #f2f2f2;
   --talisman-connect-control-foreground: inherit;
   --talisman-connect-active-background: #e5e5e5;
@@ -13,7 +10,6 @@
   );
   --talisman-connect-button-foreground: inherit;
 
-  /* --talisman-connect-modal-gutter: 2rem; */
   --talisman-connect-font-family: sans-serif;
   --talisman-connect-border-radius: 1.5rem;
 
@@ -44,7 +40,7 @@
     --talisman-connect-modal-min-width: 470px;
     --talisman-connect-modal-max-width: 470px;
   }
-}
+} */
 
 /* Reset */
 button {

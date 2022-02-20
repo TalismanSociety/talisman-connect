@@ -35,6 +35,7 @@ export function Crowdloans(props: CrowdloansProps) {
             Choose wallet
           </button>
         }
+        header="Connect Wallet"
         onAccountSelected={(account) => {
           console.log(`>>> account selected`, account);
           setAddress(account.address);

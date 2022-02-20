@@ -1,6 +1,7 @@
 import { WalletAccount, Wallet, getWallets } from '@talisman-connect/wallets';
 import {
   cloneElement,
+  HTMLAttributes,
   ReactElement,
   ReactNode,
   useCallback,
@@ -15,10 +16,19 @@ import { NoAccounts } from './NoAccounts';
 import { saveAndDispatchWalletSelect } from './saveAndDispatchWalletSelect';
 import { Modal } from '@talisman-connect/ui';
 import { Loading } from './Loading';
+import { WalletSelectClasses } from './types';
 
-export interface WalletSelectProps {
+export interface WalletSelectProps extends HTMLAttributes<HTMLDivElement> {
   dappName: string;
   open?: boolean;
+  // If `showAccountsList` is specified, then account selection modal will show up.
+  showAccountsList?: boolean;
+
+  triggerComponent?: ReactElement;
+  header?: ReactNode;
+  footer?: ReactNode;
+
+  classes?: WalletSelectClasses;
 
   onWalletConnectOpen?: (wallets: Wallet[]) => unknown;
   onWalletConnectClose?: () => unknown;
@@ -26,17 +36,13 @@ export interface WalletSelectProps {
   onUpdatedAccounts?: (accounts: WalletAccount[] | undefined) => unknown;
   onAccountSelected?: (account: WalletAccount) => unknown;
   onError?: (error?: unknown) => unknown;
-  triggerComponent?: ReactElement;
-
-  // If `showAccountsList` is specified, then account selection modal will show up.
-  showAccountsList?: boolean;
-
-  header?: ReactNode;
-  footer?: ReactNode;
 }
 
 export function WalletSelect(props: WalletSelectProps) {
   const {
+    className = '',
+    style = {},
+    classes,
     onWalletConnectOpen,
     onWalletConnectClose,
     onWalletSelected,
@@ -178,7 +184,7 @@ export function WalletSelect(props: WalletSelectProps) {
     : uninstalledTitle;
 
   const defaultTitle = header || 'Connect wallet';
-  const modalTitle = !selectedWallet ? defaultTitle : accountsSelectionTitle;
+  const modalHeader = !selectedWallet ? defaultTitle : accountsSelectionTitle;
 
   const selectedWalletAccounts = accounts?.filter(
     (account) => account.source === selectedWallet?.extensionName
@@ -202,8 +208,10 @@ export function WalletSelect(props: WalletSelectProps) {
           },
         })}
       <Modal
-        className={styles['modal-overrides']}
-        title={modalTitle}
+        className={`${styles['wallet-select-modal']} ${styles['dark-mode']} ${className}`}
+        classes={classes}
+        style={style}
+        header={modalHeader}
         footer={footer}
         handleClose={onModalClose}
         handleBack={

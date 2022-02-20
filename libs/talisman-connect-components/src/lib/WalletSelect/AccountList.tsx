@@ -22,10 +22,10 @@ export function AccountList(props: ListWithClickProps<WalletAccount>) {
             <span style={{ textAlign: 'left' }}>
               <div>{account.name}</div>
               <div style={{ fontSize: 'small', opacity: 0.5 }}>
-                {truncateMiddle(account.address)}
+                {truncateMiddle(account.address, 8, 8)}
               </div>
             </span>
-            <ChevronRightIcon />
+            <ChevronRightIcon style={{ opacity: 0.5 }} />
           </button>
         );
       })}

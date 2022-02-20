@@ -1,28 +1,56 @@
-.modal-overrides {
-  --modal-background: var(--talisman-connect-modal-background, #fafafa);
-  --modal-foreground: var(--talisman-connect-modal-foreground, #222);
-  --modal-control-background: var(
-    --talisman-connect-control-background,
-    #f2f2f2
-  );
-  --modal-active-background: var(--talisman-connect-active-background, #d2d2d2);
+.wallet-select-modal {
+  --modal-z-index: var(--talisman-connect-modal-z-index, 999);
+
   --modal-border-radius: var(--talisman-connect-border-radius, 1rem);
   --modal-gutter: var(--talisman-connect-modal-gutter, 2rem);
+
   --modal-width: var(--talisman-connect-modal-min-width, 90%);
   --modal-max-width: var(--talisman-connect-modal-max-width, 470px);
   --modal-min-height: var(--talisman-connect-modal-min-height, auto);
-  --modal-max-height: var(--talisman-connect-modal-max-height, 320px);
+  --modal-max-height: var(--talisman-connect-modal-max-height, 470px);
+
   --modal-font-family: var(--talisman-connect-font-family, sans-serif);
   --modal-header-font-size: var(
     --talisman-connect-modal-header-font-size,
     1.5rem
   );
 
-  --modal-z-index: var(--talisman-connect-modal-z-index, 999);
+  --modal-background: var(--talisman-connect-modal-background, #fafafa);
+  --modal-foreground: var(--talisman-connect-modal-foreground, #222);
+  --modal-control-background: var(
+    --talisman-connect-control-background,
+    #383838
+  );
+  --modal-active-background: var(--talisman-connect-active-background, #b2b2b2);
+  --modal-row-background: var(--talisman-connect-modal-row-background, #d2d2d2);
+
+  --modal-row-gutter: var(
+    --talisman-connect-modal-row-gutter,
+    calc(var(--modal-gutter) * 0.5)
+  );
+  --modal-row-border-radius: var(
+    --talisman-connect-modal-row-border-radius,
+    calc(var(--modal-border-radius) * 0.75)
+  );
 }
 
-.modal-overrides > * + * {
-  margin-top: 2rem;
+.wallet-select-modal.dark-mode {
+  --modal-background: var(--talisman-connect-modal-background, #222);
+  --modal-foreground: var(--talisman-connect-modal-foreground, #fafafa);
+  --modal-control-background: var(
+    --talisman-connect-control-background,
+    #383838
+  );
+  --modal-active-background: var(--talisman-connect-active-background, #333);
+  --modal-row-background: var(--talisman-connect-modal-row-background, inherit);
+  --modal-row-border: var(
+    --talisman-connect-modal-row-border,
+    1px solid #383838
+  );
+}
+
+.wallet-select-modal main > * + * {
+  margin-top: 0.75rem;
 }
 
 .flex {
@@ -35,16 +63,15 @@ button.row-button {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: calc(var(--modal-gutter) * 0.5);
-  border-radius: calc(var(--modal-border-radius) * 0.75);
-  border: none;
-  outline: none;
-  font: inherit;
-  color: inherit;
-  background: var(--modal-control-background);
+  border: var(--modal-row-border);
   cursor: pointer;
   width: 100%;
-  margin-bottom: 0.5rem;
+  font: inherit;
+  outline: none;
+  color: inherit;
+  background: var(--modal-row-background);
+  padding: var(--modal-row-gutter);
+  border-radius: var(--modal-row-border-radius);
 }
 
 button.row-button:hover {
@@ -68,7 +95,7 @@ a.row-button {
 }
 
 .no-extension-message {
-  padding: 1rem 2rem 2rem;
+  padding: 0 2rem 2rem;
   text-align: center;
   opacity: 0.7;
 }

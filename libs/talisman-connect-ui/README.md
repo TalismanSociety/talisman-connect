@@ -10,6 +10,10 @@ npm i --save @talisman-connect/ui
 
 ### `Modal`
 
+NOTE: Breaking change from v1 to v2
+
+- `title` is changed to `header`
+
 Example
 
 ```tsx
@@ -19,10 +23,13 @@ import { Modal } from '@talisman-connect/ui';
 <Modal
   className={}
 
-  // The Modal title
-  title={}
+  // The Modal header
+  header={}
 
-  // The Modal toggle
+  // The Modal footer
+  footer={}
+
+// The Modal toggle
   isOpen={false}
 
   // The id where the Modal is appended. By default, it's appended to document.body.

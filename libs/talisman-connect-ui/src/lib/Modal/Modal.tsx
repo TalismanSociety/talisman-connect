@@ -1,75 +1,29 @@
-import { ReactNode, useEffect, useRef, useState } from 'react';
-import { createPortal } from 'react-dom';
+import { HTMLAttributes, ReactNode, useRef } from 'react';
 import { ReactComponent as XIcon } from '../../assets/icons/x.svg';
 import { ReactComponent as ChevronLeftIcon } from '../../assets/icons/chevron-left.svg';
 import styles from './Modal.module.css';
 import useOnClickOutside from '../useOnClickOutside/useOnClickOutside';
+import useEscHandler from '../useEscHandler/useEscHandler';
+import ReactPortal from '../ReactPortal/ReactPortal';
 
-// TODO: Move this to @talisman-connect/ui
-export interface ModalProps {
-  title?: ReactNode;
+export interface ModalClasses {
+  root?: string;
+  modal?: string;
+  headerRoot?: string;
+  header?: string;
+  body?: string;
+  footer?: string;
+}
+
+export interface ModalProps extends HTMLAttributes<HTMLElement> {
+  classes?: ModalClasses;
+  header?: ReactNode;
   footer?: ReactNode;
   children: ReactNode;
-  className?: string;
   isOpen: boolean;
   appId?: string;
   handleClose: () => unknown;
   handleBack?: () => unknown;
-}
-
-function createWrapperAndAppendToBody(wrapperId: string, appendToId?: string) {
-  const wrapperElement = document.createElement('div');
-  wrapperElement.setAttribute('id', wrapperId);
-  const destinationElement = appendToId
-    ? document.getElementById(appendToId)
-    : document.body;
-  if (destinationElement) {
-    destinationElement.appendChild(wrapperElement);
-  }
-  return wrapperElement;
-}
-
-interface ReactPortalProps {
-  children: ReactNode;
-  wrapperId: string;
-  appId?: string;
-}
-
-// Also, set a default value for wrapperId prop if none provided
-function ReactPortal({
-  children,
-  wrapperId = 'react-portal-wrapper',
-  appId,
-}: ReactPortalProps) {
-  const [wrapperElement, setWrapperElement] = useState<HTMLElement | null>(
-    null
-  );
-
-  useEffect(() => {
-    let element = document.getElementById(wrapperId);
-    let systemCreated = false;
-    // if element is not found with wrapperId or wrapperId is not provided,
-    // create and append to body
-    if (!element) {
-      systemCreated = true;
-      element = createWrapperAndAppendToBody(wrapperId, appId);
-    }
-    setWrapperElement(element);
-
-    return () => {
-      // delete the programatically created element
-      if (systemCreated && element?.parentNode) {
-        element.parentNode.removeChild(element);
-      }
-    };
-  }, [appId, wrapperId]);
-
-  // wrapperElement state will be null on very first render.
-  if (wrapperElement === null) {
-    return null;
-  }
-
-  return createPortal(children, wrapperElement);
 }
 
 export function Modal(props: ModalProps) {
@@ -78,8 +32,10 @@ export function Modal(props: ModalProps) {
     isOpen,
     handleClose,
     handleBack,
-    title,
+    header,
     className = '',
+    style = {},
+    classes,
     footer,
     appId,
   } = props;
@@ -87,38 +43,55 @@ export function Modal(props: ModalProps) {
   const modalContentRef = useRef<HTMLDivElement>(null);
 
   useOnClickOutside(modalContentRef, handleClose);
-
-  useEffect(() => {
-    const closeOnEscapeKey = (e: KeyboardEvent) =>
-      e.key === 'Escape' ? handleClose() : null;
-    document.body.addEventListener('keydown', closeOnEscapeKey);
-    return () => {
-      document.body.removeEventListener('keydown', closeOnEscapeKey);
-    };
-  }, [handleClose]);
+  useEscHandler(handleClose);
 
   if (!isOpen) return null;
 
   return (
     <ReactPortal wrapperId="react-portal-modal-container" appId={appId}>
-      <div ref={modalRef} className={`${styles.modal} ${className}`}>
-        <div ref={modalContentRef} className={styles['modal-content']}>
-          <header className={styles['modal-header']}>
+      <div
+        ref={modalRef}
+        className={`${styles.modal} ${className} ${classes?.root || ''}`}
+        style={style}
+      >
+        <div
+          ref={modalContentRef}
+          className={`${styles['modal-content']} ${classes?.modal || ''}`}
+        >
+          <header
+            className={`${styles['modal-header']} ${classes?.headerRoot || ''}`}
+          >
             <span>
               {handleBack && (
-                <button onClick={handleBack} className={styles['icon-button']}>
+                <button
+                  onClick={handleBack}
+                  className={`${styles['icon-button']}`}
+                >
                   <ChevronLeftIcon />
                 </button>
               )}
             </span>
-            <div>{title}</div>
-            <button onClick={handleClose} className={styles['icon-button']}>
+            <div className={classes?.header || ''}>{header}</div>
+            <button
+              onClick={handleClose}
+              className={`${styles['icon-button']}`}
+            >
               <XIcon width={24} height={24} />
             </button>
           </header>
-          <main className={styles['modal-content-body']}>{children}</main>
+          <main
+            className={`${styles['modal-content-body']} ${classes?.body || ''}`}
+          >
+            {children}
+          </main>
           {footer && (
-            <footer className={styles['modal-content-footer']}>{footer}</footer>
+            <footer
+              className={`${styles['modal-content-footer']} ${
+                classes?.footer || ''
+              }`}
+            >
+              {footer}
+            </footer>
           )}
         </div>
       </div>

@@ -2,7 +2,7 @@
   box-sizing: border-box;
   position: fixed;
   inset: 0; /* inset sets all 4 values (top right bottom left) much like how we set padding, margin etc., */
-  background-color: rgba(0, 0, 0, 0.6);
+  background: var(--modal-overlay-background, rgba(0, 0, 0, 0.6));
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -21,7 +21,7 @@
 .modal-content {
   box-sizing: border-box;
   font-family: var(--modal-font-family, inherit);
-  background: var(--modal-background);
+  background: var(--modal-background, #fafafa);
   color: var(--modal-foreground, #121212);
   border-radius: var(--modal-border-radius);
   padding: var(--modal-gutter, '32px 30px');
