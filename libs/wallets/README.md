@@ -125,16 +125,9 @@ Refer to `BaseDotsamaWallet` for an example base class and its derived classes.
 
 ## Troubleshooting
 
-If in case there is an error parsing `import.meta`, please add the following to webpack config:
+If in case there is an error parsing `import.meta` and/or private class fields error, please add the following to webpack config below.
 
-```js
-webpackConfig.module.rules.push({
-  test: /\.js$/,
-  loader: require.resolve('@open-wc/webpack-import-meta-loader'),
-});
-```
-
-For "unejected" Create React App projects, please see `craco.config.js` below:
+Example for "unejected" Create React App projects, please see `craco.config.js` below:
 
 ```js
 // craco.config.js
@@ -154,8 +147,23 @@ const ImportMetaLoaderPlugin = {
   },
 };
 
+const BabelPlugin = {
+  plugin: {
+    overrideCracoConfig: ({ cracoConfig }) => {
+      if (!cracoConfig.babel) cracoConfig.babel = {};
+      if (!Array.isArray(cracoConfig.babel.plugins))
+        cracoConfig.babel.plugins = [];
+
+      cracoConfig.babel.plugins.push('@babel/plugin-proposal-class-properties');
+      cracoConfig.babel.plugins.push('@babel/plugin-proposal-private-methods');
+
+      return cracoConfig;
+    },
+  },
+};
+
 module.exports = {
-  plugins: [ImportMetaLoaderPlugin],
+  plugins: [BabelPlugin, ImportMetaLoaderPlugin],
 };
 ```
 
