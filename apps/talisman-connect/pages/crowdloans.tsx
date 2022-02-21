@@ -3,6 +3,7 @@ import { truncateMiddle, useLocalStorage } from '@talisman-connect/ui';
 import { getWalletBySource } from '@talisman-connect/wallets';
 import {
   NftCard,
+  NftDescription,
   NftImage,
   NftMedia,
   useNftsByAddress,
@@ -94,31 +95,25 @@ export function Crowdloans(props: CrowdloansProps) {
         >
           {nfts?.map((nft) => {
             return (
-              <div key={nft.id}>
-                <NftCard
-                  nft={<NftImage metadataUrl={nft.metadata} />}
-                  description={
-                    <div style={{ padding: '1rem' }}>
-                      <div>Collection name</div>
-                      <div>{nft.name}</div>
-                    </div>
-                  }
-                />
-                {/* <NftMedia
-                metadataUrl={nft.metadata}
-                FallbackComponent={
-                  <NftImage
-                    metadataUrl={nft.metadata}
-                    style={{
-                      objectFit: 'cover',
-                      objectPosition: 'center',
-                      maxWidth: '32px',
-                      maxHeight: '32px',
-                    }}
-                  />
-                }
-              /> */}
-              </div>
+              <NftCard
+                key={nft.id}
+                header={<NftImage metadataUrl={nft.metadata} />}
+                description={<NftDescription nft={nft} />}
+              />
+              // <NftMedia
+              //   metadataUrl={nft.metadata}
+              //   FallbackComponent={
+              //     <NftImage
+              //       metadataUrl={nft.metadata}
+              //       style={{
+              //         objectFit: 'cover',
+              //         objectPosition: 'center',
+              //         maxWidth: '32px',
+              //         maxHeight: '32px',
+              //       }}
+              //     />
+              //   }
+              // />
             );
           })}
         </div>

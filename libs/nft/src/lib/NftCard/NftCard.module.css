@@ -1,4 +1,5 @@
 .card-root {
+  box-sizing: border-box;
   overflow: hidden;
   border-radius: 1rem;
   background-color: #222;
