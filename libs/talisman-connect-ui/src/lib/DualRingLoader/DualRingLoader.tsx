@@ -1,10 +1,11 @@
+import { HTMLAttributes } from 'react';
 import styles from './DualRingLoader.module.css';
 
-/* eslint-disable-next-line */
-export interface DualRingLoaderProps {}
-
-export function DualRingLoader(props: DualRingLoaderProps) {
-  return <div className={styles['lds-dual-ring']} />;
+export function DualRingLoader(props: HTMLAttributes<HTMLDivElement>) {
+  const { className = '', style } = props;
+  return (
+    <div className={`${styles['lds-dual-ring']} ${className}`} style={style} />
+  );
 }
 
 export default DualRingLoader;

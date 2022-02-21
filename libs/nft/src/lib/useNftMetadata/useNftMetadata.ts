@@ -10,7 +10,6 @@ export function useNftMetadata(metadataUrl: string) {
     metadataUrl ? toWeb2Url(metadataUrl) : null,
     fetcher
   );
-  console.log(`>>> mmm`, data);
   return {
     nftMetadata: data,
     isLoading: !error && !data,

@@ -1,6 +1,6 @@
 .nft-image-root {
   object-fit: cover;
   object-position: center;
-  min-width: 300px;
-  min-height: 300px;
+  min-height: 298px;
+  height: 100%;
 }

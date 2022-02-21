@@ -1,6 +1,8 @@
 import { DualRingLoader } from '@talisman-connect/ui';
 import { MediaHTMLAttributes } from 'react';
 import { NftElement } from '../../types';
+import PlaceCenter from '../PlaceCenter/PlaceCenter';
+import useContentType from '../useContentType/useContentType';
 import useNftMetadata, { toWeb2Url } from '../useNftMetadata/useNftMetadata';
 import './NftMedia.module.css';
 
@@ -9,21 +11,18 @@ export interface NftMediaProps
     NftElement {}
 
 export function NftMedia(props: NftMediaProps) {
-  const { metadataUrl, LoaderComponent, FallbackComponent, ...mediaProps } =
-    props;
+  const { nft, LoaderComponent, FallbackComponent, ...mediaProps } = props;
+  const metadataUrl = nft.metadata;
   const { nftMetadata, isLoading } = useNftMetadata(metadataUrl);
   const animationUrl = toWeb2Url(nftMetadata?.animation_url);
-  // const { contentCategory } = useContentType(animationUrl);
-  const contentCategory: string | undefined = 'blah';
+  const { contentCategory } = useContentType(animationUrl);
 
   if (!animationUrl) {
     return null;
   }
-
   if (isLoading) {
-    return LoaderComponent || <DualRingLoader />;
+    return <PlaceCenter>{LoaderComponent || <DualRingLoader />}</PlaceCenter>;
   }
-
   switch (contentCategory) {
     case 'audio':
       return <audio controls src={animationUrl} {...mediaProps} />;

@@ -1,37 +1,14 @@
-import './NftDescription.module.css';
+import { NftElement } from '../../types';
+import styles from './NftDescription.module.css';
 
-/* eslint-disable-next-line */
-export interface NftDescriptionProps {
-  nft: any; //TODO
-}
-
-export function NftDescription(props: NftDescriptionProps) {
+export function NftDescription(props: NftElement) {
   const { nft } = props;
-  const type = nft.metadata_content_type?.split('/')[0];
   return (
-    <div
-      style={{
-        padding: '1rem',
-        display: 'flex',
-        justifyContent: 'space-between',
-        boxSizing: 'border-box',
-      }}
-    >
-      <div style={{ minWidth: 0 }}>
-        <div
-          style={{
-            whiteSpace: 'nowrap',
-            overflow: 'hidden',
-            textOverflow: 'ellipsis',
-            color: '#a5a5a5',
-            fontSize: 'small',
-          }}
-        >
-          {nft.collection?.name}
-        </div>
-        <div>{nft.name}</div>
+    <div className={styles['nft-description-root']}>
+      <div className={`${styles.truncate} ${styles['description-title']}`}>
+        {nft.collection?.name}
       </div>
-      {type !== 'image' && <div>{type}</div>}
+      <div className={styles.truncate}>{nft.name}</div>
     </div>
   );
 }
