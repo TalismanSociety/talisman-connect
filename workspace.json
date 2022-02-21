@@ -15,7 +15,10 @@
             "project": "libs/nft/package.json",
             "entryFile": "libs/nft/src/index.ts",
             "external": ["react/jsx-runtime"],
-            "rollupConfig": "@nrwl/react/plugins/bundle-rollup",
+            "rollupConfig": [
+              "@nrwl/react/plugins/bundle-rollup",
+              "libs/nft/bundle-rollup.js"
+            ],
             "assets": [
               {
                 "glob": "libs/nft/README.md",
