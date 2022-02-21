@@ -2,7 +2,7 @@ import { DualRingLoader } from '@talisman-connect/ui';
 import { cloneElement, ImgHTMLAttributes } from 'react';
 import { NftElement } from '../../types';
 import useNftMetadata, { toWeb2Url } from '../useNftMetadata/useNftMetadata';
-import './NftImage.module.css';
+import styles from './NftImage.module.css';
 
 export interface NftImageProps
   extends ImgHTMLAttributes<HTMLImageElement>,
@@ -29,6 +29,7 @@ export function NftImage(props: NftImageProps) {
       src={imageUrl}
       alt={nftMetadata?.name}
       loading="lazy"
+      className={styles['nft-image-root']}
       {...imageProps}
     />
   );

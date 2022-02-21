@@ -1,7 +1,12 @@
 import { WalletSelect } from '@talisman-connect/components';
 import { truncateMiddle, useLocalStorage } from '@talisman-connect/ui';
 import { getWalletBySource } from '@talisman-connect/wallets';
-import { NftImage, NftAsset, useNftsByAddress } from '@talisman-connect/nft';
+import {
+  NftCard,
+  NftImage,
+  NftMedia,
+  useNftsByAddress,
+} from '@talisman-connect/nft';
 import Link from 'next/link';
 import { useState } from 'react';
 import './crowdloans.module.css';
@@ -80,21 +85,26 @@ export function Crowdloans(props: CrowdloansProps) {
       {!isLoading && nfts?.length === 0 && (
         <span>No NFTs on {truncateMiddle(address)}</span>
       )}
-      {!isLoading &&
-        nfts?.map((nft) => {
-          return (
-            <div key={nft.id}>
-              <div>{nft.name}</div>
-              <NftImage
-                metadataUrl={nft.metadata}
-                width="300px"
-                height="300px"
-                style={{
-                  objectFit: 'cover',
-                  objectPosition: 'center',
-                }}
-              />
-              <NftAsset
+      {!isLoading && (
+        <div
+          style={{
+            display: 'grid',
+            gap: '1rem',
+          }}
+        >
+          {nfts?.map((nft) => {
+            return (
+              <div key={nft.id}>
+                <NftCard
+                  nft={<NftImage metadataUrl={nft.metadata} />}
+                  description={
+                    <div style={{ padding: '1rem' }}>
+                      <div>Collection name</div>
+                      <div>{nft.name}</div>
+                    </div>
+                  }
+                />
+                {/* <NftMedia
                 metadataUrl={nft.metadata}
                 FallbackComponent={
                   <NftImage
@@ -107,10 +117,12 @@ export function Crowdloans(props: CrowdloansProps) {
                     }}
                   />
                 }
-              />
-            </div>
-          );
-        })}
+              /> */}
+              </div>
+            );
+          })}
+        </div>
+      )}
     </div>
   );
 }

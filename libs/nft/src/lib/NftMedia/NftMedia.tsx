@@ -2,13 +2,13 @@ import { DualRingLoader } from '@talisman-connect/ui';
 import { MediaHTMLAttributes } from 'react';
 import { NftElement } from '../../types';
 import useNftMetadata, { toWeb2Url } from '../useNftMetadata/useNftMetadata';
-import './NftAsset.module.css';
+import './NftMedia.module.css';
 
-export interface NftAssetProps
+export interface NftMediaProps
   extends MediaHTMLAttributes<HTMLMediaElement>,
     NftElement {}
 
-export function NftAsset(props: NftAssetProps) {
+export function NftMedia(props: NftMediaProps) {
   const { metadataUrl, LoaderComponent, FallbackComponent, ...mediaProps } =
     props;
   const { nftMetadata, isLoading } = useNftMetadata(metadataUrl);
@@ -35,4 +35,4 @@ export function NftAsset(props: NftAssetProps) {
   }
 }
 
-export default NftAsset;
+export default NftMedia;

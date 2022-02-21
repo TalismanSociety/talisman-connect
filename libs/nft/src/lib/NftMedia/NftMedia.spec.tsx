@@ -1,10 +1,10 @@
 import { render } from '@testing-library/react';
 
-import NftAsset from './NftAsset';
+import NftMedia from './NftMedia';
 
-describe('NftAsset', () => {
+describe('NftMedia', () => {
   it('should render successfully', () => {
-    const { baseElement } = render(<NftAsset />);
+    const { baseElement } = render(<NftMedia />);
     expect(baseElement).toBeTruthy();
   });
 });
