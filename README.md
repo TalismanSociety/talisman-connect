@@ -16,6 +16,10 @@ Refer to the packages below for more details.
 
 - [`@talisman-connect/components`](https://github.com/TalismanSociety/talisman-connect/tree/master/libs/talisman-connect-components)
 
+### Dapps that need NFT support:
+
+- [`@talisman-connect/nft`](https://github.com/TalismanSociety/talisman-connect/tree/master/libs/nft)
+
 ### Generic UIs that can be used for any Dapps:
 
 - [`@talisman-connect/ui`](https://github.com/TalismanSociety/talisman-connect/tree/master/libs/talisman-connect-ui)
@@ -31,7 +35,7 @@ yarn start
 
 Run app on `localhost:4200`.
 
-This is a barebones Dapp that showcases the `WalletSelect` Modal which uses the packages above.
+This is a playground Dapp that showcases the `WalletSelect` Modal which uses the packages above and others like Signing, NFTs and more to come.
 
 ## Troubleshooting
 
@@ -77,6 +81,7 @@ npm publish --access public
 
 **Monorepo**:
 
+- Add styleguidist for automated components docs
 - Github actions for CI/CD publishing packages.
 - Auto bump package.json version.
 - `.gif` support in `libs`
@@ -104,8 +109,8 @@ npm publish --access public
 - VueJS version
 - WebComponents version
 - Github "Code of Conduct" for contributors
-- Licence
-- Ditch `web3Enable` usage in Web App and replace with the a-la carte version.
+- [DONE] Licence
+- [DONE] Ditch `web3Enable` usage in Web App and replace with the a-la carte version.
 
 **Long term**
 

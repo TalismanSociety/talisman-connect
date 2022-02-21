@@ -25,71 +25,76 @@ export function Index() {
       <div>
         <Link href="/crowdloans">Go to sign dummy message</Link>
       </div>
-      <WalletSelect
-        open
-        dappName="My First Dapp"
-        // showAccountsList
-        triggerComponent={
-          <button
-            style={{ border: '1px solid black', padding: '1rem 1.5rem' }}
-            onClick={(wallets) => {
-              console.log(`>>> wallets`, wallets);
-              setModalError(null);
-            }}
-          >
-            Connect wallet
-          </button>
-        }
-        header={
-          <>
-            <div>
-              <Logo width="48px" height="48px" />
+      <h2>WalletSelect Component</h2>
+      <div>
+        <WalletSelect
+          open
+          dappName="My First Dapp"
+          // showAccountsList
+          triggerComponent={
+            <button
+              style={{ border: '1px solid black', padding: '1rem 1.5rem' }}
+              onClick={(wallets) => {
+                console.log(`>>> wallets`, wallets);
+                setModalError(null);
+              }}
+            >
+              Connect wallet
+            </button>
+          }
+          header={
+            <>
+              <div>
+                <Logo width="48px" height="48px" />
+              </div>
+              <div>Connect Wallet</div>
+              <div style={{ opacity: 0.5, fontSize: 'small' }}>
+                To start using Talisman apps
+              </div>
+            </>
+          }
+          footer={
+            <div style={{ textAlign: 'center' }}>
+              <span style={{ opacity: 0.5 }}>
+                By connecting, I accept Talisman{' '}
+              </span>
+              <Link href="/crowdloans" passHref>
+                <a style={{ color: 'inherit' }}>Terms of service</a>
+              </Link>
             </div>
-            <div>Connect Wallet</div>
-            <div style={{ opacity: 0.5, fontSize: 'small' }}>
-              To start using Talisman apps
-            </div>
-          </>
-        }
-        footer={
-          <div style={{ textAlign: 'center' }}>
-            <span style={{ opacity: 0.5 }}>
-              By connecting, I accept Talisman{' '}
-            </span>
-            <Link href="/crowdloans" passHref>
-              <a style={{ color: 'inherit' }}>Terms of service</a>
-            </Link>
-          </div>
-        }
-        onWalletSelected={(wallet) => {
-          console.log(`>>> selected wallet`, wallet);
-          setSource(wallet.extensionName);
-        }}
-        onUpdatedAccounts={(accounts) => {
-          console.log(`>>> accounts`, accounts);
-        }}
-        onError={(err: Error) => {
-          setModalError(err);
-          console.log(
-            `>>> err`,
-            err?.name,
-            err?.message,
-            (err as BaseWalletError)?.wallet
-          );
-        }}
-        // onAccountSelected={(account) => {
-        //   console.log(`>>> account selected`, account);
-        //   setAddress(account.address);
-        //   setName(account.name);
-        //   setSource(account.source);
-        // }}
-      />
+          }
+          onWalletSelected={(wallet) => {
+            console.log(`>>> selected wallet`, wallet);
+            setSource(wallet.extensionName);
+          }}
+          onUpdatedAccounts={(accounts) => {
+            console.log(`>>> accounts`, accounts);
+          }}
+          onError={(err: Error) => {
+            setModalError(err);
+            console.log(
+              `>>> err`,
+              err?.name,
+              err?.message,
+              (err as BaseWalletError)?.wallet
+            );
+          }}
+          // onAccountSelected={(account) => {
+          //   console.log(`>>> account selected`, account);
+          //   setAddress(account.address);
+          //   setName(account.name);
+          //   setSource(account.source);
+          // }}
+        />
+      </div>
+      <br />
       <div>Name: {name}</div>
       <div>Address: {truncateMiddle(address)}</div>
       <div>Source: {source}</div>
       {modalError && <div style={{ color: 'red' }}>{modalError.message}</div>}
       {buttonError && <div style={{ color: 'red' }}>{buttonError.message}</div>}
 
+      <h2>WalletSelectButton Component</h2>
       <div>
         <WalletSelectButton
           dappName="My First Dapp (single button)"
@@ -123,6 +128,8 @@ export function Index() {
           </div>
         </WalletSelectButton>
       </div>
+      <h2>NFTs</h2>
+      <Link href="/crowdloans">Go to NFTs</Link>
     </div>
   );
 }

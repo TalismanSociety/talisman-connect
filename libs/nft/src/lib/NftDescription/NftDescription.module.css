@@ -1,0 +1,14 @@
+.nft-description-root {
+  min-width: 0;
+}
+
+.description-title {
+  color: #a5a5a5;
+  font-size: small;
+}
+
+.truncate {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
