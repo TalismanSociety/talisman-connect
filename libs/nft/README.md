@@ -24,7 +24,7 @@ Retrieves the URL's `content-type` header value.
 
 ### `NFTImage`
 
-### `NFTAsset`
+### `NFTMedia`
 
 ## Running unit tests
 

@@ -1,3 +1,9 @@
 .nft-content-type-root {
   color: #a5a5a5;
 }
+
+/* TODO: Need to observe svgs when imported and used. The default one breaks the svg sizes. */
+.nft-content-type-root svg {
+  width: unset;
+  height: unset;
+}
