@@ -4,7 +4,7 @@ import { getWalletBySource } from '@talisman-connect/wallets';
 import { NftCard, useNftsByAddress } from '@talisman-connect/nft';
 import Link from 'next/link';
 import { useState } from 'react';
-import './crowdloans.module.css';
+import styles from './crowdloans.module.css';
 
 /* eslint-disable-next-line */
 export interface CrowdloansProps {}
@@ -81,13 +81,7 @@ export function Crowdloans(props: CrowdloansProps) {
         <span>No NFTs on {truncateMiddle(address)}</span>
       )}
       {!isLoading && (
-        <div
-          style={{
-            display: 'grid',
-            gap: '1rem',
-            gridTemplateColumns: '1fr 1fr 1fr',
-          }}
-        >
+        <div className={styles['nft-grid']}>
           {nfts?.map((nft) => {
             return <NftCard key={nft.id} nft={nft} />;
           })}
