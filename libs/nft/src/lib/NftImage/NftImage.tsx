@@ -36,13 +36,15 @@ export function NftImage(props: NftImageProps) {
     );
   }
   return (
-    <img
-      src={imageUrl}
-      alt={nftMetadata?.name}
-      loading="lazy"
-      className={styles['nft-image-root']}
-      {...imageProps}
-    />
+    <div className={styles['nft-image-root']}>
+      <img
+        src={imageUrl}
+        alt={nftMetadata?.name}
+        loading="lazy"
+        className={styles['nft-image-content']}
+        {...imageProps}
+      />
+    </div>
   );
 }
 
