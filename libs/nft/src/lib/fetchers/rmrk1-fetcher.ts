@@ -1,4 +1,4 @@
-import { encodeAnyAddress } from '../../utils/encodeAnyAddress';
+import { encodeAddress } from '@polkadot/keyring';
 
 interface FetcherURL {
   address: string;
@@ -9,6 +9,10 @@ export function collectibleUrl(id: string) {
 }
 
 export function fetchUrl({ address }: FetcherURL) {
-  const kusamaAddress = encodeAnyAddress(address, 2);
-  return `https://singular.rmrk.app/api/rmrk1/account/${kusamaAddress}`;
+  try {
+    const kusamaAddress = encodeAddress(address, 2);
+    return `https://singular.rmrk.app/api/rmrk1/account/${kusamaAddress}`;
+  } catch (err) {
+    return null;
+  }
 }
