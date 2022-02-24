@@ -19,8 +19,6 @@ export function Crowdloans(props: CrowdloansProps) {
     'talisman-connect/account.source'
   );
 
-  // const hardCodedAddress = 'CsBgp9X4SL6VJVXGAZxfdLDVj9FaqEuQFYMSDp115vPJWN5';
-  // const { nfts, isLoading } = useNftsByAddress(hardCodedAddress);
   const { nfts, isLoading } = useNftsByAddress(address);
 
   return (
