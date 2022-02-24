@@ -12,19 +12,13 @@ npm i --save @talisman-connect/nft
 
 Retrieves all NFTs fron the given address
 
-### `useNfts`
-
-Retrieves all NFTs from all of the given addresses
-
 ### `useContentType`
 
 Retrieves the URL's `content-type` header value.
 
 ## Components
 
-### `NFTImage`
-
-### `NFTMedia`
+### `NftPreview`
 
 ## Running unit tests
 

@@ -3,7 +3,7 @@ import Card from '../Card/Card';
 import { collectibleUrl } from '../fetchers/rmrk1-fetcher';
 import NftContentType from '../NftContentType/NftContentType';
 import NftDescription from '../NftDescription/NftDescription';
-import NftImage from '../NftImage/NftImage';
+import NftPreview from '../NftPreview/NftPreview';
 import styles from './NftCard.module.css';
 
 export function NftCard(props: NftElement) {
@@ -16,7 +16,7 @@ export function NftCard(props: NftElement) {
       rel="noreferrer noopener"
     >
       <Card
-        header={<NftImage nft={nft} />}
+        header={<NftPreview nft={nft} />}
         description={
           <div className={styles['nft-card-description']}>
             <NftDescription nft={nft} />
@@ -27,21 +27,5 @@ export function NftCard(props: NftElement) {
     </a>
   );
 }
-
-// onclick contentype
-// <NftMedia
-//   nft={nft}
-//   FallbackComponent={
-//     <NftImage
-//       nft={nft}
-//       style={{
-//         objectFit: 'cover',
-//         objectPosition: 'center',
-//         maxWidth: '32px',
-//         maxHeight: '32px',
-//       }}
-//     />
-//   }
-// />
 
 export default NftCard;
