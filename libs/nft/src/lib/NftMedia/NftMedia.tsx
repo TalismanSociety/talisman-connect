@@ -1,9 +1,10 @@
 import { DualRingLoader } from '@talisman-connect/ui';
 import { MediaHTMLAttributes } from 'react';
 import { NftElement } from '../../types';
+import { toWeb2Url } from '../fetchers/rmrk1-fetcher';
 import PlaceCenter from '../PlaceCenter/PlaceCenter';
 import useContentType from '../useContentType/useContentType';
-import useNftMetadata, { toWeb2Url } from '../useNftMetadata/useNftMetadata';
+import useNftMetadata from '../useNftMetadata/useNftMetadata';
 import './NftMedia.module.css';
 
 export interface NftMediaProps

@@ -1,23 +1,23 @@
 .nft-grid {
   display: grid;
   gap: 1rem;
-  grid-template-columns: 1fr;
+  grid-template-columns: 1fr 1fr;
 }
 
 @media (min-width: 768px) {
-  .nft-grid {
-    grid-template-columns: repeat(2, 1fr);
-  }
-}
-
-@media (min-width: 1024px) {
   .nft-grid {
     grid-template-columns: repeat(3, 1fr);
   }
 }
 
-@media (min-width: 1440px) {
+@media (min-width: 1024px) {
   .nft-grid {
     grid-template-columns: repeat(5, 1fr);
+  }
+}
+
+@media (min-width: 1440px) {
+  .nft-grid {
+    grid-template-columns: repeat(7, 1fr);
   }
 }
