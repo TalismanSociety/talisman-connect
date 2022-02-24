@@ -4,9 +4,9 @@ import { NftElement } from '../../types';
 import { toWeb2Url } from '../fetchers/rmrk1-fetcher';
 import PlaceCenter from '../PlaceCenter/PlaceCenter';
 import useNftMetadata from '../useNftMetadata/useNftMetadata';
-import styles from './NftImage.module.css';
+import styles from './NftPreview.module.css';
 
-export interface NftImageProps
+export interface NftPreviewProps
   extends ImgHTMLAttributes<HTMLImageElement>,
     NftElement {}
 
@@ -34,21 +34,33 @@ function useNftAsset(nft: any) {
   };
 }
 
-interface ImgElementProps extends ImgHTMLAttributes<HTMLImageElement> {
-  contentCategory: 'image';
+interface ImgPreviewProps extends ImgHTMLAttributes<HTMLImageElement> {
+  contentCategory: 'image' | 'audio';
 }
 
-interface PlayableElementProps extends MediaHTMLAttributes<HTMLMediaElement> {
-  contentCategory: 'audio' | 'video';
+interface VideoPreviewProps extends MediaHTMLAttributes<HTMLMediaElement> {
+  contentCategory: 'video';
 }
 
-type MediaElementProps = ImgElementProps | PlayableElementProps;
+type MediaPreviewProps = ImgPreviewProps | VideoPreviewProps;
 
-function MediaElement(props: MediaElementProps) {
+function MediaPreview(props: MediaPreviewProps) {
   const { contentCategory, ...mediaElementProps } = props;
   const { alt } = mediaElementProps as ImgHTMLAttributes<HTMLImageElement>;
   switch (contentCategory) {
-    case 'image':
+    case 'video':
+      return (
+        <video
+          loop
+          muted
+          autoPlay
+          playsInline
+          preload="metadata"
+          controlsList="nodownload"
+          {...(mediaElementProps as MediaHTMLAttributes<HTMLMediaElement>)}
+        />
+      );
+    default:
       return (
         <img
           alt={alt}
@@ -56,32 +68,11 @@ function MediaElement(props: MediaElementProps) {
           {...(mediaElementProps as ImgHTMLAttributes<HTMLImageElement>)}
         />
       );
-    case 'audio':
-      return (
-        <audio
-          playsInline
-          {...(mediaElementProps as MediaHTMLAttributes<HTMLMediaElement>)}
-        />
-      );
-    case 'video':
-      return (
-        <video
-          loop
-          playsInline
-          controlsList="nodownload"
-          {...(mediaElementProps as MediaHTMLAttributes<HTMLMediaElement>)}
-        />
-      );
-    default:
-      return null;
   }
 }
 
-export function NftImage(props: NftImageProps) {
+export function NftPreview(props: NftPreviewProps) {
   const { nft, LoaderComponent, ErrorComponent, ...imageProps } = props;
-  // const metadataUrl = nft.metadata;
-  // const contentType = nft.metadata_content_type;
-  // const { nftMetadata, isLoading, error } = useNftMetadata(metadataUrl);
   const { contentCategory, name, imageUrl, animationUrl, isLoading, error } =
     useNftAsset(nft);
   const src = imageUrl || animationUrl;
@@ -108,22 +99,15 @@ export function NftImage(props: NftImageProps) {
   }
   return (
     <div className={styles['nft-image-root']}>
-      <MediaElement
+      <MediaPreview
         contentCategory={contentCategory}
         src={src}
         alt={name}
         className={styles['nft-image-content']}
         {...imageProps}
       />
-      {/* <img
-        src={imageUrl}
-        alt={nftMetadata?.name}
-        loading="lazy"
-        className={styles['nft-image-content']}
-        {...imageProps}
-      /> */}
     </div>
   );
 }
 
-export default NftImage;
+export default NftPreview;

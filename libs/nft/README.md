@@ -22,7 +22,7 @@ Retrieves the URL's `content-type` header value.
 
 ## Components
 
-### `NFTImage`
+### `NftPreview`
 
 ### `NFTMedia`
 
