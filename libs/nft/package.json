@@ -1,6 +1,6 @@
 {
   "name": "@talisman-connect/nft",
-  "version": "0.0.9",
+  "version": "0.0.10",
   "dependencies": {
     "@polkadot/keyring": "^8.4.1",
     "swr": "^1.2.2"
