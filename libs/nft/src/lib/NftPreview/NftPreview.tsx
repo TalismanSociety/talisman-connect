@@ -1,5 +1,10 @@
 import { DualRingLoader } from '@talisman-connect/ui';
-import { cloneElement, ImgHTMLAttributes, MediaHTMLAttributes } from 'react';
+import {
+  cloneElement,
+  ImgHTMLAttributes,
+  MediaHTMLAttributes,
+  useEffect,
+} from 'react';
 import { NftElement } from '../../types';
 import { toWeb2Url } from '../fetchers/rmrk1-fetcher';
 import PlaceCenter from '../PlaceCenter/PlaceCenter';
@@ -42,12 +47,50 @@ interface VideoPreviewProps extends MediaHTMLAttributes<HTMLMediaElement> {
   contentCategory: 'video';
 }
 
-type MediaPreviewProps = ImgPreviewProps | VideoPreviewProps;
+interface ModelPrevierProps {
+  contentCategory: 'model';
+}
+
+type MediaPreviewProps =
+  | ImgPreviewProps
+  | VideoPreviewProps
+  | ModelPrevierProps;
 
 function MediaPreview(props: MediaPreviewProps) {
   const { contentCategory, ...mediaElementProps } = props;
-  const { alt } = mediaElementProps as ImgHTMLAttributes<HTMLImageElement>;
+  const { alt, src } = mediaElementProps as ImgHTMLAttributes<HTMLImageElement>;
+  console.log(`>>> aaa`, contentCategory);
+
+  useEffect(() => {
+    (async () => {
+      if (window) {
+        await import('@google/model-viewer/dist/model-viewer.js');
+      }
+    })();
+  });
+
+  const modelProps = {
+    src,
+    alt,
+    autoplay: 'true',
+    'camera-controls': 'true',
+    'shadow-intensity': '1',
+    'ar-status': 'not-presenting',
+    ...mediaElementProps,
+  };
+
   switch (contentCategory) {
+    case 'model':
+      return (
+        <model-viewer
+          style={{
+            height: '100%',
+            width: '100%',
+            position: 'absolute',
+          }}
+          {...modelProps}
+        />
+      );
     case 'video':
       return (
         <video
