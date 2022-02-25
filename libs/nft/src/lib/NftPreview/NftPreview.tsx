@@ -64,7 +64,7 @@ function MediaPreview(props: MediaPreviewProps) {
   useEffect(() => {
     (async () => {
       if (window) {
-        await import('@google/model-viewer/dist/model-viewer.js');
+        await import('@google/model-viewer/lib/model-viewer.js');
       }
     })();
   });
