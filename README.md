@@ -16,10 +16,6 @@ Refer to the packages below for more details.
 
 - [`@talisman-connect/components`](https://github.com/TalismanSociety/talisman-connect/tree/master/libs/talisman-connect-components)
 
-### Dapps that need NFT support:
-
-- [`@talisman-connect/nft`](https://github.com/TalismanSociety/talisman-connect/tree/master/libs/nft)
-
 ### Generic UIs that can be used for any Dapps:
 
 - [`@talisman-connect/ui`](https://github.com/TalismanSociety/talisman-connect/tree/master/libs/talisman-connect-ui)
