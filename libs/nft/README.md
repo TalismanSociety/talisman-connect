@@ -1,5 +1,7 @@
 # @talisman-connect/nft
 
+# NOTE: DO NOT USE. Will be removed soon.
+
 ## Setup:
 
 ```
