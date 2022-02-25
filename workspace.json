@@ -1,50 +1,6 @@
 {
   "version": 2,
   "projects": {
-    "nft": {
-      "root": "libs/nft",
-      "sourceRoot": "libs/nft/src",
-      "projectType": "library",
-      "targets": {
-        "build": {
-          "executor": "@nrwl/web:package",
-          "outputs": ["{options.outputPath}"],
-          "options": {
-            "outputPath": "dist/libs/nft",
-            "tsConfig": "libs/nft/tsconfig.lib.json",
-            "project": "libs/nft/package.json",
-            "entryFile": "libs/nft/src/index.ts",
-            "external": ["react/jsx-runtime"],
-            "rollupConfig": [
-              "@nrwl/react/plugins/bundle-rollup",
-              "libs/nft/bundle-rollup.js"
-            ],
-            "assets": [
-              {
-                "glob": "libs/nft/README.md",
-                "input": ".",
-                "output": "."
-              }
-            ]
-          }
-        },
-        "lint": {
-          "executor": "@nrwl/linter:eslint",
-          "outputs": ["{options.outputFile}"],
-          "options": {
-            "lintFilePatterns": ["libs/nft/**/*.{ts,tsx,js,jsx}"]
-          }
-        },
-        "test": {
-          "executor": "@nrwl/jest:jest",
-          "outputs": ["coverage/libs/nft"],
-          "options": {
-            "jestConfig": "libs/nft/jest.config.js",
-            "passWithNoTests": true
-          }
-        }
-      }
-    },
     "talisman-connect": {
       "root": "apps/talisman-connect",
       "sourceRoot": "apps/talisman-connect",

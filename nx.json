@@ -28,9 +28,6 @@
     ]
   },
   "projects": {
-    "nft": {
-      "tags": []
-    },
     "talisman-connect": {
       "tags": []
     },
