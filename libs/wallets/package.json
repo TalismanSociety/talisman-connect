@@ -1,6 +1,6 @@
 {
   "name": "@talisman-connect/wallets",
-  "version": "1.1.1",
+  "version": "1.1.2",
   "homepage": "https://github.com/TalismanSociety/talisman-connect/tree/master/libs/wallets#talisman-connectwallets",
   "license": "GPL-3.0",
   "dependencies": {
