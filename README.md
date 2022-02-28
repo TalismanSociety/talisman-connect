@@ -12,7 +12,7 @@ npm i --save @talisman-connect/wallets
 ```
 
 #### Example
-```tsx
+```js
 import { getWallets } from '@talisman-connect/wallets';
 
 // usually the 
@@ -32,9 +32,20 @@ const walletToUse = supportedWallets['Talisman'] // example
 // enable the wallet
 const wallet = await walletToUse.enable('my dapp')
 
-// subscribe to accounts
-const unsubscribe = await wallet.subscribeAccounts(accounts => {
-  // Save accounts...
+// sign a message
+try {
+  const signer = wallet.signer;
+
+  // NOTE: Trigger the extension popup
+  const { signature } = await signer.signRaw({
+    type: 'payload',
+    data: 'Some data to sign...',
+    address: account.address,
+  });
+} catch (err) {
+  // Handle error...
+}
+
 });
 ```
 
@@ -67,4 +78,4 @@ This is a playground Dapp that showcases the `WalletSelect` Modal which uses the
 
 ## Troubleshooting
 
-Check out our [`Troubleshooting instructions`](https://github.com/TalismanSociety/talisman-connect/troubleshooting.md)
+Check out our [`Troubleshooting instructions`](https://github.com/TalismanSociety/talisman-connect/blob/master/troubleshooting.md)
