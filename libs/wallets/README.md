@@ -123,50 +123,6 @@ NOTE: There may be 2 or more wallets that share a common wallet interface. It is
 
 Refer to `BaseDotsamaWallet` for an example base class and its derived classes.
 
-## Troubleshooting
-
-If in case there is an error parsing `import.meta` and/or private class fields error, please add the following to webpack config below.
-
-Example for "unejected" Create React App projects, please see `craco.config.js` below:
-
-```js
-// craco.config.js
-// Solution comes from https://polkadot.js.org/docs/usage/FAQ/#on-webpack-4-i-have-a-parse-error-on-importmetaurl
-const ImportMetaLoaderPlugin = {
-  plugin: {
-    overrideWebpackConfig: ({ webpackConfig }) => {
-      if (!webpackConfig.module) webpackConfig.module = { rules: [] };
-      if (!webpackConfig.module.rules) webpackConfig.module.rules = [];
-      webpackConfig.module.rules.push({
-        test: /\.js$/,
-        loader: require.resolve('@open-wc/webpack-import-meta-loader'),
-      });
-
-      return webpackConfig;
-    },
-  },
-};
-
-const BabelPlugin = {
-  plugin: {
-    overrideCracoConfig: ({ cracoConfig }) => {
-      if (!cracoConfig.babel) cracoConfig.babel = {};
-      if (!Array.isArray(cracoConfig.babel.plugins))
-        cracoConfig.babel.plugins = [];
-
-      cracoConfig.babel.plugins.push('@babel/plugin-proposal-class-properties');
-      cracoConfig.babel.plugins.push('@babel/plugin-proposal-private-methods');
-
-      return cracoConfig;
-    },
-  },
-};
-
-module.exports = {
-  plugins: [BabelPlugin, ImportMetaLoaderPlugin],
-};
-```
-
 ## Running unit tests
 
 Run `nx test wallets` to execute the unit tests via [Jest](https://jestjs.io).
