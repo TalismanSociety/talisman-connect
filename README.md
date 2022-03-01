@@ -15,12 +15,6 @@ npm i --save @talisman-connect/wallets
 ```js
 import { getWallets } from '@talisman-connect/wallets';
 
-// usually the 
-window.injectedWeb3 && window.injectedWeb3['subwallet-js']
-
-const chosenExtension = window.injectedWeb3['subwallet-js']
-const extension = await SubWalletExtension.enable()
-
 // returns a list of all the extensions currently installed in the window
 assert(window.injectedWeb3, "No wallets installed.")
 const supportedWallets = getWallets();
