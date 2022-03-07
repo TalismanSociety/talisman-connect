@@ -1,6 +1,7 @@
 {
   "version": 2,
   "projects": {
+    "extension-dapp": "libs/extension-dapp",
     "talisman-connect": {
       "root": "apps/talisman-connect",
       "sourceRoot": "apps/talisman-connect",

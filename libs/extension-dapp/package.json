@@ -1,0 +1,15 @@
+{
+  "name": "@talisman-connect/extension-dapp",
+  "version": "0.0.1",
+  "dependencies": {
+    "@babel/runtime": "^7.17.2",
+    "@polkadot/extension-inject": "^0.42.8-14",
+    "@polkadot/util": "^8.4.1",
+    "@polkadot/util-crypto": "^8.4.1"
+  },
+  "peerDependencies": {
+    "@polkadot/api": "*",
+    "@polkadot/util": "*",
+    "@polkadot/util-crypto": "*"
+  }
+}
