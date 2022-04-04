@@ -76,7 +76,10 @@ export function web3Enable (originName: string, extensionName: string, compatIni
     (): Promise<InjectedExtension> =>
       initCompat.then(() =>
         getExtensionByName(extensionName).then((extension: InjectedExtension) => extension.enable()
-          .then(([info, ext]): InjectedExtension => {
+          .then((ext): InjectedExtension => {
+                let version = extension.version
+                let name = extensionName
+
                 // if we don't have an accounts subscriber, add a single-shot version
                 if (!ext.accounts.subscribe) {
                   ext.accounts.subscribe = (cb: (accounts: InjectedAccount[]) => void | Promise<void>): Unsubcall => {
@@ -87,13 +90,14 @@ export function web3Enable (originName: string, extensionName: string, compatIni
                     };
                   };
                 }
-                return { ...info, ...ext };
+
+                return { name, version, ...ext };
           })
           .catch((): InjectedExtension => [])
           .then((ext): InjectedExtension => {
 
             isWeb3Injected = web3IsInjected();
-            console.log(`web3Enable: Enabled extension: ${ext.name}, ${ext.version}`);
+            console.log(`web3Enable: Enabled extension: ${extensionName}, ${extension.version}`);
 
             return ext;
           })
