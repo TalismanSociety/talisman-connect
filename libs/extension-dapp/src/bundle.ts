@@ -49,13 +49,13 @@ let web3EnablePromise: Promise<InjectedExtension[]> | null = null;
 
 export { isWeb3Injected, web3EnablePromise };
 
-function web3InWindow (): Promise<[InjectedExtensionInfo, Injected | void][]> {
+export function web3InWindow (): Promise<[InjectedExtensionInfo, Injected | void][]> {
   return Promise.resolve(
     Object.entries(win.injectedWeb3)
   );
 }
 
-function getExtensionByName (extensionName: string): Promise<[InjectedExtensionInfo, Injected | void]> {
+export function getExtensionByName (extensionName: string): Promise<[InjectedExtensionInfo, Injected | void]> {
   return new Promise((resolve, reject) => {
     const extension = win.injectedWeb3[extensionName]
     !!extension ? resolve(extension) : reject('Extension not found')
