@@ -1,3 +1,3 @@
-# @polkadot/extension-dapp
+# @Talisman/extension-daap
 
-Documentation available [in the polkadot-js doc](https://polkadot.js.org/docs/extension).
+Documentation for the implementation can be found at #.

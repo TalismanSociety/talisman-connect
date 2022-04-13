@@ -1,7 +1,7 @@
 // Copyright 2019-2022 @polkadot/extension-dapp authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
-import type { Injected, InjectedAccount, InjectedAccountWithMeta, InjectedExtension, InjectedExtensionInfo, InjectedProviderWithMeta, InjectedWindow, ProviderList, Unsubcall, Web3AccountsOptions } from '@polkadot/extension-inject/types';
+import type { Injected, InjectedAccount, InjectedAccountWithMeta, InjectedExtension, InjectedExtensionInfo, InjectedProviderWithMeta, InjectedWindow, InjectedWindowProvider, ProviderList, Unsubcall, Web3AccountsOptions } from '@polkadot/extension-inject/types';
 
 import { u8aEq } from '@polkadot/util';
 import { decodeAddress, encodeAddress } from '@polkadot/util-crypto';
@@ -49,56 +49,68 @@ let web3EnablePromise: Promise<InjectedExtension[]> | null = null;
 
 export { isWeb3Injected, web3EnablePromise };
 
-export function web3InWindow (): Promise<[InjectedExtensionInfo, Injected | void][]> {
-  return Promise.resolve(
-    Object.entries(win.injectedWeb3)
-  );
-}
+// export function web3InWindow (): Promise<[InjectedExtensionInfo, Injected | void][]> {
+//   return Promise.resolve(
+//     Object.entries(win.injectedWeb3)
+//   );
+// }
 
-export function getExtensionByName (extensionName: string): Promise<[InjectedExtensionInfo, Injected | void]> {
-  return new Promise((resolve, reject) => {
-    const extension = win.injectedWeb3[extensionName]
-    !!extension ? resolve(extension) : reject('Extension not found')
-  })
+function getWindowExtension (originName: string, extensionName: string): Promise<[InjectedExtensionInfo, Injected | void][]> {
+
+  return Promise.all(
+    Object.entries(win.injectedWeb3).filter(() => win.injectedWeb3[extensionName]).map(
+      ([name, { enable, version }]): Promise<[InjectedExtensionInfo, Injected | void]> =>
+        Promise.all([
+          Promise.resolve({ name, version }),
+          enable(originName).catch((error: Error): void => {
+            console.error(`Error initializing ${name}: ${error.message}`);
+          })
+        ])
+    )
+  );
 }
 
 // enables all the providers found on the injected window interface
 export function web3Enable (originName: string, extensionName: string, compatInits: (() => Promise<boolean>)[] = []): Promise<InjectedExtension[]> {
-  if (!originName) {
-    throw new Error('You must pass a name for your app to the web3Enable function');
-  }
+    if (!originName) {
+      throw new Error('You must pass a name for your app to the web3Enable function');
+    }
 
-  const initCompat = compatInits.length
-    ? Promise.all(compatInits.map((c) => c().catch(() => false)))
-    : Promise.resolve([true]);
+    const initCompat = compatInits.length
+      ? Promise.all(compatInits.map((c) => c().catch(() => false)))
+      : Promise.resolve([true]);
 
-  web3EnablePromise = documentReadyPromise(
-    (): Promise<InjectedExtension> =>
+    web3EnablePromise = documentReadyPromise(
+      (): Promise<InjectedExtension[]> =>
       initCompat.then(() =>
-        getExtensionByName(extensionName).then((extension: InjectedExtension) => extension.enable()
-          .then((ext): InjectedExtension => {
+        getWindowExtension(originName, extensionName)
+          .then((values): InjectedExtension[] =>
+            values
+              .filter((value): value is [InjectedExtensionInfo, Injected] => !!value[1])
+              .map(([info, ext]): InjectedExtension => {
                 // if we don't have an accounts subscriber, add a single-shot version
                 if (!ext.accounts.subscribe) {
                   ext.accounts.subscribe = (cb: (accounts: InjectedAccount[]) => void | Promise<void>): Unsubcall => {
                     ext.accounts.get().then(cb).catch(console.error);
 
                     return (): void => {
-                      // no subsubscribe needed, this is a single-shot
+                      // no ubsubscribe needed, this is a single-shot
                     };
                   };
                 }
 
-                return { name: extensionName, version: extension.version, ...ext };
-          })
-          .catch((): InjectedExtension => [])
-          .then((ext): InjectedExtension => {
+                return { ...info, ...ext };
+              })
+          )
+          .catch((): InjectedExtension[] => [])
+          .then((values): InjectedExtension[] => {
+            const names = values.map(({ name, version }): string => `${name}/${version}`);
 
             isWeb3Injected = web3IsInjected();
-            console.log(`web3Enable: Enabled extension: ${extensionName}, ${extension.version}`);
+            console.log(`web3Enable: Enabled ${values.length} extension${values.length !== 1 ? 's' : ''}: ${names.join(', ')}`);
 
-            return ext;
+            return values;
           })
-        )
       )
   );
 
