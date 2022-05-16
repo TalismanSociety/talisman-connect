@@ -90,6 +90,10 @@ Needs to be called first before `subscribeAccounts`. Connects to the wallet exte
 
 This will trigger the extension to popup if it's the first time being enabled.
 
+### `wallet.getAccounts(anyType?: boolean): Promise<WalletAccount[]>`
+
+Get wallet's accounts.
+
 ### `wallet.subscribeAccounts(callback): UnsubscribeFn`
 
 Subscribe to the wallet's accounts.

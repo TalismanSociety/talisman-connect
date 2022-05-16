@@ -54,6 +54,9 @@ interface Signer {
 interface Connector {
   enable: (dappName: string) => unknown;
 
+  // Get accounts function
+  getAccounts: (anyType?: boolean) => Promise<WalletAccount[]>;
+
   // The subscribe to accounts function
   subscribeAccounts: (callback: SubscriptionFn) => unknown;
 }
