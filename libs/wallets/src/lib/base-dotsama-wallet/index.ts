@@ -4,7 +4,7 @@ import {
   InjectedWindow,
 } from '@polkadot/extension-inject/types';
 import type { Signer as InjectedSigner } from '@polkadot/api/types';
-import { SubscriptionFn, Wallet } from '../../types';
+import { SubscriptionFn, Wallet, WalletAccount } from '../../types';
 import { AuthError } from '../errors/AuthError';
 import { WalletError } from '../errors/BaseWalletError';
 import { NotInstalledError } from '../errors/NotInstalledError';
@@ -86,6 +86,27 @@ export class BaseDotsamaWallet implements Wallet {
     } catch (err) {
       throw this.transformError(err as WalletError);
     }
+  };
+
+  getAccounts = async (anyType?: boolean): Promise<WalletAccount[]> => {
+    if (!this._extension) {
+      throw new NotInstalledError(
+        `The 'Wallet.enable(dappname)' function should be called first.`,
+        this
+      );
+    }
+    const accounts = await this._extension.accounts.get(anyType);
+    const accountsWithWallet = accounts.map((account) => {
+      return {
+        ...account,
+        source: this._extension?.name as string,
+        // Added extra fields here for convenience
+        wallet: this,
+        signer: this._extension?.signer,
+      };
+    });
+
+    return accountsWithWallet;
   };
 
   subscribeAccounts = async (callback: SubscriptionFn) => {
