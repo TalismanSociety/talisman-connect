@@ -43,6 +43,9 @@
     },
     "wallets": {
       "tags": []
+    },
+    "extension-dapp": {
+      "tags": []
     }
   }
 }

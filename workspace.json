@@ -212,6 +212,50 @@
           }
         }
       }
+    },
+    "extension-dapp": {
+      "root": "libs/extension-dapp",
+      "sourceRoot": "libs/extension-dapp/src",
+      "projectType": "library",
+      "targets": {
+        "build": {
+          "executor": "@nrwl/web:package",
+          "outputs": ["{options.outputPath}"],
+          "options": {
+            "outputPath": "dist/libs/extension-dapp",
+            "tsConfig": "libs/extension-dapp/tsconfig.lib.json",
+            "project": "libs/extension-dapp/package.json",
+            "entryFile": "libs/extension-dapp/src/index.ts",
+            "external": ["react/jsx-runtime"],
+            "rollupConfig": [
+              "@nrwl/react/plugins/bundle-rollup",
+              "libs/extension-dapp/bundle-rollup.js"
+            ],
+            "assets": [
+              {
+                "glob": "libs/extension-dapp/README.md",
+                "input": ".",
+                "output": "."
+              }
+            ]
+          }
+        },
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "outputs": ["{options.outputFile}"],
+          "options": {
+            "lintFilePatterns": ["libs/extension-dapp/**/*.{ts,tsx,js,jsx}"]
+          }
+        },
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/extension-dapp"],
+          "options": {
+            "jestConfig": "libs/extension-dapp/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
     }
   },
   "cli": {
