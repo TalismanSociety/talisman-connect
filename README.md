@@ -7,11 +7,13 @@ This project aims to provide the components necessary for Dapp developers to be 
 ## Quick Start
 
 #### Install the package:
+
 ```
 npm i --save @talisman-connect/wallets
 ```
 
 #### Example
+
 ```js
 import { getWallets } from '@talisman-connect/wallets';
 

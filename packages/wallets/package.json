@@ -1,0 +1,14 @@
+{
+  "name": "@talisman-connect/wallets",
+  "version": "1.1.3",
+  "homepage": "https://github.com/TalismanSociety/talisman-connect/tree/master/libs/wallets#talisman-connectwallets",
+  "license": "GPL-3.0",
+  "scripts": {
+    "build": "rollup -c"
+  },
+  "dependencies": {
+    "@polkadot/api": "^7.9.1",
+    "@polkadot/extension-dapp": "^0.42.7",
+    "@polkadot/extension-inject": "^0.42.9"
+  }
+}
