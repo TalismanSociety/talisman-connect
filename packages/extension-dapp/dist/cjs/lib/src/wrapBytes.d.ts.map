@@ -1,0 +1,1 @@
+{"version":3,"file":"wrapBytes.d.ts","sourceRoot":"","sources":["../../src/wrapBytes.ts"],"names":[],"mappings":"AAGA,OAAO,EAAwD,YAAY,EAAE,cAAc,EAAE,YAAY,EAAE,MAAM,gBAAgB,CAAC;AAElI,eAAO,MAAM,QAAQ,YAAoB,CAAC;AAC1C,eAAO,MAAM,OAAO,YAAmB,CAAC;AACxC,eAAO,MAAM,MAAM,YAAkB,CAAC;AAEtC,eAAO,MAAM,SAAS,qBAAe,CAAC;AACtC,eAAO,MAAM,WAAW,uBAAiB,CAAC;AAC1C,eAAO,MAAM,SAAS,qBAAe,CAAC"}
