@@ -1,18 +1,12 @@
-import { Wallet } from '@talisman-connect/wallets';
+import { Wallet } from '@talismn/wallets';
 
 export function saveAndDispatchWalletSelect(wallet: Wallet) {
-  localStorage.setItem(
-    '@talisman-connect/selected-wallet-name',
-    wallet.extensionName
-  );
+  localStorage.setItem('@talismn/selected-wallet-name', wallet.extensionName);
 
-  const walletSelectedEvent = new CustomEvent(
-    '@talisman-connect/wallet-selected',
-    {
-      detail: wallet,
-    }
-  );
+  const walletSelectedEvent = new CustomEvent('@talismn/wallet-selected', {
+    detail: wallet,
+  });
 
   document.dispatchEvent(walletSelectedEvent);
-  console.info(`Event: @talisman-connect/wallet-selected`, wallet);
+  console.info(`Event: @talismn/wallet-selected`, wallet);
 }

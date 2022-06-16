@@ -1,4 +1,4 @@
-import { WalletAccount, Wallet, getWallets } from '@talisman-connect/wallets';
+import { WalletAccount, Wallet, getWallets } from '@talismn/wallets';
 import {
   cloneElement,
   ReactElement,
@@ -13,7 +13,7 @@ import { AccountList } from './AccountList';
 import { InstallExtension } from './InstallExtension';
 import { NoAccounts } from './NoAccounts';
 import { saveAndDispatchWalletSelect } from './saveAndDispatchWalletSelect';
-import { Modal } from '@talisman-connect/ui';
+import { Modal } from '@talismn/ui';
 import { Loading } from './Loading';
 
 export interface WalletSelectProps {

@@ -1,7 +1,16 @@
 {
-  "name": "@talisman-connect/ui",
+  "name": "@talismn/ui",
   "version": "1.1.1",
+  "main": "dist/cjs/index.js",
+  "module": "dist/esm/index.js",
+  "types": "dist/index.d.ts",
   "devDependencies": {
+    "@babel/core": "7.17.8",
+    "@babel/plugin-transform-runtime": "7.17.0",
+    "@babel/preset-env": "7.16.11",
+    "@babel/preset-react": "7.16.7",
+    "@babel/runtime": "7.17.8",
+    "@rollup/plugin-babel": "5.3.1",
     "@types/react": "^18.0.9",
     "@types/react-dom": "^18.0.4",
     "react": "^18.1.0",

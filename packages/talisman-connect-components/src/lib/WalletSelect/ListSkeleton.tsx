@@ -1,5 +1,5 @@
-import { truncateMiddle } from '@talisman-connect/ui';
-import { WalletAccount } from '@talisman-connect/wallets';
+import { truncateMiddle } from '@talismn/ui';
+import { WalletAccount } from '@talismn/wallets';
 import styles from './WalletSelect.module.css';
 
 export function ListSkeleton() {

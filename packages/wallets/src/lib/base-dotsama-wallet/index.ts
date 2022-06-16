@@ -15,7 +15,7 @@ export class BaseDotsamaWallet implements Wallet {
   title = '';
   installUrl = '';
   logo = {
-    src: '',
+    // src: '',
     alt: '',
   };
 

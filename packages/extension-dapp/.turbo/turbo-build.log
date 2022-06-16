@@ -1,8 +1,8 @@
-@talisman-connect/extension-dapp:build: cache hit, replaying output [2m757a40d430ebaccc[0m
-[35m@talisman-connect/extension-dapp:build: [0m$ rollup -c
-[35m@talisman-connect/extension-dapp:build: [0m[36m
-[35m@talisman-connect/extension-dapp:build: [0m[1msrc/index.ts[22m → [1mdist/cjs/index.js, dist/esm/index.js[22m...[39m
-[35m@talisman-connect/extension-dapp:build: [0m[32mcreated [1mdist/cjs/index.js, dist/esm/index.js[22m in [1m1.6s[22m[39m
-[35m@talisman-connect/extension-dapp:build: [0m[36m
-[35m@talisman-connect/extension-dapp:build: [0m[1mdist/esm/lib/src/index.d.ts[22m → [1mdist/index.d.ts[22m...[39m
-[35m@talisman-connect/extension-dapp:build: [0m[32mcreated [1mdist/index.d.ts[22m in [1m35ms[22m[39m
+@talismn/extension-dapp:build: cache hit, replaying output [2m0025d69a9fabd66e[0m
+[33m@talismn/extension-dapp:build: [0m$ rollup -c
+[33m@talismn/extension-dapp:build: [0m[36m
+[33m@talismn/extension-dapp:build: [0m[1msrc/index.ts[22m → [1mdist/cjs/index.js, dist/esm/index.js[22m...[39m
+[33m@talismn/extension-dapp:build: [0m[32mcreated [1mdist/cjs/index.js, dist/esm/index.js[22m in [1m1.4s[22m[39m
+[33m@talismn/extension-dapp:build: [0m[36m
+[33m@talismn/extension-dapp:build: [0m[1mdist/esm/lib/src/index.d.ts[22m → [1mdist/index.d.ts[22m...[39m
+[33m@talismn/extension-dapp:build: [0m[32mcreated [1mdist/index.d.ts[22m in [1m33ms[22m[39m

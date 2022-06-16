@@ -6,12 +6,13 @@ import external from 'rollup-plugin-peer-deps-external';
 import dts from 'rollup-plugin-dts';
 import url from '@rollup/plugin-url';
 import svgr from '@svgr/rollup';
+import { babel } from '@rollup/plugin-babel';
+import postcss from 'rollup-plugin-postcss';
 
 import packageJson from './package.json';
 
 const config = [
   {
-    preserveModules: true,
     input: 'src/index.ts',
     output: [
       {
@@ -23,12 +24,17 @@ const config = [
         format: 'esm',
       },
     ],
+    external: ['react', '@babel/runtime'],
     plugins: [
       external(),
       url(),
       svgr(),
       commonjs(),
+      postcss(),
       typescript({ tsconfig: './tsconfig.json' }),
+      babel({
+        babelHelpers: 'runtime',
+      }),
       terser(),
     ],
   },

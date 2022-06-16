@@ -1,8 +1,4 @@
-import {
-  NotInstalledError,
-  Wallet,
-  WalletAccount,
-} from '@talisman-connect/wallets';
+import { NotInstalledError, Wallet, WalletAccount } from '@talismn/wallets';
 import {
   cloneElement,
   ReactElement,

@@ -1,21 +1,21 @@
-# @talisman-connect/components
+# @talismn/components
 
 The Wallet Connection UI is core to all Dapps in existence.
 
 Every Dapp developer will have to implement logic and edge cases of connecting to different wallets which may take days to implement.
 
-The `WalletSelect` component in `@talisman-connect/components` will be a massive time saver for Dapp developers without an existing wallet selection ui.
+The `WalletSelect` component in `@talismn/components` will be a massive time saver for Dapp developers without an existing wallet selection ui.
 
-If you have an existing modal, the `WalletSelectButton` in `@talisman-connect/components` may be better suited to your needs.
+If you have an existing modal, the `WalletSelectButton` in `@talismn/components` may be better suited to your needs.
 
-If you require a bespoke ui modal, you can use the `@talisman-connect/wallets` to build out your own modal.
+If you require a bespoke ui modal, you can use the `@talismn/wallets` to build out your own modal.
 
 More components will be developed along the way.
 
 ## Setup:
 
 ```
-yarn add @talisman-connect/components @talisman-connect/wallets @talisman-connect/ui
+yarn add @talismn/components @talismn/wallets @talismn/ui
 ```
 
 ## Usage
@@ -23,8 +23,8 @@ yarn add @talisman-connect/components @talisman-connect/wallets @talisman-connec
 ### [Important] Import styles from the App level
 
 ```tsx
-import '@talisman-connect/components/talisman-connect-components.esm.css';
-import '@talisman-connect/ui/talisman-connect-ui.esm.css';
+import '@talismn/components/talisman-connect-components.esm.css';
+import '@talismn/ui/talisman-connect-ui.esm.css';
 ```
 
 ### [Important] Replace related functions from `@polkadot/extension-dapp`
@@ -47,7 +47,7 @@ If you have calls to `web3FromAddress`, do note that `web3FromSource` will suffi
 This component is the wallet selection modal.
 
 ```tsx
-import { WalletSelect } from '@talisman-connect/components';
+import { WalletSelect } from '@talismn/components';
 
 <WalletSelect
   // [Required] The dapp name
@@ -102,10 +102,10 @@ import { WalletSelect } from '@talisman-connect/components';
 
 This function is a drop-in replacement for the `@polkadot/extension-dapp` version which triggers multiple popups.
 
-This uses the localStorage value for `@talisman-connect/selected-wallet-name` which is updated by `WalletSelect` or `WalletSelectButton` and retrieves the extension object.
+This uses the localStorage value for `@talismn/selected-wallet-name` which is updated by `WalletSelect` or `WalletSelectButton` and retrieves the extension object.
 
 ```tsx
-import { web3FromSource } from '@talisman-connect/components';
+import { web3FromSource } from '@talismn/components';
 
 // This is the object that cointains the `signer` amongs all others.
 const injector = web3FromSource();
@@ -116,8 +116,8 @@ const injector = web3FromSource();
 This component is the actual wallet selector. You can use this is if you have an existing modal. However, we do recommend using `WalletSelect` in general.
 
 ```tsx
-import { WalletSelectButton } from '@talisman-connect/components';
-import { TalismanWallet } from '@talisman-connect/wallets';
+import { WalletSelectButton } from '@talismn/components';
+import { TalismanWallet } from '@talismn/wallets';
 
 const talismanWallet = new TalismanWallet();
 
@@ -139,14 +139,14 @@ const talismanWallet = new TalismanWallet();
 
 ## Events and persistence
 
-### `@talisman-connect/selected-wallet-name` (LocalStorage)
+### `@talismn/selected-wallet-name` (LocalStorage)
 
 Description:
 Updated on `WalletSelect.onWalletSelected` ONLY if there are no errors for the selected wallet.
 
 Removing this item will be equivalent to a "disconnection" behaviour for Dapps.
 
-### `@talisman-connect/wallet-selected` (CustomEvent)
+### `@talismn/wallet-selected` (CustomEvent)
 
 Description:
 Dispatched on `WalletSelect.onWalletSelected` ONLY if there are no errors for the selected wallet.
@@ -156,7 +156,7 @@ Params: `{ detail: Wallet }`
 To listen to this event:
 
 ```
-document.addEventListener('@talisman-connect/wallet-selected', function() {
+document.addEventListener('@talismn/wallet-selected', function() {
   // ...
 })
 ```
@@ -219,12 +219,12 @@ then `WalletSelect` will inherit the correct styles.
 
 ## Adding new wallets into the `WalletSelect` Modal
 
-Refer to [`@talisman-connect/wallets`](https://github.com/TalismanSociety/talisman-connect/tree/master/libs/wallets) for more details.
+Refer to [`@talismn/wallets`](https://github.com/TalismanSociety/talisman-connect/tree/master/libs/wallets) for more details.
 
 ## Dependencies:
 
-- [`@talisman-connect/wallets`](https://github.com/TalismanSociety/talisman-connect/tree/master/libs/wallets)
-- [`@talisman-connect/ui`](https://github.com/TalismanSociety/talisman-connect/tree/master/libs/talisman-connect-ui)
+- [`@talismn/wallets`](https://github.com/TalismanSociety/talisman-connect/tree/master/libs/wallets)
+- [`@talismn/ui`](https://github.com/TalismanSociety/talisman-connect/tree/master/libs/talisman-connect-ui)
 
 ## Troubleshooting
 

@@ -1,12 +1,10 @@
-import { isWalletInstalled } from '@talisman-connect/wallets';
+import { isWalletInstalled } from '@talismn/wallets';
 
 export function removeIfUninstalled() {
-  // Check saved `@talisman-connect/selected-wallet-name`
+  // Check saved `@talismn/selected-wallet-name`
   // to see if the it is still installed or not.
-  const selectedName = localStorage.getItem(
-    '@talisman-connect/selected-wallet-name'
-  );
+  const selectedName = localStorage.getItem('@talismn/selected-wallet-name');
   if (!isWalletInstalled(selectedName)) {
-    localStorage.removeItem('@talisman-connect/selected-wallet-name');
+    localStorage.removeItem('@talismn/selected-wallet-name');
   }
 }

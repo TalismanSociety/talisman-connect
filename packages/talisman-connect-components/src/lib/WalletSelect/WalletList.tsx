@@ -1,4 +1,4 @@
-import { Wallet } from '@talisman-connect/wallets';
+import { Wallet } from '@talismn/wallets';
 import { ReactComponent as ChevronRightIcon } from '../../assets/icons/chevron-right.svg';
 import { ListWithClickProps } from './types';
 import styles from './WalletSelect.module.css';

@@ -5,7 +5,7 @@ import { ReactComponent as ChevronLeftIcon } from '../../assets/icons/chevron-le
 import styles from './Modal.module.css';
 import useOnClickOutside from '../useOnClickOutside/useOnClickOutside';
 
-// TODO: Move this to @talisman-connect/ui
+// TODO: Move this to @talismn/ui
 export interface ModalProps {
   title?: ReactNode;
   footer?: ReactNode;

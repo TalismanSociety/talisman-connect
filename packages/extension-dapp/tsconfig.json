@@ -1,13 +1,8 @@
 {
   "extends": "../tsconfig/base.json",
   "compilerOptions": {
-    "declaration": true,
-    "noLib": false,
-    "noEmitOnError": true,
-    "esModuleInterop": true,
-    "outDir": "./lib",
+    "outDir": "dist",
     "baseUrl": "src",
-    "rootDir": "./",
-    "emitDeclarationOnly": true
+    "rootDir": "src"
   }
 }

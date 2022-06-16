@@ -1,8 +1,8 @@
 import '@talisman-components/nft/index.umd.css';
 
-import { WalletSelect } from '@talisman-connect/components';
-import { truncateMiddle, useLocalStorage } from '@talisman-connect/ui';
-import { getWalletBySource } from '@talisman-connect/wallets';
+import { WalletSelect } from '@talismn/components';
+import { truncateMiddle, useLocalStorage } from '@talismn/ui';
+import { getWalletBySource } from '@talismn/wallets';
 import { NftCard, useNftsByAddress } from '@talisman-components/nft';
 import Link from 'next/link';
 import { useState } from 'react';

@@ -1,9 +1,9 @@
-# @talisman-connect/ui
+# @talismn/ui
 
 ## Setup:
 
 ```
-npm i --save @talisman-connect/ui
+npm i --save @talismn/ui
 ```
 
 ## Components
@@ -13,7 +13,7 @@ npm i --save @talisman-connect/ui
 Example
 
 ```tsx
-import { Modal } from '@talisman-connect/ui';
+import { Modal } from '@talismn/ui';
 
 
 <Modal
@@ -45,7 +45,7 @@ import { Modal } from '@talisman-connect/ui';
 Use localStorage values with ease.
 
 ```tsx
-import { useLocalStorage } from '@talisman-connect/ui';
+import { useLocalStorage } from '@talismn/ui';
 const Dummy = () => {
   const [value, setValue] = useLocalStorage('dummy-key');
   return (
@@ -59,7 +59,7 @@ const Dummy = () => {
 Detects clicks outside of the `ref` element and calls the provided callback.
 
 ```tsx
-import { useOnClickOutside } from '@talisman-connect/ui';
+import { useOnClickOutside } from '@talismn/ui';
 
 const Popup = ({ handleClose }) => {
   const ref = useRef<HTMLDivElement>(null);
@@ -75,7 +75,7 @@ const Popup = ({ handleClose }) => {
 Truncates the input string and replace with dots.
 
 ```tsx
-import { truncateMiddle } from '@talisman-connect/ui';
+import { truncateMiddle } from '@talismn/ui';
 
 truncateMiddle('5FNfznCsgDKywfDXsYTf7YydpnMHUr8fjabK48rS2oFUugdc'); // 5FNf...ugdc
 ```

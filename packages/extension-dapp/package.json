@@ -1,13 +1,10 @@
 {
-  "name": "@talisman-connect/extension-dapp",
+  "name": "@talismn/extension-dapp",
   "description": "Provides interfaces around injected globals for ease of implementation by dapp developers",
   "bugs": "https://github.com/TalismanSociety/talisman-connect/issues",
   "homepage": "https://github.com/TalismanSociety/talisman-connect/tree/web3-functions/libs/extension-dapp",
   "license": "GPL-3.0",
-  "version": "1.0.0",
-  "dependencies": {
-    "@babel/runtime": "^7.17.8"
-  },
+  "version": "0.0.2",
   "main": "dist/cjs/index.js",
   "module": "dist/esm/index.js",
   "types": "dist/index.d.ts",
@@ -19,6 +16,9 @@
   },
   "scripts": {
     "build": "rollup -c"
+  },
+  "dependencies": {
+    "@babel/runtime": "^7.17.8"
   },
   "devDependencies": {
     "@polkadot/api": "*",

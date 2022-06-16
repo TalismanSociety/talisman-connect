@@ -6,7 +6,7 @@ export type SubscriptionFn = (
 
 export interface WalletLogoProps {
   // Logo url
-  src: string;
+  //src: string;
   // Alt for the Logo url
   alt: string;
 }

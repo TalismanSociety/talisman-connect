@@ -1,4 +1,4 @@
-# @talisman-connect
+# @talismn
 
 This is the monorepo for the Talisman Connect project.
 
@@ -9,13 +9,13 @@ This project aims to provide the components necessary for Dapp developers to be 
 #### Install the package:
 
 ```
-npm i --save @talisman-connect/wallets
+npm i --save @talismn/wallets
 ```
 
 #### Example
 
 ```js
-import { getWallets } from '@talisman-connect/wallets';
+import { getWallets } from '@talismn/wallets';
 
 // returns a list of all the extensions currently installed in the window
 assert(window.injectedWeb3, "No wallets installed.")
@@ -49,15 +49,15 @@ try {
 
 ### For Dapps with an existing wallet connection UIs:
 
-- [`@talisman-connect/wallets`](https://github.com/TalismanSociety/talisman-connect/tree/master/libs/wallets)
+- [`@talismn/wallets`](https://github.com/TalismanSociety/talisman-connect/tree/master/libs/wallets)
 
 ### For Dapps without an existing wallet connection UI:
 
-- [`@talisman-connect/components`](https://github.com/TalismanSociety/talisman-connect/tree/master/libs/talisman-connect-components)
+- [`@talismn/components`](https://github.com/TalismanSociety/talisman-connect/tree/master/libs/talisman-connect-components)
 
 ### Generic UIs that can be used for any Dapps:
 
-- [`@talisman-connect/ui`](https://github.com/TalismanSociety/talisman-connect/tree/master/libs/talisman-connect-ui)
+- [`@talismn/ui`](https://github.com/TalismanSociety/talisman-connect/tree/master/libs/talisman-connect-ui)
 
 ## Setup
 

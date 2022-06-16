@@ -1,4 +1,4 @@
-import { getWallets, Wallet } from '@talisman-connect/wallets';
+import { getWallets, Wallet } from '@talismn/wallets';
 import { cloneElement, ReactElement, ReactNode } from 'react';
 import styles from './WalletConnectButton.module.css';
 

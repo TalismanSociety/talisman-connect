@@ -1,5 +1,5 @@
 import { BaseDotsamaWallet } from '../base-dotsama-wallet';
-import logo from './SubWalletLogo.svg';
+// import logo from './SubWalletLogo.svg';
 
 export class SubWallet extends BaseDotsamaWallet {
   extensionName = 'subwallet-js';
@@ -9,7 +9,7 @@ export class SubWallet extends BaseDotsamaWallet {
   noExtensionMessage =
     'You can use any Polkadot compatible wallet but we recommend using Talisman';
   logo = {
-    src: logo,
+    // src: logo,
     alt: 'Subwallet Logo',
   };
 }

@@ -1,4 +1,4 @@
-import { Wallet } from '@talisman-connect/wallets';
+import { Wallet } from '@talismn/wallets';
 
 export interface ListWithClickProps<T> {
   items?: T[];
