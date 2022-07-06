@@ -7,7 +7,7 @@ export class PolkadotjsWallet extends BaseDotsamaWallet {
   noExtensionMessage =
     'You can use any Polkadot compatible wallet but we recommend using Talisman';
   installUrl =
-    'https://chrome.google.com/webstore/detail/polkadot%7Bjs%7D-extension/mopnmbcafieddcagagdcbnhejhlodfdd/related';
+    'https://chrome.google.com/webstore/detail/polkadot%7Bjs%7D-extension/mopnmbcafieddcagagdcbnhejhlodfdd';
   logo = {
     src: logo,
     alt: 'Polkadotjs Logo',
