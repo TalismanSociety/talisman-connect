@@ -4,7 +4,7 @@ import logo from './TalismanLogo.svg';
 export class TalismanWallet extends BaseDotsamaWallet {
   extensionName = 'talisman';
   title = 'Talisman';
-  installUrl = 'https://app.talisman.xyz/spiritkeys';
+  installUrl = 'https://talisman.xyz/download';
   noExtensionMessage =
     'You can use any Polkadot compatible wallet but we recommend using Talisman';
   logo = {
