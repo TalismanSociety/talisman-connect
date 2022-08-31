@@ -1,23 +1,31 @@
 {
-  "extends": "../../tsconfig.base.json",
   "compilerOptions": {
-    "jsx": "react-jsx",
-    "allowJs": true,
-    "esModuleInterop": true,
-    "allowSyntheticDefaultImports": true,
-    "forceConsistentCasingInFileNames": true,
-    "strict": true,
-    "noImplicitReturns": true,
-    "noFallthroughCasesInSwitch": true
-  },
-  "files": [],
-  "include": [],
-  "references": [
-    {
-      "path": "./tsconfig.lib.json"
-    },
-    {
-      "path": "./tsconfig.spec.json"
-    }
-  ]
+    "target": "es6",                          
+    "module": "esnext",
+    "declaration": true,
+    "moduleResolution": "node",   
+    "noLib": false,                  
+    "noEmitOnError": true,
+    "lib": ["es5", "es6", "es2017", "dom"],                            
+    "esModuleInterop": true,                 
+    "outDir": "./lib",
+    "baseUrl": "src",
+    "rootDir": "./",
+    "emitDeclarationOnly": true
+  }
+  ,
+  "include": ["./src/**/*.ts", "custom.d.ts"]
 }
+
+// {
+//   "extends": "../../tsconfig.json",
+//   "compilerOptions": {
+//     "outDir": "./lib",
+//     "baseUrl": "src",
+//     "declarationDir": "types",
+//     "emitDeclarationOnly": true
+//   },
+//   "include": [
+//     "./src"
+//   ]
+//  }
