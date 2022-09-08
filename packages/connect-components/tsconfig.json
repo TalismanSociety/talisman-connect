@@ -1,0 +1,27 @@
+{
+  "compilerOptions": {
+    "module": "esnext",
+    "declaration": true,
+    // "declarationDir": "dist/esm/types",
+    "emitDeclarationOnly": true,
+    "outDir": "dist",
+    "baseUrl": "src",
+    "rootDir": "src",
+    "noImplicitAny": false,
+    "removeComments": true,
+    "allowJs": false,
+    "noLib": false,
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "target": "es6",
+    "sourceMap": true,
+    "esModuleInterop": true,
+    "moduleResolution": "node",
+    "resolveJsonModule": true,
+    "forceConsistentCasingInFileNames": true,
+    "lib": ["es6", "es7", "es2017", "dom"],
+    "typeRoots": ["./src/@types", "./node_modules/@types"],
+    "jsx": "react-jsx"
+  },
+  "include": ["./src"]
+}
