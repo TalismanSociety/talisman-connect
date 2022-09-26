@@ -1,18 +1,19 @@
-# Turborepo starter
+# @talismn/connect
 
-This is an official Yarn v1 starter turborepo.
-
-## What's inside?
+This is the monorepo for the Talisman Connect project.
+This project aims to provide the components necessary for Dapp developers to be able to quickly connect to wallets in the Polkadot and Kusama ecosystems.
 
 This turborepo uses [Yarn](https://classic.yarnpkg.com/) as a package manager. It includes the following packages/apps:
 
-### Apps and Packages
+#### Install the package:
 
-- `docs`: a [Next.js](https://nextjs.org) app
-- `web`: another [Next.js](https://nextjs.org) app
-- `ui`: a stub React component library shared by both `web` and `docs` applications
-- `eslint-config-custom`: `eslint` configurations (includes `eslint-config-next` and `eslint-config-prettier`)
-- `tsconfig`: `tsconfig.json`s used throughout the monorepo
+```
+npm i --save @talismn/connect-wallets
+```
+
+#### Example
+```js
+import { getWallets } from '@talismn/connect-wallets';
 
 Each package/app is 100% [TypeScript](https://www.typescriptlang.org/).
 
@@ -26,7 +27,26 @@ This turborepo has some additional tools already setup for you:
 
 ### Build
 
-To build all apps and packages, run the following command:
+});
+```
+
+## Packages
+
+### For Dapps with an existing wallet connection UIs:
+
+- [`@talismn/connect-wallets`](https://github.com/TalismanSociety/talisman-connect/tree/master/libs/wallets)
+
+### For Dapps without an existing wallet connection UI:
+
+- [`@talismn/connect-components`](https://github.com/TalismanSociety/talisman-connect/tree/master/libs/talisman-connect-components)
+
+### Generic UIs that can be used for any Dapps:
+
+- [`@talismn/connect-ui`](https://github.com/TalismanSociety/talisman-connect/tree/master/libs/talisman-connect-ui)
+
+## Setup
+
+NOTE: We recommend `yarn`
 
 ```
 cd my-turborepo

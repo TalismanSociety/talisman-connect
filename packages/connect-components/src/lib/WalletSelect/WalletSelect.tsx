@@ -28,6 +28,8 @@ export interface WalletSelectProps {
   onError?: (error?: unknown) => unknown;
   triggerComponent?: ReactElement;
 
+  walletList?: Wallet[];
+
   // If `showAccountsList` is specified, then account selection modal will show up.
   showAccountsList?: boolean;
 
@@ -48,6 +50,7 @@ export function WalletSelect(props: WalletSelectProps) {
     header,
     footer,
     dappName,
+    walletList,
     open = false,
   } = props;
 
@@ -63,7 +66,7 @@ export function WalletSelect(props: WalletSelectProps) {
 
   const onModalOpen = useCallback(() => {
     const wallets = getWallets();
-    setWallets(wallets);
+    setWallets(walletList || wallets);
     setIsOpen(true);
     setLoadingAccounts(false);
     if (onWalletConnectOpen) {
