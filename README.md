@@ -15,19 +15,21 @@ npm i --save @talismn/connect-wallets
 ```js
 import { getWallets } from '@talismn/connect-wallets';
 
-Each package/app is 100% [TypeScript](https://www.typescriptlang.org/).
+// get an array of wallets which are installed
+const installedWallets = getWallets().filter(wallet => wallet.installed)
 
-### Utilities
+// get talisman from the array of installed wallets
+const talismanWallet = installedWallets.find(wallet => wallet.extensionName === 'talisman')
 
-This turborepo has some additional tools already setup for you:
-
-- [TypeScript](https://www.typescriptlang.org/) for static type checking
-- [ESLint](https://eslint.org/) for code linting
-- [Prettier](https://prettier.io) for code formatting
-
-### Build
-
-});
+// enable the wallet
+if (talismanWallet) {
+  talismanWallet.enable("myCoolDapp").then(() => {
+    talismanWallet.subscribeAccounts((accounts) => {
+      // do anything you want with the accounts provided by the wallet
+      console.log("got accounts", accounts)
+    })
+  })
+}
 ```
 
 ## Packages
