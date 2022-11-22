@@ -20,13 +20,6 @@ yarn add @talismn/connect-components @talisman-connect/wallets @talisman-connect
 
 ## Usage
 
-### [Important] Import styles from the App level
-
-```tsx
-import '@talismn/connect-components/talisman-connect-components.esm.css';
-import '@talisman-connect/ui/talisman-connect-ui.esm.css';
-```
-
 ### [Important] Replace related functions from `@polkadot/extension-dapp`
 
 If there are multiple PolkadotJS based browser extensions installed,
