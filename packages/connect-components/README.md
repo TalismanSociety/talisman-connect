@@ -24,7 +24,7 @@ yarn add @talismn/connect-components @talisman-connect/wallets @talisman-connect
 
 ```tsx
 import '@talismn/connect-components/talisman-connect-components.esm.css';
-import '@talisman-connect/ui/talisman-connect-ui.esm.css';
+import '@talismn/connect-ui/talisman-connect-ui.esm.css';
 ```
 
 ### [Important] Replace related functions from `@polkadot/extension-dapp`
