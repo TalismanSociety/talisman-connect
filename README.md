@@ -36,15 +36,15 @@ if (talismanWallet) {
 
 ### For Dapps with an existing wallet connection UIs:
 
-- [`@talismn/connect-wallets`](https://github.com/TalismanSociety/talisman-connect/tree/master/libs/wallets)
+- [`@talismn/connect-wallets`](https://github.com/TalismanSociety/talisman-connect/tree/master/packages/connect-wallets)
 
 ### For Dapps without an existing wallet connection UI:
 
-- [`@talismn/connect-components`](https://github.com/TalismanSociety/talisman-connect/tree/master/libs/talisman-connect-components)
+- [`@talismn/connect-components`](https://github.com/TalismanSociety/talisman-connect/tree/master/packages/connect-components)
 
 ### Generic UIs that can be used for any Dapps:
 
-- [`@talismn/connect-ui`](https://github.com/TalismanSociety/talisman-connect/tree/master/libs/talisman-connect-ui)
+- [`@talismn/connect-ui`](https://github.com/TalismanSociety/talisman-connect/tree/master/packages/connect-ui)
 
 ## Setup
 
