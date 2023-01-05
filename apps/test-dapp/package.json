@@ -11,9 +11,9 @@
   "dependencies": {
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "@talismn/connect-ui": "workspace:^",
-    "@talismn/connect-components": "workspace:^",
-    "@talismn/connect-wallets": "workspace:^"
+    "@talismn/connect-ui": "*",
+    "@talismn/connect-components": "*",
+    "@talismn/connect-wallets": "*"
   },
   "devDependencies": {
     "@types/react": "^18.0.17",
