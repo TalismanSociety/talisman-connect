@@ -12,7 +12,8 @@
     "build": "turbo run build",
     "dev": "turbo run dev --parallel",
     "lint": "turbo run lint",
-    "format": "prettier --write \"**/*.{ts,tsx,md}\""
+    "format": "prettier --write \"**/*.{ts,tsx,md}\"",
+    "reloaddapp": "yarn build && yarn dev"
   },
   "devDependencies": {
     "eslint-config-custom": "*",

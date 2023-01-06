@@ -4,16 +4,17 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "dev": "vite",
+    "dev": "vite --host localhost",
     "build": "tsc && vite build",
     "preview": "vite preview"
   },
   "dependencies": {
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "@talismn/connect-ui": "workspace:^",
-    "@talismn/connect-components": "workspace:^",
-    "@talismn/connect-wallets": "workspace:^"
+    "@talismn/connect-ui": "*",
+    "@talismn/connect-components": "*",
+    "@talismn/connect-wallets": "*",
+    "@polkadot/extension-dapp": "^0.44.6"
   },
   "devDependencies": {
     "@types/react": "^18.0.17",

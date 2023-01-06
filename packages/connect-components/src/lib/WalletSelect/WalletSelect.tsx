@@ -1,4 +1,4 @@
-import { WalletAccount, Wallet, getWallets } from '@talismn/connect-wallets';
+import { WalletAccount, Wallet, getWallets, TalismanWallet } from '@talismn/connect-wallets';
 import {
   cloneElement,
   ReactElement,
@@ -30,6 +30,8 @@ export interface WalletSelectProps {
 
   walletList?: Wallet[];
 
+  onlyShowInstalled?: boolean;
+
   // If `showAccountsList` is specified, then account selection modal will show up.
   showAccountsList?: boolean;
 
@@ -51,6 +53,7 @@ export function WalletSelect(props: WalletSelectProps) {
     footer,
     dappName,
     walletList,
+    onlyShowInstalled,
     open = false,
   } = props;
 
@@ -66,7 +69,14 @@ export function WalletSelect(props: WalletSelectProps) {
 
   const onModalOpen = useCallback(() => {
     const wallets = getWallets();
-    setWallets(walletList || wallets);
+    const installedWallets = wallets.filter((wallet) => wallet.installed);
+    // check if Talisman is installed in installedWallets, if not, add Talisman to the list of installed wallets
+    if (!installedWallets.find((wallet) => wallet.extensionName === 'talisman')) {
+      // push talisman to the first position
+      installedWallets.unshift(new TalismanWallet());
+    }
+    const updatedWalletList = onlyShowInstalled ? installedWallets : walletList;
+    setWallets(updatedWalletList || wallets);
     setIsOpen(true);
     setLoadingAccounts(false);
     if (onWalletConnectOpen) {

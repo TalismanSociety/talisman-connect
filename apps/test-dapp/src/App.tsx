@@ -3,16 +3,27 @@ import reactLogo from "./assets/react.svg";
 import { useLocalStorage } from "@talismn/connect-ui";
 import "./App.css";
 import { WalletSelect } from "@talismn/connect-components";
-import { PolkadotjsWallet, SubWallet, TalismanWallet } from "@talismn/connect-wallets"
+import { TalismanWallet, SubWallet, EnkryptWallet, PolkadotjsWallet } from "@talismn/connect-wallets"
+import { web3Accounts, web3Enable, web3FromAddress } from '@polkadot/extension-dapp';
 
 function App() {
-  const [count, setCount] = useState(0);
 
-  const [name, setName] = useLocalStorage("HI");
+
+  const Accounts = async () => {
+    // returns an array of all the injected sources
+    // (this needs to be called first, before other requests)
+    const allInjected = await web3Enable('talisman');
+
+    // returns an array of { address, meta: { name, source } }
+    // meta.source contains the name of the extension that provides this account
+    const allAccounts = await web3Accounts();
+
+    console.log(allAccounts)
+  }
 
   useEffect(() => {
-    setName(count.toString());
-  }, [count]);
+    Accounts();
+  }, [])
 
   return (
     <div className="App">
@@ -20,13 +31,15 @@ function App() {
       dappName={"Talisman"}
       walletList={[
         new TalismanWallet(),
-        new SubWallet(),
+        new EnkryptWallet(),
         new PolkadotjsWallet(),
+        new SubWallet(),
       ]}
+      onlyShowInstalled
       triggerComponent={
-        <a>hi</a>
+        <button>Open Wallets</button>
       }
-    />
+      />
     </div>
   );
 }
