@@ -14,6 +14,8 @@ function App() {
     // (this needs to be called first, before other requests)
     const allInjected = await web3Enable('talisman');
 
+    const allExtensions = allInjected.map(({ name, version }) => `${name} ${version}`);
+
     // returns an array of { address, meta: { name, source } }
     // meta.source contains the name of the extension that provides this account
     const allAccounts = await web3Accounts();
@@ -29,13 +31,14 @@ function App() {
     <div className="App">
       <WalletSelect
       dappName={"Talisman"}
+      onlyShowInstalled
       walletList={[
         new TalismanWallet(),
         new EnkryptWallet(),
         new PolkadotjsWallet(),
         new SubWallet(),
       ]}
-      onlyShowInstalled
+      // onlyShowInstalled
       triggerComponent={
         <button>Open Wallets</button>
       }

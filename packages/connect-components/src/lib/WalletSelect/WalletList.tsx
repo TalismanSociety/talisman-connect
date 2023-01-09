@@ -28,7 +28,7 @@ export function WalletList(props: ListWithClickProps<Wallet>) {
                 width={32}
                 height={32}
               />
-              {wallet.title}
+              {!wallet.installed ? "Get " : ""}{wallet.title}
             </span>
             { wallet.installed ? <ChevronRightIcon /> : !wallet.installed && wallet.extensionName === "talisman" ? <Download /> : "Not Installed"}
           </button>

@@ -2,18 +2,16 @@ import { TalismanWallet } from './talisman-wallet';
 import { PolkadotjsWallet } from './polkadotjs-wallet';
 import { SubWallet } from './subwallet-wallet';
 import { Wallet } from '..';
-import { TrustWallet } from './trust-wallet';
 import { EnkryptWallet } from './enkrypt-wallet';
 
 // Export wallets as well for one and done usage
-export { TalismanWallet, SubWallet, PolkadotjsWallet, TrustWallet, EnkryptWallet };
+export { TalismanWallet, SubWallet, PolkadotjsWallet, EnkryptWallet };
 
 // Add new wallets here
 const supportedWallets = [
   new TalismanWallet(),
   new SubWallet(),
   new PolkadotjsWallet(),
-  // new TrustWallet(),
   new EnkryptWallet()
 ];
 
