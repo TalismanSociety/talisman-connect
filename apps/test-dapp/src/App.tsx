@@ -3,7 +3,7 @@ import reactLogo from "./assets/react.svg";
 import { useLocalStorage } from "@talismn/connect-ui";
 import "./App.css";
 import { WalletSelect } from "@talismn/connect-components";
-import { PolkadotjsWallet, SubWallet, TalismanWallet } from "@talismn/connect-wallets"
+import { PolkadotjsWallet, SubWallet, TalismanWallet, FearlessWallet } from "@talismn/connect-wallets"
 
 function App() {
   const [count, setCount] = useState(0);
@@ -21,6 +21,7 @@ function App() {
       walletList={[
         new TalismanWallet(),
         new SubWallet(),
+        new FearlessWallet(),
         new PolkadotjsWallet(),
       ]}
       triggerComponent={

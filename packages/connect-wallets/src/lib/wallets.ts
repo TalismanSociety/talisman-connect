@@ -1,6 +1,7 @@
 import { TalismanWallet } from './talisman-wallet';
 import { PolkadotjsWallet } from './polkadotjs-wallet';
 import { SubWallet } from './subwallet-wallet';
+import { FearlessWallet } from './fearless-wallet';
 import { Wallet } from '..';
 
 // Export wallets as well for one and done usage
@@ -10,6 +11,7 @@ export { TalismanWallet, SubWallet, PolkadotjsWallet };
 const supportedWallets = [
   new TalismanWallet(),
   new SubWallet(),
+  new FearlessWallet(),
   new PolkadotjsWallet(),
 ];
 
