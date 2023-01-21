@@ -31,7 +31,8 @@ function App() {
     <div className="App">
       <WalletSelect
       dappName={"Talisman"}
-      onlyShowInstalled
+      // onlyShowInstalled
+      // makeInstallable
       walletList={[
         new TalismanWallet(),
         new EnkryptWallet(),

@@ -5,7 +5,7 @@ import { ListWithClickProps } from './types';
 import styles from './WalletSelect.module.css';
 
 export function WalletList(props: ListWithClickProps<Wallet>) {
-  const { items, onClick } = props;
+  const { items, onClick, makeInstallable } = props;
   if (!items) {
     return null;
   }
@@ -16,9 +16,9 @@ export function WalletList(props: ListWithClickProps<Wallet>) {
         return (
           <button
             key={wallet.extensionName}
-            className={wallet.installed || wallet.extensionName == "talisman" ? styles['row-button'] : styles['row-button-unavailable']}
+            className={(wallet.installed || wallet.extensionName == "talisman") || makeInstallable ? styles['row-button'] : styles['row-button-unavailable']}
             onClick={
-              wallet.installed ? () => onClick?.(wallet) : !wallet.installed && wallet.extensionName === "talisman" ? () => window.open(wallet.installUrl, '_blank', 'noopener,noreferrer') : null
+              wallet.installed ? () => onClick?.(wallet) : (!wallet.installed && wallet.extensionName === "talisman") || makeInstallable ? () => window.open(wallet.installUrl, '_blank', 'noopener,noreferrer') : null
             }
           >
             <span className={styles['flex']}>
@@ -30,7 +30,7 @@ export function WalletList(props: ListWithClickProps<Wallet>) {
               />
               {!wallet.installed ? "Get " : ""}{wallet.title}
             </span>
-            { wallet.installed ? <ChevronRightIcon /> : !wallet.installed && wallet.extensionName === "talisman" ? <Download /> : "Not Installed"}
+            { wallet.installed ? <ChevronRightIcon /> : (!wallet.installed && wallet.extensionName === "talisman") || makeInstallable ? <Download /> : "Not Installed"}
           </button>
         );
       })}

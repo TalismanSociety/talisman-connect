@@ -31,6 +31,7 @@ export interface WalletSelectProps {
   walletList?: Wallet[];
 
   onlyShowInstalled?: boolean;
+  makeInstallable?: boolean;
 
   // If `showAccountsList` is specified, then account selection modal will show up.
   showAccountsList?: boolean;
@@ -54,6 +55,7 @@ export function WalletSelect(props: WalletSelectProps) {
     dappName,
     walletList,
     onlyShowInstalled,
+    makeInstallable,
     open = false,
   } = props;
 
@@ -225,7 +227,7 @@ export function WalletSelect(props: WalletSelectProps) {
         isOpen={isOpen}
       >
         {!selectedWallet && (
-          <WalletList items={supportedWallets} onClick={onWalletListSelected} />
+          <WalletList items={supportedWallets} onClick={onWalletListSelected} makeInstallable={makeInstallable} />
         )}
         {selectedWallet && loadingAccounts && <Loading />}
         {selectedWallet &&
