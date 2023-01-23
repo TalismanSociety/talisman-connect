@@ -98,7 +98,7 @@ This function is a drop-in replacement for the `@polkadot/extension-dapp` versio
 This uses the localStorage value for `@talisman-connect/selected-wallet-name` which is updated by `WalletSelect` or `WalletSelectButton` and retrieves the extension object.
 
 ```tsx
-import { web3FromSource } from '@talismn/connect-components';
+import { web3FromSource } from "@talismn/connect-components";
 
 // This is the object that cointains the `signer` amongs all others.
 const injector = web3FromSource();
@@ -109,8 +109,8 @@ const injector = web3FromSource();
 This component is the actual wallet selector. You can use this is if you have an existing modal. However, we do recommend using `WalletSelect` in general.
 
 ```tsx
-import { WalletSelectButton } from '@talismn/connect-components';
-import { TalismanWallet } from '@talisman-connect/wallets';
+import { WalletSelectButton } from "@talismn/connect-components";
+import { TalismanWallet } from "@talisman-connect/wallets";
 
 const talismanWallet = new TalismanWallet();
 
@@ -226,7 +226,7 @@ If in case there is an error parsing `import.meta`, please add the following to 
 ```js
 webpackConfig.module.rules.push({
   test: /\.js$/,
-  loader: require.resolve('@open-wc/webpack-import-meta-loader'),
+  loader: require.resolve("@open-wc/webpack-import-meta-loader"),
 });
 ```
 
@@ -242,7 +242,7 @@ const ImportMetaLoaderPlugin = {
       if (!webpackConfig.module.rules) webpackConfig.module.rules = [];
       webpackConfig.module.rules.push({
         test: /\.js$/,
-        loader: require.resolve('@open-wc/webpack-import-meta-loader'),
+        loader: require.resolve("@open-wc/webpack-import-meta-loader"),
       });
 
       return webpackConfig;

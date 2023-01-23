@@ -1,0 +1,10 @@
+:root {
+  --talisman-connect-control-background: #383838;
+  --talisman-connect-control-foreground: inherit;
+  --talisman-connect-active-background: #5a5a5a;
+  --talisman-connect-active-foreground: inherit;
+  --talisman-connect-modal-background: #121212;
+  --talisman-connect-modal-foreground: #fafafa;
+  --talisman-connect-button-background: var(--talisman-connect-control-background);
+  --talisman-connect-button-foreground: #fafafa;
+}
