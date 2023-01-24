@@ -6,7 +6,7 @@ import { Wallet } from '..';
 import { EnkryptWallet } from './enkrypt-wallet';
 
 // Export wallets as well for one and done usage
-export { TalismanWallet, SubWallet, PolkadotjsWallet, EnkryptWallet };
+export { TalismanWallet, SubWallet, PolkadotjsWallet, EnkryptWallet, FearlessWallet };
 
 // Add new wallets here
 const supportedWallets = [

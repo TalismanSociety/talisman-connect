@@ -1,10 +1,8 @@
-import { useEffect, useState } from "react";
-import reactLogo from "./assets/react.svg";
-import { useLocalStorage } from "@talismn/connect-ui";
+import { useEffect } from "react";
 import "./App.css";
 import { WalletSelect } from "@talismn/connect-components";
 import { PolkadotjsWallet, SubWallet, TalismanWallet, FearlessWallet, EnkryptWallet } from "@talismn/connect-wallets"
-import { web3Accounts, web3Enable, web3FromAddress } from '@polkadot/extension-dapp';
+import { web3Accounts, web3Enable } from '@polkadot/extension-dapp';
 
 
 function App() {
