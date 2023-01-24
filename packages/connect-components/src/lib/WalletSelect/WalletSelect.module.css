@@ -31,7 +31,7 @@
   gap: 1rem;
 }
 
-button.row-button {
+button.row-button, button.row-button-unavailable {
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -45,6 +45,10 @@ button.row-button {
   cursor: pointer;
   width: 100%;
   margin-bottom: 0.5rem;
+}
+
+button.row-button-unavailable {
+  opacity: 30%;
 }
 
 button.row-button:hover {

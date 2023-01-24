@@ -10,7 +10,21 @@
   transition: all 0.3s ease-in-out;
   overflow: hidden;
   z-index: var(--modal-z-index, 999);
+  animation: modal-enter 0.2s ease-in-out;
 }
+
+/* animation slide up for 0.2 seconds and fade in */
+@keyframes modal-enter {
+  0% {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
 
 /* TODO: Need to observe svgs when imported and used. The default one breaks the svg sizes. */
 .modal svg {
