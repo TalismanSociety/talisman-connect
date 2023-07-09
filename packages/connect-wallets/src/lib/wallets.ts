@@ -4,9 +4,10 @@ import { SubWallet } from './subwallet-wallet';
 import { FearlessWallet } from './fearless-wallet';
 import { Wallet } from '..';
 import { EnkryptWallet } from './enkrypt-wallet';
+import { NovaWallet } from './nova-wallet';
 
 // Export wallets as well for one and done usage
-export { TalismanWallet, SubWallet, PolkadotjsWallet, EnkryptWallet, FearlessWallet };
+export { TalismanWallet, SubWallet, PolkadotjsWallet, EnkryptWallet, FearlessWallet, NovaWallet };
 
 // Add new wallets here
 const supportedWallets = [
@@ -14,7 +15,8 @@ const supportedWallets = [
   new SubWallet(),
   new FearlessWallet(),
   new PolkadotjsWallet(),
-  new EnkryptWallet()
+  new EnkryptWallet(),
+  new NovaWallet()
 ];
 
 export function getWallets(): Wallet[] {
