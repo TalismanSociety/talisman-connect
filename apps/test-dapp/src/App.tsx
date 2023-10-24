@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import "./App.css";
 import { WalletSelect } from "@talismn/connect-components";
-import { PolkadotjsWallet, SubWallet, TalismanWallet, FearlessWallet, EnkryptWallet } from "@talismn/connect-wallets"
+import { PolkadotjsWallet, SubWallet, TalismanWallet, FearlessWallet, EnkryptWallet, MantaWallet } from "@talismn/connect-wallets"
 import { web3Accounts, web3Enable } from '@polkadot/extension-dapp';
 
 
@@ -35,10 +35,10 @@ function App() {
       walletList={[
         new TalismanWallet(),
         new SubWallet(),
+        new MantaWallet(),
         new FearlessWallet(),
         new EnkryptWallet(),
         new PolkadotjsWallet(),
-        new SubWallet(),
       ]}
       // onlyShowInstalled
       triggerComponent={
