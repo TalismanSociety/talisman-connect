@@ -11,15 +11,13 @@ export default [
   {
     input: "src/index.ts",
     plugins: [
-      //  esbuild(),
-
       image(),
-      //nodeResolve(),
       postcss(),
       svgr(),
       commonjs(),
       typescript({ tsconfig: "./tsconfig.json" }),
     ],
+    external: ["react", "@talismn/connect-ui", "@talismn/connect-wallets", "react/jsx-runtime"],
     output: [
       {
         file: packageJson.main,

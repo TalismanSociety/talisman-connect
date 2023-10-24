@@ -4,9 +4,7 @@ import commonjs from "@rollup/plugin-commonjs";
 import typescript from "@rollup/plugin-typescript";
 import esbuild from 'rollup-plugin-esbuild'
 
-import svg from "rollup-plugin-svg";
 import url from "@rollup/plugin-url";
-import styles from "rollup-plugin-styles";
 import svgr from "@svgr/rollup";  
 
 import packageJson from "./package.json" assert { type: "json" }
@@ -19,15 +17,11 @@ export default [
       esbuild(),
       svgr(),
       url(),
-
-      // image(),
-      //styles(),
-
       postcss(),
-      //
       commonjs(),
-      typescript({ tsconfig: "./tsconfig.json" }),
+      typescript({ tsconfig: "./tsconfig.json" })
     ],
+    external: ["react", "react-dom", "react/jsx-runtime"],
     output: [
       {
         file: packageJson.main,
