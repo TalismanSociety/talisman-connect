@@ -1818,7 +1818,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@polkadot/api@npm:10.10.1, @polkadot/api@npm:^10.10.1, @polkadot/api@npm:^10.9.1":
+"@polkadot/api@npm:10.10.1, @polkadot/api@npm:^10.9.1":
   version: 10.10.1
   resolution: "@polkadot/api@npm:10.10.1"
   dependencies:
@@ -1868,23 +1868,23 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@polkadot/extension-dapp@npm:^0.46.5":
-  version: 0.46.5
-  resolution: "@polkadot/extension-dapp@npm:0.46.5"
+"@polkadot/extension-inject@npm:^0.44.6":
+  version: 0.44.9
+  resolution: "@polkadot/extension-inject@npm:0.44.9"
   dependencies:
-    "@polkadot/extension-inject": "npm:0.46.5"
-    "@polkadot/util": "npm:^12.3.2"
-    "@polkadot/util-crypto": "npm:^12.3.2"
-    tslib: "npm:^2.5.3"
+    "@babel/runtime": "npm:^7.20.13"
+    "@polkadot/rpc-provider": "npm:^9.14.2"
+    "@polkadot/types": "npm:^9.14.2"
+    "@polkadot/util": "npm:^10.4.2"
+    "@polkadot/util-crypto": "npm:^10.4.2"
+    "@polkadot/x-global": "npm:^10.4.2"
   peerDependencies:
     "@polkadot/api": "*"
-    "@polkadot/util": "*"
-    "@polkadot/util-crypto": "*"
-  checksum: 45d399ed42f1ebc5772a1a2800f51a9971251490e3d752220ba323fb05562b010f4d376b3be8ebe831d82e534821ea7410455b416e555456e4c0878df782b506
+  checksum: 7cfbd2306000f221e50edab84f9a7b9716a0409463ea6471fc14266ff54b4441a8f965fc1b21229756f339642cc7ba7981cf46a3acf5190bad1fd745ea425440
   languageName: node
   linkType: hard
 
-"@polkadot/extension-inject@npm:0.46.5, @polkadot/extension-inject@npm:^0.46.5":
+"@polkadot/extension-inject@npm:^0.46.5":
   version: 0.46.5
   resolution: "@polkadot/extension-inject@npm:0.46.5"
   dependencies:
@@ -1899,22 +1899,6 @@ __metadata:
     "@polkadot/api": "*"
     "@polkadot/util": "*"
   checksum: 1ae3880f66473f6debe8268f5266e6beddb24799596904c523cd17ceee8cff8a02d73c6ac4ae586ff088ee87b9414cf4e616feee13dd47017a2f9aaea25923aa
-  languageName: node
-  linkType: hard
-
-"@polkadot/extension-inject@npm:^0.44.6":
-  version: 0.44.9
-  resolution: "@polkadot/extension-inject@npm:0.44.9"
-  dependencies:
-    "@babel/runtime": "npm:^7.20.13"
-    "@polkadot/rpc-provider": "npm:^9.14.2"
-    "@polkadot/types": "npm:^9.14.2"
-    "@polkadot/util": "npm:^10.4.2"
-    "@polkadot/util-crypto": "npm:^10.4.2"
-    "@polkadot/x-global": "npm:^10.4.2"
-  peerDependencies:
-    "@polkadot/api": "*"
-  checksum: 7cfbd2306000f221e50edab84f9a7b9716a0409463ea6471fc14266ff54b4441a8f965fc1b21229756f339642cc7ba7981cf46a3acf5190bad1fd745ea425440
   languageName: node
   linkType: hard
 
@@ -9465,8 +9449,6 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "test-dapp@workspace:apps/test-dapp"
   dependencies:
-    "@polkadot/api": "npm:^10.10.1"
-    "@polkadot/extension-dapp": "npm:^0.46.5"
     "@talismn/connect-components": "npm:*"
     "@talismn/connect-ui": "npm:*"
     "@talismn/connect-wallets": "npm:*"
