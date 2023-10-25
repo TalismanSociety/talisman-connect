@@ -18,9 +18,11 @@
     "Connect",
     "Integration"
   ],
-  "devDependencies": {
+  "dependencies": {
     "@polkadot/api": "^9.3.3",
-    "@polkadot/extension-inject": "^0.44.6",
+    "@polkadot/extension-inject": "^0.44.6"
+  },
+  "devDependencies": {
     "@rollup/plugin-commonjs": "^22.0.2",
     "@rollup/plugin-typescript": "^8.5.0",
     "@rollup/plugin-url": "^7.0.0",

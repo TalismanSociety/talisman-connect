@@ -23,13 +23,13 @@
     "Integration"
   ],
   "peerDependencies": {
-    "@testing-library/react-hooks": "^8.0.1",
-    "@types/react": "^18.0.18",
-    "@types/react-dom": "^18.0.6",
+    "@types/react": "^18.2.31",
+    "@types/react-dom": "^18.2.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0"
   },
   "dependencies": {
+    "postcss": "^8.4.31",
     "rollup-plugin-postcss-modules": "^2.0.2",
     "rollup-plugin-styles": "^4.0.0",
     "typescript": "^4.8.2"
