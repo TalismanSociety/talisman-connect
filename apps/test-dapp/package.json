@@ -9,6 +9,8 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@polkadot/api": "^10.10.1",
+    "@polkadot/extension-dapp": "^0.46.5",
     "@talismn/connect-components": "*",
     "@talismn/connect-ui": "*",
     "@talismn/connect-wallets": "*",

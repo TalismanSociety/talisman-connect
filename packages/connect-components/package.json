@@ -23,7 +23,6 @@
     "Integration"
   ],
   "peerDependencies": {
-    "@testing-library/react-hooks": "^8.0.1",
     "@types/react": "^18.2.31",
     "@types/react-dom": "^18.2.0",
     "react": "^18.2.0",
@@ -33,7 +32,6 @@
     "@talismn/connect-ui": "^1.1.2",
     "@talismn/connect-wallets": "^1.2.3",
     "@testing-library/react": "^13.4.0",
-    "@testing-library/react-hooks": "^8.0.1",
     "@types/react": "^18.2.31",
     "@types/react-dom": "^18.2.0",
     "postcss": "^8.4.31",
