@@ -1,4 +1,3 @@
-/* eslint-disable import/no-extraneous-dependencies */
 import commonjs from '@rollup/plugin-commonjs'
 import typescript from '@rollup/plugin-typescript'
 import { terser } from 'rollup-plugin-terser'

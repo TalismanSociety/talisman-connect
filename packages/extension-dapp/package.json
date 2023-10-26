@@ -4,29 +4,27 @@
   "bugs": "https://github.com/TalismanSociety/talisman-connect/issues",
   "homepage": "https://github.com/TalismanSociety/talisman-connect/tree/web3-functions/libs/extension-dapp",
   "license": "GPL-3.0",
-  "version": "1.0.0",
-  "dependencies": {
-    "@babel/runtime": "^7.17.8"
-  },
+  "version": "1.0.1",
   "main": "lib/cjs/index.js",
   "module": "lib/esm/index.js",
   "types": "lib/index.d.ts",
-  "peerDependencies": {
-    "@polkadot/api": "*",
-    "@polkadot/extension-inject": "^0.42.10-2",
-    "@polkadot/util": "*",
-    "@polkadot/util-crypto": "*"
-  },
   "scripts": {
     "build": "rollup -c",
     "clean": "rmdir /s /q node_modules"
   },
+  "dependencies": {
+    "@babel/runtime": "^7.17.8",
+    "@polkadot/extension-inject": "^0.46.5",
+    "@polkadot/util": "^12.5.1",
+    "@polkadot/util-crypto": "^12.5.1"
+  },
+  "peerDependencies": {
+    "@polkadot/api": "*",
+    "@polkadot/util": "*",
+    "@polkadot/util-crypto": "*"
+  },
   "devDependencies": {
     "@open-wc/building-rollup": "^2.0.1",
-    "@polkadot/api": "*",
-    "@polkadot/extension-inject": "^0.42.10-2",
-    "@polkadot/util": "*",
-    "@polkadot/util-crypto": "*",
     "@rollup/plugin-commonjs": "^21.0.3",
     "@rollup/plugin-typescript": "^8.3.1",
     "@types/jest": "^27.4.1",
