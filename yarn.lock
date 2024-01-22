@@ -1834,7 +1834,7 @@
     "@svgr/plugin-svgo" "^6.5.1"
 
 "@talisman-connect/extension-dapp@file:/Users/chid/Documents/talisman/talisman-connect/packages/extension-dapp":
-  version "1.0.1"
+  version "1.0.0"
   resolved "file:packages/extension-dapp"
   dependencies:
     "@babel/runtime" "^7.17.8"
@@ -1866,7 +1866,7 @@
     typescript "^4.8.2"
 
 "@talismn/connect-wallets@*", "@talismn/connect-wallets@^1.2.3", "@talismn/connect-wallets@file:/Users/chid/Documents/talisman/talisman-connect/packages/connect-wallets":
-  version "1.2.4"
+  version "1.2.5"
   resolved "file:packages/connect-wallets"
   dependencies:
     "@polkadot/api" "^9.3.3"

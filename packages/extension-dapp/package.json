@@ -3,6 +3,11 @@
   "description": "Provides interfaces around injected globals for ease of implementation by dapp developers",
   "bugs": "https://github.com/TalismanSociety/talisman-connect/issues",
   "homepage": "https://github.com/TalismanSociety/talisman-connect/tree/web3-functions/libs/extension-dapp",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/TalismanSociety/talisman-connect.git",
+    "directory": "packages/extension-dapp"
+  },
   "license": "GPL-3.0",
   "version": "1.0.1",
   "main": "lib/cjs/index.js",
