@@ -1843,7 +1843,7 @@
     "@polkadot/util-crypto" "^12.5.1"
 
 "@talismn/connect-components@*", "@talismn/connect-components@file:/Users/chid/Documents/talisman/talisman-connect/packages/connect-components":
-  version "1.1.7"
+  version "1.1.8"
   resolved "file:packages/connect-components"
   dependencies:
     "@talismn/connect-ui" "^1.1.2"
