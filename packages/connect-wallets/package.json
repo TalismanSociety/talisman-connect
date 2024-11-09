@@ -1,11 +1,16 @@
 {
   "name": "@talismn/connect-wallets",
-  "version": "1.2.3",
+  "version": "1.2.5",
   "license": "GPL-3.0",
   "author": "TalismanSociety",
   "main": "dist/cjs/index.js",
   "module": "dist/esm/index.js",
   "types": "dist/index.d.ts",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/TalismanSociety/talisman-connect.git",
+    "directory": "packages/connect-wallets"
+  },
   "publishConfig": {
     "access": "public"
   },
@@ -18,14 +23,14 @@
     "Connect",
     "Integration"
   ],
-  "devDependencies": {
+  "dependencies": {
     "@polkadot/api": "^9.3.3",
-    "@polkadot/extension-inject": "^0.44.6",
+    "@polkadot/extension-inject": "^0.44.6"
+  },
+  "devDependencies": {
     "@rollup/plugin-commonjs": "^22.0.2",
-    "@rollup/plugin-image": "^2.1.1",
     "@rollup/plugin-typescript": "^8.5.0",
     "@rollup/plugin-url": "^7.0.0",
-    "@svgr/rollup": "^6.3.1",
     "esbuild": "^0.15.7",
     "rollup": "^2.79.0",
     "rollup-plugin-dts": "^4.2.2",

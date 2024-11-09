@@ -1,3 +1,3 @@
 # @Talisman/extension-dapp
 
-Documentation for the implementation can be found at #.
+This package is deprecated and no longer maintained.

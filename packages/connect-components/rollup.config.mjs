@@ -5,21 +5,19 @@ import commonjs from "@rollup/plugin-commonjs";
 import svgr from "@svgr/rollup";
 import typescript from "@rollup/plugin-typescript";
 
-import packageJson from "./package.json";
+import packageJson from "./package.json" assert { type: "json" };
 
 export default [
   {
     input: "src/index.ts",
     plugins: [
-      //  esbuild(),
-
       image(),
-      //nodeResolve(),
       postcss(),
       svgr(),
       commonjs(),
       typescript({ tsconfig: "./tsconfig.json" }),
     ],
+    external: ["react", "@talismn/connect-ui", "@talismn/connect-wallets", "react/jsx-runtime"],
     output: [
       {
         file: packageJson.main,
