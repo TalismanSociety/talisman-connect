@@ -1,39 +1,80 @@
-import { Wallet } from '@talismn/connect-wallets';
-import { ReactComponent as ChevronRightIcon } from '../../assets/icons/chevron-right.svg';
-import { ReactComponent as Download } from '../../assets/icons/download.svg';
-import { ListWithClickProps } from './types';
-import styles from './WalletSelect.module.css';
+import { Wallet } from '@talismn/connect-wallets'
 
-export function WalletList(props: ListWithClickProps<Wallet>) {
-  const { items, onClick, makeInstallable } = props;
-  if (!items) {
-    return null;
-  }
+import { ReactComponent as ChevronRightIcon } from '../../assets/icons/chevron-right.svg'
+import { ReactComponent as Download } from '../../assets/icons/download.svg'
+import { ListWithClickProps } from './types'
+import styles from './WalletSelect.module.css'
+
+export function WalletList({
+  items,
+  makeInstallable,
+  onClick,
+}: ListWithClickProps<Wallet>) {
+  if (!items) return null
 
   return (
     <>
-      {items.map((wallet) => {
-        return (
-          <button
-            key={wallet.extensionName}
-            className={(wallet.installed || wallet.extensionName == "talisman") || makeInstallable ? styles['row-button'] : styles['row-button-unavailable']}
-            onClick={
-              wallet.installed ? () => onClick?.(wallet) : (!wallet.installed && wallet.extensionName === "talisman") || makeInstallable ? () => window.open(wallet.installUrl, '_blank', 'noopener,noreferrer') : null
-            }
-          >
-            <span className={styles['flex']}>
-              <img
-                src={wallet.logo.src}
-                alt={wallet.logo.alt}
-                width={32}
-                height={32}
-              />
-              {!wallet.installed ? "Get " : ""}{wallet.title}
-            </span>
-            { wallet.installed ? <ChevronRightIcon /> : (!wallet.installed && wallet.extensionName === "talisman") || makeInstallable ? <Download /> : "Not Installed"}
-          </button>
-        );
-      })}
+      {items.map((wallet, index) => (
+        <WalletItem
+          key={index}
+          makeInstallable={makeInstallable}
+          onClick={onClick}
+          wallet={wallet}
+        />
+      ))}
     </>
-  );
+  )
+}
+
+export const WalletItem = ({
+  makeInstallable,
+  onClick,
+  wallet,
+}: { wallet: Wallet } & Pick<
+  ListWithClickProps<Wallet>,
+  'makeInstallable' | 'onClick'
+>) => {
+  const available =
+    wallet.installed || wallet.extensionName == 'talisman' || makeInstallable
+
+  const canInstallWallet =
+    makeInstallable ||
+    (wallet.extensionName === 'talisman' && !wallet.installed)
+  const selectWallet = () => onClick?.(wallet)
+  const installWallet = () =>
+    window.open(wallet.installUrl, '_blank', 'noopener,noreferrer')
+
+  const handleClick = wallet.installed
+    ? selectWallet
+    : canInstallWallet
+      ? installWallet
+      : null
+
+  return (
+    <button
+      className={
+        available ? styles['row-button'] : styles['row-button-unavailable']
+      }
+      onClick={handleClick}
+    >
+      <span className={styles['flex']}>
+        <img
+          src={wallet.logo.src}
+          alt={wallet.logo.alt}
+          width={32}
+          height={32}
+        />
+        {!wallet.installed ? 'Get ' : ''}
+        {wallet.title}
+      </span>
+
+      {wallet.installed ? (
+        <ChevronRightIcon />
+      ) : canInstallWallet ? (
+        <Download />
+      ) : (
+        'Not Installed'
+      )}
+    </button>
+  )
 }

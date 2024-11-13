@@ -1,27 +1,40 @@
 {
-  "name": "talismn-connect",
-  "description": "Monorepo for all Talisman Connect components",
+  "name": "talisman-connect",
+  "description": "Connect your DApp to Ethereum and Polkadot wallets with Talisman Connect.",
   "version": "0.0.0",
   "private": true,
-  "author": "TalismanSociety",
-  "workspaces": [
-    "apps/*",
-    "packages/*"
-  ],
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "packageManager": "pnpm@9.12.3+sha512.cce0f9de9c5a7c95bef944169cc5dfe8741abfb145078c0d508b868056848a87c81e626246cb60967cbd7fd29a6c062ef73ff840d96b3c86c40ac92cf4a813ee",
   "scripts": {
     "build": "turbo run build",
-    "dev": "turbo run dev --parallel",
+    "dev": "turbo run dev",
     "lint": "turbo run lint",
-    "format": "prettier --write \"**/*.{ts,tsx,md}\"",
-    "reloaddapp": "yarn build && yarn dev"
+    "test": "turbo run test",
+    "format": "prettier --write \"**/*.{ts,tsx,md}\""
   },
   "devDependencies": {
-    "eslint-config-custom": "*",
-    "prettier": "latest",
-    "turbo": "latest"
+    "@ianvs/prettier-plugin-sort-imports": "^4.3.1",
+    "prettier": "^3.3.3",
+    "turbo": "^2.2.3"
   },
-  "engines": {
-    "node": ">=14.0.0"
-  },
-  "packageManager": "yarn@4.5.1"
+  "prettier": {
+    "plugins": [
+      "@ianvs/prettier-plugin-sort-imports"
+    ],
+    "importOrder": [
+      "<TYPES>^(node:)",
+      "<BUILT_IN_MODULES>",
+      "",
+      "<TYPES>",
+      "<THIRD_PARTY_MODULES>",
+      "",
+      "<TYPES>^[.]",
+      "^[.]"
+    ],
+    "importOrderTypeScriptVersion": "4.8.2",
+    "semi": false,
+    "singleQuote": true
+  }
 }
