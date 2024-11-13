@@ -14,8 +14,15 @@ Furthermore, most use cases, one wallet is selected (and enabled) at one time.
 
 ## Setup:
 
-```
-npm i --save @talismn/connect-wallets
+```bash
+# Using npm
+npm install --save @talismn/connect-wallets
+# Using bun
+bun add @talismn/connect-wallets
+# Using pnpm
+pnpm add @talismn/connect-wallets
+# Using yarn
+yarn add @talismn/connect-wallets
 ```
 
 ## Quick Start:
@@ -44,7 +51,7 @@ const MyWalletSelector = () => {
                 // Also save the selected wallet name as well...
               });
             } catch (err) {
-              // Handle error. Refer to `libs/wallets/src/lib/errors`
+              // Handle error. Refer to `packages/connect-wallets/src/lib/errors`
             }
           }}
         >
@@ -61,14 +68,14 @@ const MyWalletSelector = () => {
 ```tsx
 try {
   // NOTE: If `account` object is not handy, then use `getWalletBySource` to get the wallet then the signer.
-  const signer = account.wallet.signer;
+  const signer = account.wallet.signer
 
   // NOTE: This line will trigger the extension popup
   const { signature } = await signer.signRaw({
     type: 'payload',
     data: 'Some data to sign...',
     address: account.address,
-  });
+  })
 } catch (err) {
   // Handle error...
 }
@@ -114,19 +121,15 @@ This is for convenience and is derived from the `wallet.extension`.
 
 ## Interfaces
 
-Refer to `libs/wallets/src/types.ts`.
+Refer to `packages/connect-wallets/src/types.ts`.
 
 ## Contributing new wallets
 
-1. Add wallet under `/src/lib`. (i.e. `/src/lib/foo-wallet/index.ts`)
+1. Add wallet under `packages/connect-wallets/src/lib/`. (i.e. `packages/connect-wallets/src/lib/foo-wallet/index.ts`)
 2. Add a `class` which implements `Wallet`. (i.e. `export class FooWallet implements Wallet`)
-3. Add the wallet instance in `supportedWallets` array in `libs/wallets/src/lib/wallets.ts`.
+3. Add the wallet instance in `supportedWallets` array in `packages/connect-wallets/src/lib/wallets.ts`.
 4. IMPORTANT: The `logo` should not exceed 10KB (will be inlined)
 
 NOTE: There may be 2 or more wallets that share a common wallet interface. It is recommended to create a base class in this case.
 
 Refer to `BaseDotsamaWallet` for an example base class and its derived classes.
-
-## Running unit tests
-
-Run `nx test wallets` to execute the unit tests via [Jest](https://jestjs.io).

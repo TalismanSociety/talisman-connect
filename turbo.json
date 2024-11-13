@@ -7,8 +7,12 @@
     "lint": {
       "outputs": []
     },
+    "test": {
+      "dependsOn": ["^test"],
+      "outputs": []
+    },
     "dev": {
-      "dependsOn": ["^dev"],
+      "dependsOn": ["^build", "^dev"],
       "cache": false
     },
     "release": {

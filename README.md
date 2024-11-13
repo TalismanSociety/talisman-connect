@@ -1,95 +1,86 @@
-# @talismn/connect
+# Talisman Connect
 
-This is the monorepo for the Talisman Connect project.
-This project aims to provide the components necessary for Dapp developers to be able to quickly connect to wallets in the Polkadot and Kusama ecosystems.
+<img src="talisman.svg" alt="Talisman" width="15%" align="right" />
 
-This turborepo uses [Yarn](https://classic.yarnpkg.com/) as a package manager. It includes the following packages/apps:
+[![website-link](https://img.shields.io/website?label=docs&style=flat-square&up_message=online&url=https%3A%2F%2Ftalismansociety.github.io%2Ftalisman-connect)](https://talismansociety.github.io/talisman-connect)
+[![discord-link](https://img.shields.io/discord/858891448271634473?logo=discord&logoColor=white&style=flat-square)](https://discord.gg/talisman)
 
-#### Install the package:
+**Connect your DApp** to Ethereum and Polkadot wallets with Talisman Connect. A minimal SDK to help you integrate your DApp with your users' favorite EOA wallets.
 
-```
-npm i --save @talismn/connect-wallets
-```
+<div align="center">
+  <img src="preview.png" alt="Talisman Connect Preview" width="50%" />
+</div>
 
-#### Example
-```js
-import { getWallets } from '@talismn/connect-wallets';
+## How to use (for DApp developers)
 
-// get an array of wallets which are installed
-const installedWallets = getWallets().filter(wallet => wallet.installed)
+### Quickstart example
 
-// get talisman from the array of installed wallets
-const talismanWallet = installedWallets.find(wallet => wallet.extensionName === 'talisman')
+1. Add the SDK to your DApp's dependencies:
 
-// enable the wallet
-if (talismanWallet) {
-  talismanWallet.enable("myCoolDapp").then(() => {
-    talismanWallet.subscribeAccounts((accounts) => {
-      // do anything you want with the accounts provided by the wallet
-      console.log("got accounts", accounts)
-    })
-  })
-}
-```
+   ```bash
+   # Using npm
+   npm install --save @talismn/connect-wallets
+   # Using bun
+   bun add @talismn/connect-wallets
+   # Using pnpm
+   pnpm add @talismn/connect-wallets
+   # Using yarn
+   yarn add @talismn/connect-wallets
+   ```
 
-## Packages
+1. Add the code
 
-### For Dapps with an existing wallet connection UIs:
+   ```ts
+   import { getWallets } from '@talismn/connect-wallets'
 
-- [`@talismn/connect-wallets`](https://github.com/TalismanSociety/talisman-connect/tree/master/packages/connect-wallets)
+   // get an array of wallets which are installed
+   const installedWallets = getWallets().filter((wallet) => wallet.installed)
 
-### For Dapps without an existing wallet connection UI:
+   // get talisman from the array of installed wallets
+   const talismanWallet = installedWallets.find(
+     (wallet) => wallet.extensionName === 'talisman',
+   )
 
-- [`@talismn/connect-components`](https://github.com/TalismanSociety/talisman-connect/tree/master/packages/connect-components)
+   // enable the wallet
+   if (talismanWallet) {
+     talismanWallet.enable('myCoolDapp').then(() => {
+       talismanWallet.subscribeAccounts((accounts) => {
+         // do anything you want with the accounts provided by the wallet
+         console.log('got accounts', accounts)
+       })
+     })
+   }
+   ```
 
-### Generic UIs that can be used for any Dapps:
+### More details
 
-- [`@talismn/connect-ui`](https://github.com/TalismanSociety/talisman-connect/tree/master/packages/connect-ui)
+Talisman Connect can be used in one of three ways:
 
-## Setup
+1. `[POPULAR]` Integrate as a standalone library within your own UI.  
+   See [@talismn/connect-wallets](https://github.com/TalismanSociety/talisman-connect/tree/main/packages/connect-wallets) for instructions on this option.
 
-NOTE: We recommend `yarn`
+1. Integrate using a set of themeable React components.  
+   See [@talismn/connect-components](https://github.com/TalismanSociety/talisman-connect/tree/main/packages/connect-components) for instructions on this option.
 
-```
-cd my-turborepo
-yarn run build
-```
+1. Integrate using our generic ready-to-use modal UI.
+   See [@talismn/connect-ui](https://github.com/TalismanSociety/talisman-connect/tree/main/packages/connect-ui) for instructions on this option.
 
-### Develop
+## How to contribute to this repo
 
-To develop all apps and packages, run the following command:
+1. Clone this repo and install its dependencies.
 
-```
-cd my-turborepo
-yarn run dev
-```
+   ```bash
+   git clone git@github.com:TalismanSociety/talisman-connect.git
+   cd talisman-connect
+   pnpm install
+   ```
 
-### Remote Caching
+1. Run the devserver to preview your changes as you make them.
 
-Turborepo can use a technique known as [Remote Caching](https://turborepo.org/docs/core-concepts/remote-caching) to share cache artifacts across machines, enabling you to share build caches with your team and CI/CD pipelines.
+   ```bash
+   # NOTE: For changes made to `packages/*` you will need to manually quit and restart the devserver
+   pnpm run dev
+   ```
 
-By default, Turborepo will cache locally. To enable Remote Caching you will need an account with Vercel. If you don't have an account you can [create one](https://vercel.com/signup), then enter the following commands:
-
-```
-cd my-turborepo
-npx turbo login
-```
-
-This will authenticate the Turborepo CLI with your [Vercel account](https://vercel.com/docs/concepts/personal-accounts/overview).
-
-Next, you can link your Turborepo to your Remote Cache by running the following command from the root of your turborepo:
-
-```
-npx turbo link
-```
-
-## Useful Links
-
-Learn more about the power of Turborepo:
-
-- [Pipelines](https://turborepo.org/docs/core-concepts/pipelines)
-- [Caching](https://turborepo.org/docs/core-concepts/caching)
-- [Remote Caching](https://turborepo.org/docs/core-concepts/remote-caching)
-- [Scoped Tasks](https://turborepo.org/docs/core-concepts/scopes)
-- [Configuration Options](https://turborepo.org/docs/reference/configuration)
-- [CLI Usage](https://turborepo.org/docs/reference/command-line-reference)
+1. Make some changes, then commit and push them to a fork on GitHub.
+1. Open a pull request and our team will review your changes.

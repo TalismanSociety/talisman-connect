@@ -1,37 +1,36 @@
-import "./App.css"
-import { WalletSelect } from "@talismn/connect-components"
+import './App.css'
+
+import { WalletSelect } from '@talismn/connect-components'
 import {
+  AlephZeroWallet,
+  EnkryptWallet,
+  FearlessWallet,
+  MantaWallet,
+  NovaWallet,
   PolkadotjsWallet,
+  PolkaGate,
   SubWallet,
   TalismanWallet,
-  FearlessWallet,
-  EnkryptWallet,
-  NovaWallet,
-  PolkaGate,
-  MantaWallet,
-  AlephZeroWallet,
-} from "@talismn/connect-wallets"
+} from '@talismn/connect-wallets'
 
 function App() {
   return (
     <div className="App">
       <WalletSelect
-        dappName={"Talisman"}
+        dappName="Talisman"
         // onlyShowInstalled
         // makeInstallable
         walletList={[
           new TalismanWallet(),
+          new NovaWallet(),
           new SubWallet(),
           new MantaWallet(),
           new PolkaGate(),
           new FearlessWallet(),
           new EnkryptWallet(),
           new PolkadotjsWallet(),
-          new NovaWallet(),
-          new SubWallet(),
           new AlephZeroWallet(),
         ]}
-        // onlyShowInstalled
         triggerComponent={<button>Open Wallets</button>}
       />
     </div>

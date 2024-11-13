@@ -8,14 +8,14 @@ The `WalletSelect` component in `@talismn/connect-components` will be a massive 
 
 If you have an existing modal, the `WalletSelectButton` in `@talismn/connect-components` may be better suited to your needs.
 
-If you require a bespoke ui modal, you can use the `@talisman-connect/wallets` to build out your own modal.
+If you require a bespoke ui modal, you can use the `@talismn/connect-wallets` to build out your own modal.
 
 More components will be developed along the way.
 
 ## Setup:
 
 ```
-yarn add @talismn/connect-components @talisman-connect/wallets @talisman-connect/ui
+pnpm add @talismn/connect-components @talismn/connect-wallets @talismn/connect-ui
 ```
 
 ## Usage
@@ -42,7 +42,7 @@ This component is the wallet selection modal.
 ```tsx
 import { WalletSelect } from '@talismn/connect-components';
 
-<WalletSelect
+return <WalletSelect
   // [Required] The dapp name
   dappName="My First Dapp"
 
@@ -98,10 +98,10 @@ This function is a drop-in replacement for the `@polkadot/extension-dapp` versio
 This uses the localStorage value for `@talisman-connect/selected-wallet-name` which is updated by `WalletSelect` or `WalletSelectButton` and retrieves the extension object.
 
 ```tsx
-import { web3FromSource } from "@talismn/connect-components";
+import { web3FromSource } from '@talismn/connect-components'
 
 // This is the object that cointains the `signer` amongs all others.
-const injector = web3FromSource();
+const injector = web3FromSource()
 ```
 
 ### WalletSelectButton (WIP)
@@ -109,25 +109,27 @@ const injector = web3FromSource();
 This component is the actual wallet selector. You can use this is if you have an existing modal. However, we do recommend using `WalletSelect` in general.
 
 ```tsx
-import { WalletSelectButton } from "@talismn/connect-components";
-import { TalismanWallet } from "@talisman-connect/wallets";
+import { WalletSelectButton } from '@talismn/connect-components'
+import { TalismanWallet } from '@talismn/connect-wallets'
 
-const talismanWallet = new TalismanWallet();
+const talismanWallet = new TalismanWallet()
 
-<WalletSelectButton
-  wallet={talismanWallet}
-  onClick={(accounts) => {
-    // accounts === undefined is an Error state
-  }}
->
-  <img
-    width={32}
-    height={32}
-    src={talismanWallet.logo.src}
-    alt={talismanWallet.logo.alt}
-  />
-  {talismanWallet.title}
-</WalletSelectButton>;
+return (
+  <WalletSelectButton
+    wallet={talismanWallet}
+    onClick={(accounts) => {
+      // accounts === undefined is an Error state
+    }}
+  >
+    <img
+      width={32}
+      height={32}
+      src={talismanWallet.logo.src}
+      alt={talismanWallet.logo.alt}
+    />
+    {talismanWallet.title}
+  </WalletSelectButton>
+)
 ```
 
 ## Events and persistence
@@ -212,12 +214,12 @@ then `WalletSelect` will inherit the correct styles.
 
 ## Adding new wallets into the `WalletSelect` Modal
 
-Refer to [`@talisman-connect/wallets`](https://github.com/TalismanSociety/talisman-connect/tree/master/libs/wallets) for more details.
+Refer to [`@talismn/connect-wallets`](https://github.com/TalismanSociety/talisman-connect/tree/main/packages/connect-wallets) for more details.
 
 ## Dependencies:
 
-- [`@talisman-connect/wallets`](https://github.com/TalismanSociety/talisman-connect/tree/master/libs/wallets)
-- [`@talisman-connect/ui`](https://github.com/TalismanSociety/talisman-connect/tree/master/libs/talisman-connect-ui)
+- [`@talismn/connect-wallets`](https://github.com/TalismanSociety/talisman-connect/tree/main/packages/connect-wallets)
+- [`@talismn/connect-ui`](https://github.com/TalismanSociety/talisman-connect/tree/main/packages/connect-ui)
 
 ## Troubleshooting
 
@@ -226,8 +228,8 @@ If in case there is an error parsing `import.meta`, please add the following to 
 ```js
 webpackConfig.module.rules.push({
   test: /\.js$/,
-  loader: require.resolve("@open-wc/webpack-import-meta-loader"),
-});
+  loader: require.resolve('@open-wc/webpack-import-meta-loader'),
+})
 ```
 
 For "unejected" Create React App projects, please see `craco.config.js` below:
@@ -238,23 +240,19 @@ For "unejected" Create React App projects, please see `craco.config.js` below:
 const ImportMetaLoaderPlugin = {
   plugin: {
     overrideWebpackConfig: ({ webpackConfig }) => {
-      if (!webpackConfig.module) webpackConfig.module = { rules: [] };
-      if (!webpackConfig.module.rules) webpackConfig.module.rules = [];
+      if (!webpackConfig.module) webpackConfig.module = { rules: [] }
+      if (!webpackConfig.module.rules) webpackConfig.module.rules = []
       webpackConfig.module.rules.push({
         test: /\.js$/,
-        loader: require.resolve("@open-wc/webpack-import-meta-loader"),
-      });
+        loader: require.resolve('@open-wc/webpack-import-meta-loader'),
+      })
 
-      return webpackConfig;
+      return webpackConfig
     },
   },
-};
+}
 
 module.exports = {
   plugins: [ImportMetaLoaderPlugin],
-};
+}
 ```
-
-## Running unit tests
-
-Run `nx test talisman-connect-components` to execute the unit tests via [Jest](https://jestjs.io).
