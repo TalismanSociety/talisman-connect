@@ -1,0 +1,9 @@
+<svg data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120">
+    <defs>
+        <radialGradient id="a" cx="-164.98" cy="566.58" r="1" gradientTransform="matrix(-15 136.5 135.36 14.88 -79032.62 14076.16)" gradientUnits="userSpaceOnUse">
+            <stop offset="0" stop-color="#704bff"/>
+            <stop offset=".21" stop-color="#c549ff"/>
+        </radialGradient>
+    </defs>
+    <path d="M0 23.09A23.09 23.09 0 0 1 23.09 0H120v17.72a16.6 16.6 0 0 1-16.6 16.6H57.84a23.09 23.09 0 0 0-23.09 23.09v5.87a23.1 23.1 0 0 0 23.09 23.1h45.56A16.6 16.6 0 0 1 120 103v17H23.09A23.09 23.09 0 0 1 0 96.91ZM58.84 44h46.73A14.43 14.43 0 0 1 120 58.4v3.89a14.43 14.43 0 0 1-14.43 14.43H58.84A14.44 14.44 0 0 1 44.4 62.29V58.4A14.44 14.44 0 0 1 58.84 44Z" style="fill-rule:evenodd;fill:url(#a)"/>
+</svg>
