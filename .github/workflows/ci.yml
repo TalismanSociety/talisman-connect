@@ -12,9 +12,12 @@ jobs:
       id-token: write
     steps:
       - uses: actions/checkout@v4
+      - run: corepack enable
+      - uses: pnpm/action-setup@v4
       - uses: actions/setup-node@v4
         with:
-          node-version: '20.x'
+          node-version: 18
+          cache: pnpm
           registry-url: 'https://registry.npmjs.org'
       - run: pnpm install --frozen-lockfile
       - run: pnpm publish --recursive --force --provenance --access public
