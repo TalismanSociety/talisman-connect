@@ -7,6 +7,8 @@
 
 **Connect your DApp** to Ethereum and Polkadot wallets with Talisman Connect. A minimal SDK to help you integrate your DApp with your users' favorite EOA wallets.
 
+<br />
+
 <div align="center">
   <img src="preview.png" alt="Talisman Connect Preview" width="50%" />
 </div>
