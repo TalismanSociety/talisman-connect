@@ -1,4 +1,4 @@
-import styles from './Loading.module.css';
+import styles from './Loading.module.css'
 
 export const Loading = () => {
   return (
@@ -16,5 +16,5 @@ export const Loading = () => {
         If this is taking a while, please refresh the browser.
       </div>
     </>
-  );
-};
+  )
+}

@@ -1,5 +1,5 @@
-import { WithWalletProps } from './types';
-import styles from './WalletSelect.module.css';
+import { WithWalletProps } from './types'
+import styles from './WalletSelect.module.css'
 
 export function NoAccounts({ wallet: selectedWallet }: WithWalletProps) {
   return (
@@ -7,5 +7,5 @@ export function NoAccounts({ wallet: selectedWallet }: WithWalletProps) {
       <div>No accounts found.</div>
       <div>Add an account in {selectedWallet?.title} to get started.</div>
     </div>
-  );
+  )
 }

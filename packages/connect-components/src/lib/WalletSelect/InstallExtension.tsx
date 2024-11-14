@@ -1,6 +1,6 @@
-import { ReactComponent as ChevronRightIcon } from '../../assets/icons/chevron-right.svg';
-import { WithWalletProps } from './types';
-import styles from './WalletSelect.module.css';
+import { ReactComponent as ChevronRightIcon } from '../../assets/icons/chevron-right.svg'
+import { WithWalletProps } from './types'
+import styles from './WalletSelect.module.css'
 
 export function InstallExtension({ wallet: selectedWallet }: WithWalletProps) {
   return (
@@ -28,5 +28,5 @@ export function InstallExtension({ wallet: selectedWallet }: WithWalletProps) {
         </button>
       </a>
     </>
-  );
+  )
 }

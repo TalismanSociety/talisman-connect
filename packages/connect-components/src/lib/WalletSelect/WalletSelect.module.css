@@ -31,7 +31,8 @@
   gap: 1rem;
 }
 
-button.row-button, button.row-button-unavailable {
+button.row-button,
+button.row-button-unavailable {
   display: flex;
   justify-content: space-between;
   align-items: center;

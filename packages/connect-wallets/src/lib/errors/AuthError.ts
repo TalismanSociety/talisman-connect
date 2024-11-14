@@ -1,5 +1,5 @@
-import { BaseWalletError } from './BaseWalletError';
+import { BaseWalletError } from './BaseWalletError'
 
 export class AuthError extends BaseWalletError {
-  readonly name = 'AuthError';
+  readonly name = 'AuthError'
 }

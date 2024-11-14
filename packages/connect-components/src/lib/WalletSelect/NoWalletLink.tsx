@@ -14,5 +14,5 @@ export function NoWalletLink(props: any) {
     >
       I don't have a wallet
     </div>
-  );
+  )
 }

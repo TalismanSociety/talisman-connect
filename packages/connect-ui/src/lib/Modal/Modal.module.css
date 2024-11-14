@@ -25,7 +25,6 @@
   }
 }
 
-
 /* TODO: Need to observe svgs when imported and used. The default one breaks the svg sizes. */
 .modal svg {
   width: unset;

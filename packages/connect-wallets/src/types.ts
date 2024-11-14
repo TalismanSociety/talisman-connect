@@ -1,68 +1,68 @@
-import { WalletError } from '.';
+import { WalletError } from '.'
 
 export type SubscriptionFn = (
-  accounts: WalletAccount[] | undefined
-) => void | Promise<void>;
+  accounts: WalletAccount[] | undefined,
+) => void | Promise<void>
 
 export interface WalletLogoProps {
   // Logo url
-  src: string;
+  src: string
   // Alt for the Logo url
-  alt: string;
+  alt: string
 }
 
 export interface WalletAccount {
-  address: string;
-  source: string;
-  name?: string;
-  wallet?: Wallet;
-  signer?: unknown;
+  address: string
+  source: string
+  name?: string
+  wallet?: Wallet
+  signer?: unknown
 }
 
 interface WalletData {
   // The name of the wallet extension. Should match `WalletAccount.source`
-  extensionName: string;
+  extensionName: string
   // Display name for the wallet extension
-  title: string;
+  title: string
   // Message to display if wallet extension is not installed
-  noExtensionMessage?: string;
+  noExtensionMessage?: string
   // The URL to install the wallet extension
-  installUrl: string;
+  installUrl: string
   // The wallet logo
-  logo: WalletLogoProps;
+  logo: WalletLogoProps
 }
 
 interface WalletExtension {
-  installed: boolean | undefined;
+  installed: boolean | undefined
 
   // The raw extension object which will have everything a dapp developer needs.
   // Refer to a specific wallet's extension documentation
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  extension: any;
+  extension: any
 
   // The raw signer object for convenience. Usually the implementer can derive this from the extension object.
   // Refer to a specific wallet's extension documentation
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  signer: any;
+  signer: any
 }
 
 interface Signer {
   // Sign function
-  sign?: (address: string, payload: string) => unknown;
+  sign?: (address: string, payload: string) => unknown
 }
 
 interface Connector {
-  enable: (dappName: string) => unknown;
+  enable: (dappName: string) => unknown
 
   // Get accounts function
-  getAccounts: (anyType?: boolean) => Promise<WalletAccount[]>;
+  getAccounts: (anyType?: boolean) => Promise<WalletAccount[]>
 
   // The subscribe to accounts function
-  subscribeAccounts: (callback: SubscriptionFn) => unknown;
+  subscribeAccounts: (callback: SubscriptionFn) => unknown
 }
 
 interface WalletErrors {
-  transformError: (err: WalletError) => Error;
+  transformError: (err: WalletError) => Error
 }
 
 export interface Wallet
