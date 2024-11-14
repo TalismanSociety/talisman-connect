@@ -12,7 +12,6 @@
     "access": "public"
   },
   "scripts": {
-    "prepublishOnly": "pnpm build",
     "dev": "vite build --watch",
     "build": "tsc -b && vite build",
     "lint": "eslint ."
