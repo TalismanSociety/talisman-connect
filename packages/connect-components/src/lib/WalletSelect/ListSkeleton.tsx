@@ -6,7 +6,7 @@ import styles from './WalletSelect.module.css'
 export function ListSkeleton() {
   const listItems = Array.from(
     { length: 2 },
-    (v, i): WalletAccount => ({
+    (_v, i): WalletAccount => ({
       name: 'dummy',
       source: `${i}`,
       address: 'dummy',

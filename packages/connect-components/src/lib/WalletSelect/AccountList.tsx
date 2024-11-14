@@ -1,7 +1,7 @@
 import { shortenAddress } from '@talismn/connect-ui'
 import { WalletAccount } from '@talismn/connect-wallets'
 
-import { ReactComponent as ChevronRightIcon } from '../../assets/icons/chevron-right.svg'
+import ChevronRightIcon from '../../assets/icons/chevron-right.svg?react'
 import { ListWithClickProps } from './types'
 import styles from './WalletSelect.module.css'
 

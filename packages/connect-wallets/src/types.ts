@@ -1,4 +1,4 @@
-import { WalletError } from '.'
+import { WalletError } from './lib/errors/BaseWalletError'
 
 export type SubscriptionFn = (
   accounts: WalletAccount[] | undefined,

@@ -12,7 +12,7 @@
       "outputs": []
     },
     "dev": {
-      "dependsOn": ["^build", "^dev"],
+      "dependsOn": ["^dev"],
       "cache": false
     },
     "release": {

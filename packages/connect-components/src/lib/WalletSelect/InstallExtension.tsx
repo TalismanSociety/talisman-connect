@@ -1,4 +1,4 @@
-import { ReactComponent as ChevronRightIcon } from '../../assets/icons/chevron-right.svg'
+import ChevronRightIcon from '../../assets/icons/chevron-right.svg?react'
 import { WithWalletProps } from './types'
 import styles from './WalletSelect.module.css'
 

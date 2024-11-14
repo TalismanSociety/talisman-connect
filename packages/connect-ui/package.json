@@ -12,12 +12,23 @@
     "access": "public"
   },
   "scripts": {
-    "test": "npm run build && node appTS.js && node appJS.js",
-    "build": "rollup -c"
+    "dev": "vite build --watch",
+    "build": "tsc -b && vite build",
+    "lint": "eslint ."
   },
-  "main": "dist/cjs/index.js",
-  "module": "dist/esm/index.js",
-  "types": "dist/index.d.ts",
+  "type": "module",
+  "main": "./dist/connect-ui.cjs",
+  "module": "./dist/connect-ui.js",
+  "types": "./dist/connect-ui.d.ts",
+  "exports": {
+    ".": {
+      "import": "./dist/connect-ui.js",
+      "require": "./dist/connect-ui.cjs"
+    }
+  },
+  "sideEffects": [
+    "**/*.css"
+  ],
   "files": [
     "dist",
     "src"
@@ -27,29 +38,26 @@
     "Connect",
     "Integration"
   ],
-  "dependencies": {
-    "postcss": "^8.4.31",
-    "rollup-plugin-postcss-modules": "^2.0.2",
-    "rollup-plugin-styles": "^4.0.0",
-    "typescript": "^4.8.2"
-  },
   "peerDependencies": {
-    "@types/react": "^18.2.31",
-    "@types/react-dom": "^18.2.0",
     "react": ">=18.2.0",
     "react-dom": ">=18.2.0"
   },
   "devDependencies": {
-    "@rollup/plugin-commonjs": "^22.0.2",
-    "@rollup/plugin-image": "^2.1.1",
-    "@rollup/plugin-node-resolve": "^14.0.0",
-    "@rollup/plugin-typescript": "^8.5.0",
-    "@rollup/plugin-url": "^7.0.0",
-    "@svgr/rollup": "^6.3.1",
-    "esbuild": "^0.15.7",
-    "rollup": "^2.79.0",
-    "rollup-plugin-dts": "^4.2.2",
-    "rollup-plugin-esbuild": "^4.10.1",
-    "rollup-plugin-postcss-modules": "^2.0.2"
+    "@eslint/js": "^9.13.0",
+    "@types/react": "^18.3.12",
+    "@types/react-dom": "^18.3.1",
+    "@vitejs/plugin-react": "^4.3.3",
+    "eslint": "^9.13.0",
+    "eslint-plugin-react-hooks": "^5.0.0",
+    "eslint-plugin-react-refresh": "^0.4.14",
+    "globals": "^15.11.0",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "typescript": "~5.6.2",
+    "typescript-eslint": "^8.11.0",
+    "vite": "^5.4.10",
+    "vite-plugin-css-injected-by-js": "^3.5.2",
+    "vite-plugin-dts": "^4.3.0",
+    "vite-plugin-svgr": "^4.3.0"
   }
 }

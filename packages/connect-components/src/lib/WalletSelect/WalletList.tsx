@@ -1,7 +1,7 @@
 import { Wallet } from '@talismn/connect-wallets'
 
-import { ReactComponent as ChevronRightIcon } from '../../assets/icons/chevron-right.svg'
-import { ReactComponent as Download } from '../../assets/icons/download.svg'
+import ChevronRightIcon from '../../assets/icons/chevron-right.svg?react'
+import Download from '../../assets/icons/download.svg?react'
 import { ListWithClickProps } from './types'
 import styles from './WalletSelect.module.css'
 
@@ -48,7 +48,7 @@ export const WalletItem = ({
     ? selectWallet
     : canInstallWallet
       ? installWallet
-      : null
+      : undefined
 
   return (
     <button

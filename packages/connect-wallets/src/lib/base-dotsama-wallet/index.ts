@@ -65,7 +65,7 @@ export class BaseDotsamaWallet implements Wallet {
     }
     try {
       const injectedExtension = this.rawExtension
-      const rawExtension = await injectedExtension?.enable(dappName)
+      const rawExtension = await injectedExtension?.enable?.(dappName)
       if (!rawExtension) {
         throw new NotInstalledError(
           `${this.title} is installed but is not returned by the 'Wallet.enable(dappname)' function`,
@@ -77,7 +77,7 @@ export class BaseDotsamaWallet implements Wallet {
         ...rawExtension,
         // Manually add `InjectedExtensionInfo` so as to have a consistent response.
         name: this.extensionName,
-        version: injectedExtension.version,
+        version: injectedExtension.version ?? '?',
       }
 
       this._extension = extension

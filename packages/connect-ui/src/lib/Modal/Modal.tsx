@@ -1,8 +1,8 @@
 import { ReactNode, useEffect, useRef, useState } from 'react'
 import { createPortal } from 'react-dom'
 
-import { ReactComponent as ChevronLeftIcon } from '../../assets/icons/chevron-left.svg'
-import { ReactComponent as XIcon } from '../../assets/icons/x.svg'
+import ChevronLeftIcon from '../../assets/icons/chevron-left.svg?react'
+import XIcon from '../../assets/icons/x.svg?react'
 import { useOnClickOutside } from '../useOnClickOutside/useOnClickOutside'
 import styles from './Modal.module.css'
 
