@@ -1,13 +1,14 @@
-import { ReactComponent as ChevronRightIcon } from '../../assets/icons/chevron-right.svg';
-import styles from './WalletSelect.module.css';
-import { ListWithClickProps } from './types';
-import { truncateMiddle } from '@talismn/connect-ui';
-import { WalletAccount } from '@talismn/connect-wallets';
+import { shortenAddress } from '@talismn/connect-ui'
+import { WalletAccount } from '@talismn/connect-wallets'
+
+import { ReactComponent as ChevronRightIcon } from '../../assets/icons/chevron-right.svg'
+import { ListWithClickProps } from './types'
+import styles from './WalletSelect.module.css'
 
 export function AccountList(props: ListWithClickProps<WalletAccount>) {
-  const { items, onClick } = props; 
+  const { items, onClick } = props
   if (!items) {
-    return null;
+    return null
   }
   return (
     // eslint-disable-next-line react/jsx-no-useless-fragment
@@ -22,13 +23,13 @@ export function AccountList(props: ListWithClickProps<WalletAccount>) {
             <span style={{ textAlign: 'left' }}>
               <div>{account.name}</div>
               <div style={{ fontSize: 'small', opacity: 0.5 }}>
-                {truncateMiddle(account.address)}
+                {shortenAddress(account.address)}
               </div>
             </span>
             <ChevronRightIcon />
           </button>
-        );
+        )
       })}
     </>
-  );
+  )
 }

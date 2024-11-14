@@ -71,12 +71,12 @@ const Popup = ({ handleClose }) => {
 
 ## Utils
 
-### `truncateMiddle`
+### `shortenAddress`
 
-Truncates the input string and replace with dots.
+Truncates the center of an address, keeping only the start and end bytes.
 
 ```tsx
-import { truncateMiddle } from '@talismn/connect-ui'
+import { shortenAddress } from '@talismn/connect-ui'
 
-truncateMiddle('5FNfznCsgDKywfDXsYTf7YydpnMHUr8fjabK48rS2oFUugdc') // 5FNf...ugdc
+shortenAddress('5FNfznCsgDKywfDXsYTf7YydpnMHUr8fjabK48rS2oFUugdc') // 5FNf…ugdc
 ```

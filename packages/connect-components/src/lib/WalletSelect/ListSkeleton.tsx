@@ -1,6 +1,7 @@
-import { truncateMiddle } from '@talismn/connect-ui';
-import { WalletAccount } from '@talismn/connect-wallets';
-import styles from './WalletSelect.module.css';
+import { shortenAddress } from '@talismn/connect-ui'
+import { WalletAccount } from '@talismn/connect-wallets'
+
+import styles from './WalletSelect.module.css'
 
 export function ListSkeleton() {
   const listItems = Array.from(
@@ -9,8 +10,8 @@ export function ListSkeleton() {
       name: 'dummy',
       source: `${i}`,
       address: 'dummy',
-    })
-  );
+    }),
+  )
   return (
     // eslint-disable-next-line react/jsx-no-useless-fragment
     <>
@@ -28,12 +29,12 @@ export function ListSkeleton() {
             >
               <div>{account.name}</div>
               <div style={{ fontSize: 'small', opacity: 0.5 }}>
-                {truncateMiddle(account.address)}
+                {shortenAddress(account.address)}
               </div>
             </span>
           </div>
-        );
+        )
       })}
     </>
-  );
+  )
 }

@@ -2,86 +2,70 @@ import {
   NotInstalledError,
   Wallet,
   WalletAccount,
-} from '@talismn/connect-wallets';
+} from '@talismn/connect-wallets'
 import {
   cloneElement,
   ReactElement,
   ReactNode,
   useEffect,
   useState,
-} from 'react';
-import styles from './WalletSelectButton.module.css';
+} from 'react'
+
+import styles from './WalletSelectButton.module.css'
 
 export interface WalletSelectButtonProps {
-  dappName: string;
-  wallet: Wallet;
-  onClick?: (accounts: WalletAccount[] | undefined) => unknown;
-  onError?: (error?: unknown) => unknown;
-  children: ReactNode;
-  className?: string;
-  Component?: ReactElement;
+  dappName: string
+  wallet: Wallet
+  onClick?: (accounts: WalletAccount[] | undefined) => unknown
+  onError?: (error?: unknown) => unknown
+  children: ReactNode
+  className?: string
+  Component?: ReactElement
 }
 
-type GenericFn = () => unknown;
+type GenericFn = () => unknown
 
-export function WalletSelectButton(props: WalletSelectButtonProps) {
-  const {
-    wallet,
-    onClick,
-    onError,
-    children,
-    Component,
-    className = '',
-    dappName,
-  } = props;
-  const ConnectComponent = Component || <button />;
-
-  const [unsubsribe, setUnsubscribe] = useState<GenericFn | undefined>();
+export function WalletSelectButton({
+  wallet,
+  onClick,
+  onError,
+  children,
+  Component,
+  className = '',
+  dappName,
+}: WalletSelectButtonProps) {
+  const [unsubscribe, setUnsubscribe] = useState<GenericFn | undefined>()
 
   useEffect(() => {
-    return () => {
-      if (unsubsribe) {
-        unsubsribe?.();
-      }
-    };
-  }, [unsubsribe]);
+    return () => void unsubscribe?.()
+  }, [unsubscribe])
 
-  return (
-    <>
-      {cloneElement(ConnectComponent, {
-        className: `${styles['wallet-select-button']} wallet-select-button ${className}`,
-        children,
-        onClick: async () => {
-          if (!wallet.installed) {
-            onError?.(
-              new NotInstalledError(
-                `${wallet.extensionName} not installed`,
-                wallet
-              )
-            );
-            return;
-          }
-          if (!unsubsribe) {
-            try {
-              await wallet.enable(dappName);
-              const unsub = await wallet.subscribeAccounts(
-                (accounts: WalletAccount[] | undefined) => {
-                  onClick?.(accounts);
-                  if (!accounts) {
-                    onError?.();
-                  }
-                }
-              );
-              setUnsubscribe(unsub as GenericFn);
-            } catch (err) {
-              console.log(`>>> err:WalletSelectButton`, err);
-              onError?.(err);
-            }
-          }
+  const handleClick = async () => {
+    if (!wallet.installed)
+      return void onError?.(
+        new NotInstalledError(`${wallet.extensionName} not installed`, wallet),
+      )
+
+    if (unsubscribe) return
+
+    try {
+      await wallet.enable(dappName)
+      const unsub = await wallet.subscribeAccounts(
+        (accounts: WalletAccount[] | undefined) => {
+          onClick?.(accounts)
+          if (!accounts) onError?.()
         },
-      })}
-    </>
-  );
-}
+      )
+      setUnsubscribe(unsub as GenericFn)
+    } catch (err) {
+      console.log(`>>> err:WalletSelectButton`, err)
+      onError?.(err)
+    }
+  }
 
-export default WalletSelectButton;
+  return cloneElement(Component || <button />, {
+    className: `${styles['wallet-select-button']} wallet-select-button ${className}`,
+    children,
+    onClick: handleClick,
+  })
+}

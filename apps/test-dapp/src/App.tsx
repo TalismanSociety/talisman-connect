@@ -13,13 +13,14 @@ import {
   TalismanWallet,
 } from '@talismn/connect-wallets'
 
-function App() {
+export function App() {
   return (
     <div className="App">
       <WalletSelect
         dappName="Talisman"
         // onlyShowInstalled
         // makeInstallable
+        showAccountsList
         walletList={[
           new TalismanWallet(),
           new NovaWallet(),
@@ -36,5 +37,3 @@ function App() {
     </div>
   )
 }
-
-export default App
