@@ -5,12 +5,10 @@
 [![website-link](https://img.shields.io/website?label=docs&style=flat-square&up_message=online&url=https%3A%2F%2Ftalismansociety.github.io%2Ftalisman-connect)](https://talismansociety.github.io/talisman-connect)
 [![discord-link](https://img.shields.io/discord/858891448271634473?logo=discord&logoColor=white&style=flat-square)](https://discord.gg/talisman)
 
-**Connect your DApp** to Ethereum and Polkadot wallets with Talisman Connect. A minimal SDK to help you integrate your DApp with your users' favorite EOA wallets.
-
-<br />
+**Connect your DApp** to Ethereum and Polkadot wallets with Talisman Connect. A minimal SDK to connect your DApp with your users' favourite EOA wallets.
 
 <div align="center">
-  <img src="preview.png" alt="Talisman Connect Preview" width="50%" />
+<img src="preview.png" alt="Talisman Connect Preview" width="50%" />
 </div>
 
 ## How to use (for DApp developers)
