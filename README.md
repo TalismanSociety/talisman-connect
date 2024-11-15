@@ -73,12 +73,12 @@ Talisman Connect can be used in one of three ways:
    git clone git@github.com:TalismanSociety/talisman-connect.git
    cd talisman-connect
    pnpm install
+   pnpm build
    ```
 
 1. Run the devserver to preview your changes as you make them.
 
    ```bash
-   # NOTE: For changes made to `packages/*` you will need to manually quit and restart the devserver
    pnpm run dev
    ```
 
