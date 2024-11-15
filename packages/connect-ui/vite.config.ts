@@ -16,11 +16,12 @@ export default defineConfig({
     rollupOptions: {
       external: ['react', 'react-dom'],
     },
+    emptyOutDir: false,
   },
   plugins: [
     react(),
     svgr(),
-    cssInjectedByJsPlugin(),
+    cssInjectedByJsPlugin({ dev: { enableDev: true } }),
     dts({ tsconfigPath: './tsconfig.app.json', rollupTypes: true }),
   ],
 })

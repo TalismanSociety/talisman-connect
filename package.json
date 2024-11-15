@@ -10,18 +10,16 @@
   "scripts": {
     "prepare": "husky",
     "prepublishOnly": "pnpm build",
-    "build": "turbo run build",
-    "dev": "turbo run dev",
-    "lint": "turbo run lint",
-    "test": "turbo run test",
+    "build": "pnpm run --recursive --stream build",
+    "dev": "pnpm run --recursive --stream --parallel dev",
+    "lint": "pnpm run --recursive --stream lint",
     "format": "prettier --write \"**/*.{ts,tsx,css,md}\""
   },
   "devDependencies": {
     "@ianvs/prettier-plugin-sort-imports": "^4.4.0",
     "husky": "^9.1.6",
     "lint-staged": "^15.2.10",
-    "prettier": "^3.3.3",
-    "turbo": "^2.2.3"
+    "prettier": "^3.3.3"
   },
   "prettier": {
     "plugins": [

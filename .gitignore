@@ -2,6 +2,7 @@ coverage
 dist
 dist-ssr
 node_modules
+vite.config.ts.timestamp-*.mjs
 
 .DS_Store
 .idea

@@ -11,7 +11,7 @@
   --modal-width: var(--talisman-connect-modal-min-width, 90%);
   --modal-max-width: var(--talisman-connect-modal-max-width, 470px);
   --modal-min-height: var(--talisman-connect-modal-min-height, auto);
-  --modal-max-height: var(--talisman-connect-modal-max-height, auto);
+  --modal-max-height: var(--talisman-connect-modal-max-height, 80vh);
   --modal-font-family: var(--talisman-connect-font-family, sans-serif);
   --modal-header-font-size: var(
     --talisman-connect-modal-header-font-size,
