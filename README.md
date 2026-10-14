@@ -1,5 +1,11 @@
 # Talisman Connect
 
+> ⚠️ **This repository is archived and no longer maintained.**
+>
+> Do not use it in new projects. The code here is kept for reference only and will not receive updates, bug fixes or security patches.
+>
+> The `@talismn/connect-wallets`, `@talismn/connect-components`, `@talismn/connect-ui` npm packages are deprecated.
+
 <img src="talisman.svg" alt="Talisman" width="15%" align="right" />
 
 [![website-link](https://img.shields.io/website?label=docs&style=flat-square&up_message=online&url=https%3A%2F%2Ftalismansociety.github.io%2Ftalisman-connect)](https://talismansociety.github.io/talisman-connect)
